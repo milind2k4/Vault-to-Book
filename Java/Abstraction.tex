@@ -1,0 +1,305 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+Links: {[}{[}02 Polymorphism{]}{]}, {[}{[}01 Inheritance{]}{]} \_\_\_ \#
+Abstraction It is a concept which is used for \textbf{hiding
+implementation complexity} and showing only the essential features or
+functionality to the user.
+
+(Note: \textbf{Encapsulation} is used for \emph{data hiding} (protecting
+variables). \textbf{Abstraction} is used for \emph{implementation
+hiding} (hiding \emph{how} a method works)).
+
+Abstraction focuses on \emph{what} an object does, not \emph{how} it
+does it.
+
+Abstraction can be achieved using an abstract class or by an interface.
+
+\subsubsection{Abstract Class}\label{abstract-class}
+
+We use \texttt{abstract} keyword to declare a class as abstract. An
+abstract class provides a template for other classes, forcing them to
+implement certain methods.
+
+You \textbf{cannot} create an object (instantiate) of an abstract class.
+
+\begin{itemize}
+\tightlist
+\item
+  We can declare abstract as well as non-abstract (concrete) methods.\\
+\item
+  It can have constructors, static methods, and \texttt{final} methods.
+\item
+  It works together with {[}{[}02 Polymorphism\#Run-Time Polymorphism
+  (Method Overriding){]}{]}.
+\end{itemize}
+
+Abstract methods are declared with the \texttt{abstract} keyword. These
+methods don't have a definition or body in the class in which they are
+declared. They \textbf{must} be overridden by a subclass to provide the
+definition.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{// We cannot create an object of \textquotesingle{}Shape\textquotesingle{}}
+\KeywordTok{abstract} \KeywordTok{class} \BuiltInTok{Shape} \OperatorTok{\{}
+    \DataTypeTok{int}\NormalTok{ color}\OperatorTok{;}
+    
+    \CommentTok{// Concrete (non{-}abstract) method with a body}
+    \DataTypeTok{void} \FunctionTok{setColor}\OperatorTok{(}\DataTypeTok{int}\NormalTok{ c}\OperatorTok{)} \OperatorTok{\{}
+        \KeywordTok{this}\OperatorTok{.}\FunctionTok{color} \OperatorTok{=}\NormalTok{ c}\OperatorTok{;}
+    \OperatorTok{\}}
+
+    \CommentTok{// Abstract method {-} no body}
+    \CommentTok{// Forces subclasses to provide their own version}
+    \KeywordTok{abstract} \DataTypeTok{void} \FunctionTok{draw}\OperatorTok{();} 
+\OperatorTok{\}}
+
+\KeywordTok{class}\NormalTok{ Circle }\KeywordTok{extends} \BuiltInTok{Shape} \OperatorTok{\{}
+    \CommentTok{// We MUST implement the abstract \textquotesingle{}draw\textquotesingle{} method}
+    \AttributeTok{@Override}
+    \DataTypeTok{void} \FunctionTok{draw}\OperatorTok{()} \OperatorTok{\{}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Drawing a circle"}\OperatorTok{);}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Interface}\label{interface}
+
+An interface is a blueprint of a class. It specifies what a class must
+do, but not how.
+
+It is used to achieve 100\% abstraction (before Java 8).
+
+\begin{itemize}
+\tightlist
+\item
+  We use the \texttt{interface} keyword.
+\item
+  All methods in an interface are \texttt{public} and \texttt{abstract}
+  by default.
+\item
+  All variables (fields) are \texttt{public}, \texttt{static}, and
+  \texttt{final} (constants) by default.
+\item
+  A class uses the \texttt{implements} keyword to use an interface.
+\item
+  A class can implement \textbf{multiple} interfaces. This is how Java
+  achieves multiple inheritance.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{interface}\NormalTok{ Drawable }\OperatorTok{\{}
+    \DataTypeTok{void} \FunctionTok{draw}\OperatorTok{();} \CommentTok{// This is public and abstract by default}
+\OperatorTok{\}}
+
+\KeywordTok{interface}\NormalTok{ Loggable }\OperatorTok{\{}
+    \DataTypeTok{void} \FunctionTok{log}\OperatorTok{(}\BuiltInTok{String}\NormalTok{ message}\OperatorTok{);}
+\OperatorTok{\}}
+
+\CommentTok{// A class can implement multiple interfaces}
+\KeywordTok{class}\NormalTok{ Circle }\KeywordTok{implements}\NormalTok{ Drawable}\OperatorTok{,}\NormalTok{ Loggable }\OperatorTok{\{}
+    \AttributeTok{@Override}
+    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{draw}\OperatorTok{()} \OperatorTok{\{}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"Drawing a circle"}\OperatorTok{);}
+    \OperatorTok{\}}
+    
+    \AttributeTok{@Override}
+    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{log}\OperatorTok{(}\BuiltInTok{String}\NormalTok{ message}\OperatorTok{)} \OperatorTok{\{}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"LOG: "} \OperatorTok{+}\NormalTok{ message}\OperatorTok{);}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\paragraph{\texorpdfstring{\texttt{default} and \texttt{static}
+methods}{default and static methods}}\label{default-and-static-methods}
+
+Java 8 allowed interfaces to have methods with implementation:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{default} methods:} A class can override them, but
+  doesn't have to. It allows adding new functionality to an interface
+  without breaking existing classes.
+\item
+  \textbf{\texttt{static} methods:} Utility methods that are part of the
+  interface, not a specific object.
+\end{itemize}
+
+\subparagraph{Default Methods}\label{default-methods}
+
+Allows adding new methods to interfaces with a default implementation,
+without breaking existing classes that implement the interface.
+
+We use the default keyword.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{interface}\NormalTok{ MyInterface }\OperatorTok{\{}
+    \DataTypeTok{void} \FunctionTok{existingMethod}\OperatorTok{();}
+    
+    \KeywordTok{default} \DataTypeTok{void} \FunctionTok{newDefaultMethod}\OperatorTok{()} \OperatorTok{\{}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"This is a default implementation."}\OperatorTok{);}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+
+\KeywordTok{class}\NormalTok{ MyClass }\KeywordTok{implements}\NormalTok{ MyInterface }\OperatorTok{\{}
+    \KeywordTok{public} \DataTypeTok{void} \FunctionTok{existingMethod}\OperatorTok{()} \OperatorTok{\{}
+        \CommentTok{// ...}
+    \OperatorTok{\}}
+    \CommentTok{// No need to implement newDefaultMethod(), it\textquotesingle{}s optional.}
+\OperatorTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Static Method}\label{static-method}
+
+Interfaces can now have static methods. These are utility methods that
+are part of the interface, not the implementing class.
+
+They are called on the interface itself, not on an instance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{interface}\NormalTok{ MyInterface }\OperatorTok{\{}
+    \DataTypeTok{static} \DataTypeTok{void} \FunctionTok{utilityMethod}\OperatorTok{()} \OperatorTok{\{}
+        \BuiltInTok{System}\OperatorTok{.}\FunctionTok{out}\OperatorTok{.}\FunctionTok{println}\OperatorTok{(}\StringTok{"This is a static utility method."}\OperatorTok{);}
+    \OperatorTok{\}}
+\OperatorTok{\}}
+
+\CommentTok{// How to call it:}
+\NormalTok{MyInterface}\OperatorTok{.}\FunctionTok{utilityMethod}\OperatorTok{();}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Abstract Class
+vs.~Interface}\label{abstract-class-vs.-interface}
+
+\begin{itemize}
+\item
+  \textbf{Methods:} An abstract class can have both abstract and
+  concrete methods. An interface (pre-Java 8) can only have abstract
+  methods.
+\item
+  \textbf{Variables:} An abstract class can have any type of variable
+  (instance, static, final). An interface can only have
+  \texttt{public\ static\ final} constants.
+\item
+  \textbf{Inheritance:} A class can \texttt{extends} only \textbf{one}
+  abstract class. A class can \texttt{implements} \textbf{many}
+  interfaces.
+\item
+  \textbf{Constructor:} An abstract class can have a constructor (which
+  is called by the subclass constructor). An interface \textbf{cannot}
+  have a constructor.
+\item
+  \textbf{Purpose:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Use an \textbf{abstract class} for an ``IS-A'' relationship, when
+    you want to provide common, shared code for all subclasses (e.g.,
+    \texttt{Dog} IS-A \texttt{Animal}, and all animals
+    \texttt{breathe()}).
+  \item
+    Use an \textbf{interface} for a ``CAN-DO'' relationship, when you
+    want to define a capability or contract that unrelated classes can
+    share (e.g., \texttt{Circle} CAN-DO \texttt{Drawable}, \texttt{Car}
+    CAN-DO \texttt{Drawable}).
+  \end{itemize}
+\end{itemize}
+
+\end{document}
