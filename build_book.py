@@ -11,21 +11,26 @@ PDF_ENGINE = "xelatex" # pdflatex or xelatex (recommended for custom fonts)
 MAINFONT = "LMRoman10-Regular" # "Charis SIL" or None
 SANSFONT = "Arial" # "Lato" or None
 MONOFONT = "LMMono10-Regular" # "Fira Code" or None
+# Link Colors (Hex codes without #)
+LINKCOLOR = "07455c"  # Standard Blue
+URLCOLOR = LINKCOLOR   # Standard Blue
 # ---------------------
 
-def slugify(text):
-    text = text.lower()
-    text = re.sub(r'\s+', '-', text)
-    text = re.sub(r'[^a-z0-9\-]', '', text)
-    return text
-
 def clean_title(filename):
+    """
+    Extracts a clean title from the filename.
+    Removes leading numbers (01, 01_, 01 -, etc.) and extension.
+    """
     base = os.path.splitext(filename)[0]
-    match = re.match(r'^[\d\s\.\-_]+(.*)', base)
-    if match:
-        title = match.group(1).strip()
-        if title: return title
-    return base.strip()
+    # Remove leading numbering patterns like "01 ", "01_", "01-", "1. "
+    cleaned = re.sub(r'^[\d\s\.\-_]+', '', base)
+    return cleaned.strip()
+
+def slugify(text):
+    """
+    Creates a simple ID from text.
+    """
+    return re.sub(r'[^a-zA-Z0-9-]', '', text.lower().replace(' ', '-'))
 
 def process_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -95,13 +100,16 @@ def main():
     
     # Add YAML metadata for setup
     # We use explicit YAML for packages and commands
-    yaml_block = """---
+    # Also define custom colors here so xcolor knows them
+    yaml_block = f"""---
 header-includes:
-  - \\usepackage{minitoc}
-  - \\mtcselectlanguage{english}
+  - \\usepackage{{minitoc}}
+  - \\mtcselectlanguage{{english}}
+  - \\definecolor{{mylinkcolor}}{{HTML}}{{{LINKCOLOR}}}
+  - \\definecolor{{myurlcolor}}{{HTML}}{{{URLCOLOR}}}
 include-before:
   - \\dominitoc
-  - \\setcounter{minitocdepth}{4}
+  - \\setcounter{{minitocdepth}}{{4}}
 ---
 
 """
@@ -164,6 +172,9 @@ include-before:
         "--variable", "strikeout=true",
         "--variable", "classoption=openany", # Removes blank pages
         "--variable", "classoption=oneside", # Optional: better for digital reading
+        "--variable", "colorlinks=true", # Make links visible
+        "--variable", "linkcolor=mylinkcolor",
+        "--variable", "urlcolor=myurlcolor",
         "--standalone"
     ]
     

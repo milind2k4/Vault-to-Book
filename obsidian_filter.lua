@@ -51,11 +51,21 @@ end
 
 function Link(el)
   if el.classes:includes("wikilink") then
-    local target_id = el.target:lower():gsub("%s+", "-"):gsub("[^%w%-]", "")
+    local target = el.target
+    
+    -- Clean the target to match build_book.py logic (remove leading numbers/punctuation)
+    -- Regex equivalent to ^[\d\s\.\-_]+(.*)
+    local clean_target = target:match("^[%d%s%.%-_]*(.*)") or target
+    
+    local target_id = clean_target:lower():gsub("%s+", "-"):gsub("[^%w%-]", "")
     local content = el.content
-    if #content == 0 then
-        content = {pandoc.Str(el.target)}
+    
+    -- If content is empty or matches the raw target (default behavior), use clean_target
+    local content_text = pandoc.utils.stringify(content)
+    if #content == 0 or content_text == target then
+        content = {pandoc.Str(clean_target)}
     end
+    
     return pandoc.Link(content, "#" .. target_id)
   end
 end

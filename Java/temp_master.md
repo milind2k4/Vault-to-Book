@@ -2,6 +2,8 @@
 header-includes:
   - \usepackage{minitoc}
   - \mtcselectlanguage{english}
+  - \definecolor{mylinkcolor}{HTML}{07455c}
+  - \definecolor{myurlcolor}{HTML}{07455c}
 include-before:
   - \dominitoc
   - \setcounter{minitocdepth}{4}
