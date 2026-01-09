@@ -1,203 +1,184 @@
 import os
 import re
 import subprocess
-import datetime
+import sys
 
-# --- CONFIGURATION ---
-# The script will ask for the Subject Name (e.g., "Core Java") to name the file and title page.
-TEMPLATE_FILENAME = "eisvogel.latex" 
-AUTHOR_NAME = "Milind"  # Change this to your name
+# --- Configuration ---
+SOURCE_DIR = "Java" # Change this to your vault directory
+OUTPUT_FILE = "java.pdf"
+TEMPLATE_FILE = "eisvogel.latex"
+PDF_ENGINE = "xelatex" # pdflatex or xelatex (recommended for custom fonts)
+MAINFONT = "LMRoman10-Regular" # "Charis SIL" or None
+SANSFONT = "Arial" # "Lato" or None
+MONOFONT = "LMMono10-Regular" # "Fira Code" or None
 # ---------------------
 
 def slugify(text):
-    text = text.lower().strip()
-    text = re.sub(r'[^\w\s-]', '', text)
-    text = re.sub(r'[\s]+', '-', text)
+    text = text.lower()
+    text = re.sub(r'\s+', '-', text)
+    text = re.sub(r'[^a-z0-9\-]', '', text)
     return text
 
-def convert_images(text):
-    """
-    Converts Obsidian ![[image.png]] to standard Markdown ![image](image.png)
-    Also handles resized images ![[image.png|100]] -> ![image](image.png) (ignoring size for now or could use pandoc attrs)
-    """
-    # Pattern: ![[filename(|resize)?]]
-    # Replacement: ![filename](filename)
+def clean_title(filename):
+    base = os.path.splitext(filename)[0]
+    match = re.match(r'^[\d\s\.\-_]+(.*)', base)
+    if match:
+        title = match.group(1).strip()
+        if title: return title
+    return base.strip()
+
+def process_file(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    filename = os.path.basename(filepath)
+    title = clean_title(filename)
+    file_id = slugify(title)
+
+    lines = content.split('\n')
+    new_lines = []
     
-    def replace_image(match):
-        content = match.group(1)
-        if "|" in content:
-            filename, _ = content.split("|", 1)
-        else:
-            filename = content
-            
-        return f"![{filename}]({filename})"
-
-    return re.sub(r'!\[\[(.*?)\]\]', replace_image, text)
-
-def convert_callouts(text):
-    """
-    Converts Obsidian > [!TIP] to LaTeX colored boxes.
-    """
-    colors = {
-        "NOTE": "blue",
-        "TIP": "teal",
-        "WARNING": "red",
-        "ERROR": "red",
-        "EXAMPLE": "gray",
-        "QUOTE": "violet"
-    }
-
-    def replace_block(match):
-        callout_type = match.group(1).upper()
-        title = match.group(2).strip() if match.group(2) else callout_type.title()
-        # Escape special LaTeX characters in the title
-        title = title.replace('&', '\\&').replace('%', '\\%').replace('_', '\\_').replace('$', '\\$').replace('#', '\\#')
+    first_header_removed = False
+    
+    for line in lines:
+        stripped = line.strip()
         
-        content = match.group(3)
+        # 1. Remove "Links:" line and following underscores
+        if stripped.lower().startswith("links:"):
+            continue
+        # 2. Remove lines that are just underscores (like horizontal rules)
+        if re.match(r'^_+$', stripped):
+            continue
         
-        color = colors.get(callout_type, "gray")
+        # 3. Remove the FIRST header if it matches the title (or just any first header)
+        if stripped.startswith('#') and not first_header_removed:
+            if re.match(r'^#+\s', line):
+                first_header_removed = True
+                continue
+
+        # Demote remaining headers
+        if stripped.startswith('#'):
+             if re.match(r'^#+\s', line):
+                 line = '#' + line
+                 
+        new_lines.append(line)
         
-        # Eisvogel specific tcolorbox formatting
-        latex_start = f'\\begin{{tcolorbox}}[colback={color}!5!white,colframe={color}!75!black,title={title}]'
-        latex_end = '\\end{tcolorbox}'
-        
-        # Use Pandoc's raw_attribute extension to inject LaTeX commands
-        # The content remains outside the raw blocks so it's processed as Markdown
-        return f"\n```{{=latex}}\n{latex_start}\n```\n{content}\n```{{=latex}}\n{latex_end}\n```\n"
-
-    pattern = r'>\s*\[!(\w+)\]\s*(.*?)\n((?:>.*\n?)*)'
-    return re.sub(pattern, replace_block, text, flags=re.MULTILINE)
-
-def convert_wikilinks(text, all_filenames):
-    """
-    Converts [[Note Name]] to [Note Name](#note-name)
-    """
-    def replace_link(match):
-        content = match.group(1)
-        if "|" in content:
-            target, alias = content.split("|", 1)
-        else:
-            target, alias = content, content
-
-        if "#" in target:
-            target_file, heading = target.split("#", 1)
-            # If target_file is empty (e.g. [[#Heading]]), we link to current doc's heading
-            # But in merged master, uniqueness is tricky. Assuming standard usage.
-            slug = slugify(heading)
-        else:
-            slug = slugify(target)
-            
-        return f"[{alias}](#{slug})"
-
-    return re.sub(r'\[\[(.*?)\]\]', replace_link, text)
-
-def generate_mini_toc(text):
-    toc_lines = ["\n**Topics in this chapter:**\n"]
-    headers = re.findall(r'^##\s+(.+)$', text, re.MULTILINE)
-    if not headers: return ""
-    for h in headers:
-        slug = slugify(h)
-        toc_lines.append(f"- [{h}](#{slug})")
-    return "\n".join(toc_lines) + "\n\n"
+    content = '\n'.join(new_lines)
+    # content = re.sub(r'(?m)^\s*_{3,}\s*$', '---', content)
+    
+    return title, content, file_id
 
 def main():
-    # 1. Setup
-    subject = "Java"
-    output_filename = f"{subject}.pdf"
+    source_dir = os.path.abspath(SOURCE_DIR)
+    temp_file = os.path.join(source_dir, "temp_master.md")
     
-    notes_dir = subject
-    files = sorted([os.path.join(notes_dir, f) for f in os.listdir(notes_dir) if f.endswith('.md') and f != "temp_master.md"])
-    if not files:
+    print(f"Scanning {source_dir}...")
+    
+    md_files = []
+    for root, dirs, files in os.walk(source_dir):
+        if '.obsidian' in dirs: dirs.remove('.obsidian')
+        if '.git' in dirs: dirs.remove('.git')
+        
+        for file in files:
+            if file.lower().endswith(".md") and file != "temp_master.md":
+                md_files.append(os.path.join(root, file))
+
+    md_files.sort(key=lambda p: os.path.basename(p).lower())
+
+    if not md_files:
         print("No markdown files found!")
         return
 
-    # 2. Create the YAML Metadata for the Cover Page
-    current_date = datetime.datetime.now().strftime("%B %d, %Y")
-    # 2. Create the YAML Metadata for the Cover Page
-    current_date = datetime.datetime.now().strftime("%B %d, %Y")
+    print(f"Found {len(md_files)} files.")
+
+    master_content = []
     
-    # Part 1: Dynamic metadata (safe for f-string)
-    yaml_head = f"""---
-title: "{subject}"
-author: "{AUTHOR_NAME}"
-date: "{current_date}"
-titlepage: true
-titlepage-color: "06386e" 
-titlepage-text-color: "FFFFFF"
-titlepage-rule-color: "FFFFFF"
-titlepage-rule-height: 2
-toc-own-page: true
-"""
+    # Add YAML metadata for setup (Using strikeout for highlights)
+    # No extra yaml needed as we pass variables via CLI
 
-    # Part 2: Static LaTeX definitions (raw string to handle backslashes and braces safe)
-    # properly indented to match line start if needed, but YAML is sensitive.
-    # We'll just append it.
-    yaml_tail = r"""header-includes:
-  - \usepackage{tcolorbox}
-  - \usepackage{xcolor}
-  - \definecolor{titlepage-color}{HTML}{06386e}
-  - \definecolor{tiplight}{HTML}{E0F7FA}
-  - \definecolor{tipdark}{HTML}{006064}
-  - \definecolor{notelight}{HTML}{E3F2FD}
-  - \definecolor{notedark}{HTML}{0D47A1}
-  - \definecolor{warninglight}{HTML}{FFEBEE}
-  - \definecolor{warningdark}{HTML}{B71C1C}
-...
-"""
+    for filepath in md_files:
+        title, content, fid = process_file(filepath)
+        header = f"\n\n# {title} {{#{fid}}}\n\n"
+        master_content.append(header)
+        master_content.append(content)
+        master_content.append("\n\n\\newpage\n\n")
+
+    with open(temp_file, 'w', encoding='utf-8') as f:
+        f.write("".join(master_content))
+
+    print(f"Created {temp_file}")
     
-    master_content = yaml_head + yaml_tail + "\n"
-    # Note: "06386e" is a nice academic blue. You can change the hex code.
-
-    print(f"Found {len(files)} notes. Processing...")
-
-    for filename in files:
-        with open(filename, 'r', encoding='utf-8') as f:
-            content = f.read()
+    # Template resolution
+    template_arg = "eisvogel"
+    possible_paths = [
+        os.path.join(source_dir, TEMPLATE_FILE),
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), TEMPLATE_FILE),
+        TEMPLATE_FILE
+    ]
+    for p in possible_paths:
+        if os.path.exists(p):
+            template_arg = os.path.abspath(p)
+            break
             
-            # Remove existing YAML (--- ... ---) from individual notes so they don't break the book
-            content = re.sub(r'^---[\s\S]*?---\n', '', content)
-            
-            # Convert Filename to H1
-            title = filename.replace(".md", "")
-            h1_header = f"# {title}\n"
-            
-            # Add Mini TOC
-            mini_toc = generate_mini_toc(content)
-            
-            # Process content
-            content = convert_images(content)
-            content = convert_callouts(content)
-            
-            master_content += f"\n{h1_header}\n{mini_toc}\n{content}\n\\newpage\n"
+    # Filter resolution
+    filter_arg = "obsidian_filter.lua"
+    possible_filters = [
+        os.path.join(source_dir, "obsidian_filter.lua"),
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "obsidian_filter.lua"),
+        "obsidian_filter.lua"
+    ]
+    for p in possible_filters:
+        if os.path.exists(p):
+            filter_arg = os.path.abspath(p)
+            break
 
-    master_content = convert_wikilinks(master_content, files)
-
-    with open("temp_master.md", "w", encoding='utf-8') as f:
-        f.write(master_content)
-
-    # 3. Run Pandoc
-    print("Generating PDF... (This might take a minute)")
+    # 1. Generate LaTeX (Pandoc)
+    tex_file = OUTPUT_FILE.replace(".pdf", ".tex")
     
-    # We use the full path to the local template file
-    cmd = [
-        "pandoc", "temp_master.md",
-        "-o", output_filename,
-        "--from", "markdown",
-        f"--template={TEMPLATE_FILENAME}",
-        "--syntax-highlighting=idiomatic",
-        "--toc",
-        "--number-sections"
+    cmd_tex = [
+        "pandoc",
+        temp_file,
+        "-o", tex_file,
+        "--from", "markdown+wikilinks_title_after_pipe+mark+task_lists+tex_math_dollars",
+        "--template", template_arg,
+        "--lua-filter", filter_arg,
+        "--syntax-highlighting=tango",
+        "--table-of-contents",
+        "--toc-depth=3",
+        "--number-sections",
+        "--top-level-division=chapter",
+        "--variable", "book=true",
+        "--variable", "strikeout=true",
+        "--standalone"
     ]
     
+    if MAINFONT: cmd_tex.extend(["--variable", f"mainfont={MAINFONT}"])
+    if SANSFONT: cmd_tex.extend(["--variable", f"sansfont={SANSFONT}"])
+    if MONOFONT: cmd_tex.extend(["--variable", f"monofont={MONOFONT}"])
+    
+    print(f"Generating LaTeX: {tex_file}...")
     try:
-        subprocess.run(cmd, check=True)
-        print(f"✅ Success! Created: {output_filename}")
+        subprocess.run(cmd_tex, check=True, cwd=source_dir)
+        print(f"Done! {tex_file}")
     except subprocess.CalledProcessError as e:
-        print("❌ Error. Check if you have LaTeX installed and 'eisvogel.latex' is in this folder.")
-        print(f"Error details: {e}")
+        print(f"Error generating LaTeX: {e}")
+        return
 
-    if os.path.exists("temp_master.md"):
-        os.remove("temp_master.md")
+    # 2. Compile LaTeX to PDF (xelatex)
+    print(f"Compiling PDF from {tex_file} using {PDF_ENGINE}...")
+    
+    # Run twice for TOC resolution
+    tex_cmd = [PDF_ENGINE, "-interaction=nonstopmode", tex_file]
+    
+    try:
+        print("Pass 1/2...")
+        subprocess.run(tex_cmd, check=True, cwd=source_dir)
+        print("Pass 2/2...")
+        subprocess.run(tex_cmd, check=True, cwd=source_dir)
+        print(f"Done! Created {OUTPUT_FILE}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error compiling PDF: {e}")
+        print("Check the .log file for details.")
 
 if __name__ == "__main__":
     main()
