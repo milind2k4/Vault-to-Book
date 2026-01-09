@@ -43,11 +43,12 @@ def process_file(filepath):
     for line in lines:
         stripped = line.strip()
         
-        # 1. Remove "Links:" line and following underscores
-        if stripped.lower().startswith("links:"):
+        # 1. Remove "Links:" line
+        if re.match(r'^links:?', stripped, re.IGNORECASE):
             continue
-        # 2. Remove lines that are just underscores (like horizontal rules)
-        if re.match(r'^_+$', stripped):
+            
+        # 2. Remove horizontal rules (underscores, dashes, asterisks)
+        if re.match(r'^\s*[-_*]{3,}\s*$', stripped):
             continue
         
         # 3. Remove the FIRST header if it matches the title (or just any first header)
@@ -64,7 +65,6 @@ def process_file(filepath):
         new_lines.append(line)
         
     content = '\n'.join(new_lines)
-    # content = re.sub(r'(?m)^\s*_{3,}\s*$', '---', content)
     
     return title, content, file_id
 
@@ -93,12 +93,25 @@ def main():
 
     master_content = []
     
-    # Add YAML metadata for setup (Using strikeout for highlights)
-    # No extra yaml needed as we pass variables via CLI
+    # Add YAML metadata for setup
+    # We use explicit YAML for packages and commands
+    yaml_block = """---
+header-includes:
+  - \\usepackage{minitoc}
+  - \\mtcselectlanguage{english}
+include-before:
+  - \\dominitoc
+  - \\setcounter{minitocdepth}{4}
+---
+
+"""
+    master_content.append(yaml_block)
 
     for filepath in md_files:
         title, content, fid = process_file(filepath)
-        header = f"\n\n# {title} {{#{fid}}}\n\n"
+        # Add Chapter Header + Mini TOC
+        # \minitoc must be protected or raw latex
+        header = f"\n\n# {title} {{#{fid}}}\n\n\\minitoc\n\n"
         master_content.append(header)
         master_content.append(content)
         master_content.append("\n\n\\newpage\n\n")
@@ -142,13 +155,15 @@ def main():
         "--from", "markdown+wikilinks_title_after_pipe+mark+task_lists+tex_math_dollars",
         "--template", template_arg,
         "--lua-filter", filter_arg,
-        "--syntax-highlighting=tango",
+        "--syntax-highlighting=idiomatic",
         "--table-of-contents",
-        "--toc-depth=3",
+        "--toc-depth=4",
         "--number-sections",
         "--top-level-division=chapter",
         "--variable", "book=true",
         "--variable", "strikeout=true",
+        "--variable", "classoption=openany", # Removes blank pages
+        "--variable", "classoption=oneside", # Optional: better for digital reading
         "--standalone"
     ]
     
@@ -167,13 +182,15 @@ def main():
     # 2. Compile LaTeX to PDF (xelatex)
     print(f"Compiling PDF from {tex_file} using {PDF_ENGINE}...")
     
-    # Run twice for TOC resolution
+    # Run 3 times for TOC/MiniTOC resolution
     tex_cmd = [PDF_ENGINE, "-interaction=nonstopmode", tex_file]
     
     try:
-        print("Pass 1/2...")
+        print("Pass 1/3 (Init)...")
         subprocess.run(tex_cmd, check=True, cwd=source_dir)
-        print("Pass 2/2...")
+        print("Pass 2/3 (TOC)...")
+        subprocess.run(tex_cmd, check=True, cwd=source_dir)
+        print("Pass 3/3 (Refs/MiniTOC)...")
         subprocess.run(tex_cmd, check=True, cwd=source_dir)
         print(f"Done! Created {OUTPUT_FILE}")
     except subprocess.CalledProcessError as e:
