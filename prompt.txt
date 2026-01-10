@@ -1,0 +1,23 @@
+I need you to perform a major refactor and cleanup of the Obsidian-to-PDF project. We are moving from a "prototype" script to a structured application.
+
+Please update the project structure and rewrite the Python code based on the following specifications:
+1. Project Restructuring
+
+Move all external dependencies and helper files into a dedicated resources/ folder to keep the root directory clean. 
+
+2. Python Code Refactoring
+
+Rewrite build_book.py to be more modular. Extract the helper functions and the tex content into separate files. Make a separate config file for the global variables.
+
+3. Post-Processing & Cleanup Logic
+
+Add a specific method to handle file cleanup after the conversion finishes.
+
+    DELETE: All LaTeX build artifacts: .aux, .toc, .out, .maf, .mtc, .mtc*, .fls, .fdb_latexmk.
+
+    KEEP: The .log file (for debugging LaTeX errors).
+
+    KEEP: The temp_master.md and the generated_images/ folder.
+
+
+Also give me instructions on how to manually move the existing files into the resources folder to match the new code expectations.

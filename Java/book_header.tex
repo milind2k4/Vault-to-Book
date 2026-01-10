@@ -1,0 +1,21 @@
+
+\usepackage{caption}
+\captionsetup[figure]{labelsep=none, justification=centering}
+\usepackage{minitoc}
+\mtcselectlanguage{english}
+\usepackage{xcolor}
+\definecolor{mylinkcolor}{HTML}{07455c}
+\definecolor{myurlcolor}{HTML}{07455c}
+\usepackage{fontawesome5}
+\usepackage[most]{tcolorbox}
+
+% --- Callout Definitions ---
+\newtcolorbox{notebox}[1][Note]{colback=blue!5!white, colframe=blue!75!black, title=\faInfoCircle\quad #1}
+\newtcolorbox{tipbox}[1][Tip]{colback=green!5!white, colframe=green!60!black, title=\faLightbulb\quad #1}
+\newtcolorbox{warningbox}[1][Warning]{colback=orange!5!white, colframe=orange!80!black, title=\faExclamationTriangle\quad #1}
+\newtcolorbox{attentionbox}[1][Attention]{colback=red!5!white, colframe=red!75!black, title=\faExclamationCircle\quad #1}
+
+% --- Chapter Title Styling (KOMA-Script) ---
+\renewcommand*\chapterformat{\thechapter.\enskip}
+\addtokomafont{chapter}{\centering}
+\RedeclareSectionCommand[beforeskip=0cm,afterskip=20pt]{chapter}

@@ -1,9 +1,4 @@
 ---
-header-includes:
-  - \usepackage{minitoc}
-  - \mtcselectlanguage{english}
-  - \definecolor{mylinkcolor}{HTML}{07455c}
-  - \definecolor{myurlcolor}{HTML}{07455c}
 include-before:
   - \dominitoc
   - \setcounter{minitocdepth}{4}
@@ -50,19 +45,7 @@ It is an abstract machine. It is a specification that provides a runtime environ
 - Executes code
 - Provides runtime environment
 
-```mermaid
-graph TD
-    subgraph JDK [JDK - Java Development Kit]
-        subgraph JRE [JRE - Java Runtime Env]
-            JVM[JVM - Java Virtual Machine]
-            Lib[Class Libraries]
-        end
-        Tools[Dev Tools: javac, debugger, etc.]
-    end
-    style JDK fill:#f9f,stroke:#333,stroke-width:2px
-    style JRE fill:#bbf,stroke:#333,stroke-width:2px
-    style JVM fill:#dfd,stroke:#333,stroke-width:2px
-```
+![\ ](images/mermaid_50517291671604cd81160fb1649263ab.png){height=11cm}
 
 > [!TIP] > Analogy: The Kitchen
 >
@@ -76,13 +59,7 @@ graph TD
 2.  **Compilation**: The `javac` compiler converts the source code into **Bytecode** (`.class` files). Bytecode is platform-independent.
 3.  **Execution**: The JVM reads the bytecode and translates it into machine code (native machine language) for the specific operating system.
 
-```mermaid
-graph TD
-    A[Source Code .java] -->|javac| B[Bytecode .class]
-    B -->|Class Loader| C[JVM]
-    C -->|Interpreter / JIT| D[Machine Code 010101]
-    D --> E[OS / Hardware]
-```
+![\ ](images/mermaid_f3f81ac6d1c2f9d8fb75fa7423927131.png){height=11cm}
 
 ### Java Source File Structure
 
@@ -853,14 +830,7 @@ To handle an exception, we can either:
 
 $\\$
 
-```mermaid
-graph TD
-    Object --> Throwable
-    Throwable --> Errors
-    Throwable --> Exceptions
-    Exceptions --> Checked
-    Exceptions --> Unchecked(RuntimeException)
-```
+![\ ](images/mermaid_e066c7bd39d3bee4bbaba152bde2f264.png){height=11cm}
 
 **Throwable:** The root class for everything that can be thrown.
 
@@ -878,7 +848,7 @@ There are two types of exceptions:
 
   E.g. `ArithmeticException`, `ArrayIndexOutOfBoundsException`, `NumberFormatException`, `NullPointerException`.
 
-#### Using `{java} try - catch - finally` block
+#### Using `try-catch-finally` block
 
 - **`try`:** The code which might throw an exception is written inside the `try` block.
 - **`catch`:** The handler for the exception. If an exception of the specified type occurs in `try`, this block is executed.
@@ -1048,28 +1018,7 @@ It is divided into two main categories:
 1.  `java.util.Collection`: The root interface for lists, sets, and queues.
 2.  `java.util.Map`: A separate interface for key-value pair structures.
 
-```mermaid
-graph TD
-    Iterable --> Collection
-    Collection --> List
-    Collection --> Queue
-    Collection --> Set
-
-    List --> ArrayList
-    List --> LinkedList
-    List --> Vector
-    Vector --> Stack
-
-    Queue --> Deque
-    Queue --> PriorityQueue
-    Deque --> ArrayDeque
-    Deque --> LinkedList
-
-    Set --> HashSet
-    Set --> LinkedHashSet
-    Set --> SortedSet
-    SortedSet --> TreeSet
-```
+![\ ](images/mermaid_2bbb338543a985e865fb5b42b134c270.png){height=11cm}
 
 ###### Collection Interface
 
@@ -1280,15 +1229,7 @@ A `Map` is an object that maps keys to values. A map cannot contain duplicate ke
 
 It does **not** inherit from the `Collection` interface.
 
-```mermaid
-graph TD
-    Map --> HashMap
-    Map --> LinkedHashMap
-    Map --> Hashtable
-    Hashtable --> Properties
-    Map --> SortedMap
-    SortedMap --> TreeMap
-```
+![\ ](images/mermaid_f6d824d47b6c392df1fe568f948a1af2.png){height=11cm}
 
 ### Map Interface Methods
 
@@ -1409,13 +1350,7 @@ A `Set` is a collection that cannot contain duplicate elements. It models the ma
 
 The `Set` interface contains only methods inherited from `Collection` and adds the restriction that duplicate elements are prohibited.
 
-```mermaid
-graph TD
-    Set --> HashSet
-    Set --> LinkedHashSet
-    Set --> SortedSet
-    SortedSet --> TreeSet
-```
+![\ ](images/mermaid_e83c82c1a45f1bd02c6ad13d4939839c.png){height=11cm}
 
 ### HashSet
 
@@ -1628,15 +1563,7 @@ This is used to:
 
 A thread goes through several states:
 
-```mermaid
-graph TD
-    New -->|start| Runnable
-    Runnable -->|Scheduler| Running
-    Running -->|yield| Runnable
-    Running -->|sleep / wait| Waiting
-    Waiting -->|notify / time up| Runnable
-    Running -->|finish| Terminated
-```
+![\ ](images/mermaid_7c666472a608e74cc9950ecdfe374af8.png){height=11cm}
 
 1.  **New:** The thread object has been created, but `start()` has not been called.
 2.  **Runnable:** The thread is ready to run. `start()` has been called, and it's waiting for the thread scheduler to allocate CPU time.
@@ -2113,15 +2040,7 @@ JDBC is an API that helps Java applications communicate with databases. It allow
 
 ### Architecture
 
-```mermaid
-graph TD
-    App[Java Application] --> JDBC[JDBC API]
-    JDBC --> Driver[JDBC Driver Manager]
-    Driver --> D1[MySQL Driver]
-    Driver --> D2[Oracle Driver]
-    D1 --> DB1[(MySQL DB)]
-    D2 --> DB2[(Oracle DB)]
-```
+![\ ](images/mermaid_4750328d8f7e588abc24f72d5512ed27.png){height=11cm}
 
 #### JDBC Drivers
 
@@ -2318,14 +2237,7 @@ A Servlet is a Java class that runs on a web server and responds to HTTP request
 
 ### Architecture
 
-```mermaid
-graph LR
-    Client[Browser] -->|Request| Server[Web Server / Container]
-    Server -->|Passes Request| Servlet
-    Servlet -->|Process| DB[(Database)]
-    Servlet -->|Response| Server
-    Server -->|HTML| Client
-```
+![\ ](images/mermaid_c127fdcaa7a04518981756eac27da55a.png){height=11cm}
 
 ### Servlet Life Cycle
 
@@ -2336,17 +2248,7 @@ The life cycle is managed by the Servlet Container (e.g., Tomcat).
 3.  **Request Handling (`service()`)**: Called for every request. Dispatches to `doGet()`, `doPost()`, etc.
 4.  **Destruction (`destroy()`)**: Called once before removing the servlet. Used for cleanup.
 
-```mermaid
-graph TD
-    Start --> Load[Load Class]
-    Load --> Inst[Instantiate]
-    Inst --> Init["init()"]
-    Init --> Ready[Ready for Service]
-    Ready -->|Request| Service["service()"]
-    Service --> Ready
-    Ready --> Destroy["destroy()"]
-    Destroy --> End
-```
+![\ ](images/mermaid_304226551b100a332d837b4fa69c4324.png){height=11cm}
 
 ### Handling Requests
 
@@ -2441,18 +2343,7 @@ Spring MVC (Model-View-Controller) is a framework built on the Servlet API. It i
 
 #### Request Flow
 
-```mermaid
-graph LR
-    Client -->|1\. Request| DS[DispatcherServlet]
-    DS -->|2\. Get Handler| HM[HandlerMapping]
-    HM -->|3\. Handler Execution Chain| DS
-    DS -->|4\. Call Controller| C[Controller]
-    C -->|5\. Return Model & View| DS
-    DS -->|6\. Resolve View| VR[ViewResolver]
-    VR -->|7\. View Object| DS
-    DS -->|8\. Render| V[View]
-    V -->|9\. Response| Client
-```
+![\ ](images/mermaid_b819483cc3fb2d24eda1ab688c19e936.png){height=11cm}
 
 1.  **Request**: Client sends a request to the server.
 2.  **Dispatch**: `DispatcherServlet` intercepts the request.
@@ -2726,24 +2617,7 @@ If multiple beans of the same type exist (e.g., `PayPalService` and `StripeServi
 
 The lifecycle of a Spring Bean is managed by the container, from creation to destruction.
 
-```mermaid
-flowchart TD
-    A("Instantiation")
-    B("Populate Properties")
-    C("SetBeanName / Factory")
-    D("PostProcess Before Init")
-    E("Initialization")
-    F("PostProcess After Init")
-    G("Ready to Use")
-    H("Destruction")
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-```
+![\ ](images/mermaid_b8f60dd0d3e1e984a652069a8c58d756.png){height=11cm}
 
 1.  **Instantiation**: The container creates the bean instance (calls constructor).
 2.  **Populate Properties**: Dependencies are injected.

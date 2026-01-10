@@ -6,12 +6,21 @@ __pycache__/
 # Obsidian
 .obsidian/
 
+# Misc
+todo.txt
+
+
 # Tex files
 *.aux
 *.log
 *.pdf
 *.tex
+!callouts.tex
+!book_header.tex
+!headers.tex
+!cover.tex
 *.toc
+
 
 # Temp files
 *.mtc*
