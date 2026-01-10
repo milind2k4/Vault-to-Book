@@ -8,15 +8,20 @@ import subprocess
 # Add project root to sys.path so we can import 'src'
 sys.path.append(os.getcwd())
 
+from src.builder import build
+from src.cleaner import cleanup_artifacts
+from src.config import CONFIG
+from src.colors import Colors
+
 def index_attachments(path: str) -> dict[str, str]:
     """Recursively find all files in attachments path."""
     index = {}
-    print(f"Indexing attachments in {path}...")
+    print(Colors.info(f"Indexing attachments in {path}..."))
     for root, _, files in os.walk(path):
         for file in files:
             # key is lowercase filename for looser matching
             index[file.lower()] = os.path.join(root, file)
-    print(f"Indexed {len(index)} files.\n")
+    print(Colors.info(f"Indexed {len(index)} files.\n"))
     return index
 
 def import_vault(vault_path: str, attachments_path: str, output_dir: str) -> str:
@@ -31,23 +36,23 @@ def import_vault(vault_path: str, attachments_path: str, output_dir: str) -> str
     target_dir = os.path.abspath(output_dir)
     target_images = os.path.join(target_dir, "images")
 
-    print(f"--- Vault Importer ---")
-    print(f"Source: {vault_path}")
-    print(f"Attachments: {attachments_path}")
-    print(f"Target: {target_dir}")
+    print(Colors.section("Vault Importer"))
+    print(f"Source: {Colors.BOLD}{vault_path}{Colors.ENDC}")
+    print(f"Attachments: {Colors.BOLD}{attachments_path}{Colors.ENDC}")
+    print(f"Target: {Colors.BOLD}{target_dir}{Colors.ENDC}")
     print(f"----------------------\n")
 
     if vault_path == target_dir:
-        print("Error: Source and Target directories are the same. Cannot import into self.")
+        print(Colors.error("Error: Source and Target directories are the same. Cannot import into self."))
         sys.exit(1)
 
     # Clean target
     if os.path.exists(target_dir):
-        print("Cleaning target directory...\n")
+        print(Colors.info("Cleaning target directory...\n"))
         try:
             shutil.rmtree(target_dir)
         except Exception as e:
-            print(f"Warning: Failed to clean target directory: {e}. Trying to proceed.")
+            print(Colors.warning(f"Warning: Failed to clean target directory: {e}. Trying to proceed."))
     
     os.makedirs(target_images, exist_ok=True)
 
@@ -56,7 +61,7 @@ def import_vault(vault_path: str, attachments_path: str, output_dir: str) -> str
 
     # Scan and Copy MD files
     md_files = []
-    print("Scanning vault for markdown files...")
+    print(Colors.info("Scanning vault for markdown files..."))
     for root, dirs, files in os.walk(vault_path):
         # Skip hidden folders
         if '.obsidian' in dirs: dirs.remove('.obsidian')
@@ -70,7 +75,7 @@ def import_vault(vault_path: str, attachments_path: str, output_dir: str) -> str
                 shutil.copy2(src, dest)
                 md_files.append(dest)
 
-    print(f"Copied {len(md_files)} markdown notes.\n")
+    print(Colors.info(f"Copied {len(md_files)} markdown notes.\n"))
 
     # Process Links and Images
     wiki_pattern = re.compile(r'!\[\[(.*?)\]\]')
@@ -173,11 +178,12 @@ def main():
         print(f"Notice: Output directory '{safe_import_dir}' conflicts with source. using '{safe_import_dir}_build' instead.")
         safe_import_dir = f"{safe_import_dir}_build"
     
-    import_dir = import_vault(args.notes_dir, args.attachments_dir, safe_import_dir)
+    # import_dir = import_vault(args.notes_dir, args.attachments_dir, safe_import_dir)
+    # Moved inside try/except block below
     
     # 4. Configure & Build
     # Set env vars for builder to pick up
-    os.environ["SOURCE_DIR"] = import_dir
+    # os.environ["SOURCE_DIR"] = import_dir # Moved inside try/except
     os.environ["BOOK_TITLE"] = args.title
     os.environ["BOOK_SUBTITLE"] = args.subtitle
     os.environ["BOOK_AUTHOR"] = args.author
@@ -186,19 +192,32 @@ def main():
     os.environ["OUTPUT_FILE"] = output_filename
     
     try:
-        from src.builder import build
-        from src.cleaner import cleanup_artifacts
+        # Perform Import
+        import_dir = import_vault(args.notes_dir, args.attachments_dir, safe_import_dir)
         
-        print("\n--- Starting Build Process ---\n")
+        # Update Global Config
+        CONFIG['build']['source_dir'] = import_dir
+        CONFIG['build']['output_file'] = output_filename
+        CONFIG['book']['title'] = args.title
+        CONFIG['book']['subtitle'] = args.subtitle
+        CONFIG['book']['author'] = args.author
+        
+        # Also keep env vars just in case other modules use them
+        os.environ["SOURCE_DIR"] = import_dir
+
+        # from src.builder import build  <-- already imported at top
+        # from src.cleaner import cleanup_artifacts <-- already imported at top
+        
+        print(Colors.section("Starting Build Process"))
         build()
         
         # Verify if PDF exists
         final_pdf_path = os.path.join(import_dir, output_filename)
         if not os.path.exists(final_pdf_path):
-            print(f"\nError: Expected PDF not found at {final_pdf_path}. Build likely failed.")
+            print(Colors.error(f"\nError: Expected PDF not found at {final_pdf_path}. Build likely failed."))
             sys.exit(1)
             
-        print(f"\nSUCCESS: Book built at {final_pdf_path}")
+        print(Colors.success(f"SUCCESS: Book built at {final_pdf_path}"))
         
         # Move PDF if output_pdf is specified (For ANY cleanup mode)
         if args.output_pdf:
@@ -223,7 +242,7 @@ def main():
             else:
                 shutil.copy2(final_pdf_path, dest_pdf)
                 
-            print(f"PDF Output: {dest_pdf}")
+            print(Colors.info(f"PDF Output: {dest_pdf}"))
         
         # 5. Cleanup
         # Define artifacts dir location (it's inside import_dir/build_artifacts by default in builder.py)
@@ -233,17 +252,17 @@ def main():
         artifacts_dir = os.path.join(import_dir, "build_artifacts")
         
         if args.cleanup == "none":
-            print("Cleanup: none selected. Keeping all files.")
+            print(Colors.info("Cleanup: none selected. Keeping all files."))
             
         elif args.cleanup == "latex":
             # This deletes .aux, .toc etc but keeps logs and tex
             cleanup_artifacts(artifacts_dir)
-            print("Cleanup: Removed intermediate LaTeX files.")
+            print(Colors.info("Cleanup: Removed intermediate LaTeX files."))
             
         elif args.cleanup == "artifacts":
             if os.path.exists(artifacts_dir):
                 shutil.rmtree(artifacts_dir)
-                print(f"Cleanup: Removed artifacts directory: {artifacts_dir}")
+                print(Colors.info(f"Cleanup: Removed artifacts directory: {artifacts_dir}"))
                 
         elif args.cleanup == "strict":
             # If we didn't already move the PDF (because args.output_pdf wasn't set), we should move it now?
@@ -257,19 +276,19 @@ def main():
                  if final_pdf_path != dest_pdf:
                      if os.path.exists(final_pdf_path): # Check if it's still there (might be same path)
                         shutil.move(final_pdf_path, dest_pdf)
-                        print(f"Moved PDF to: {dest_pdf}")
+                        print(Colors.info(f"Moved PDF to: {dest_pdf}"))
             
             # Delete the ENTIRE import directory
             if os.path.exists(import_dir):
                 shutil.rmtree(import_dir)
-                print(f"Cleanup: Removed build directory: {import_dir}")
+                print(Colors.info(f"Cleanup: Removed build directory: {import_dir}"))
 
     except ImportError as e:
-         print(f"Error importing modules: {e}")
+         print(Colors.error(f"Error importing modules: {e}"))
          print("Make sure you are running from the project root.")
          sys.exit(1)
     except Exception as e:
-        print(f"\nFAILURE: Build failed with error: {e}")
+        print(Colors.error(f"\nFAILURE: Build failed with error: {e}"))
         import traceback
         traceback.print_exc()
         sys.exit(1)

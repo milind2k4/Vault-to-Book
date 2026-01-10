@@ -8,6 +8,7 @@ __pycache__/
 DBMS/
 Java/images
 Java/build_artifacts
+Electrostatics/build_artifacts
 
 # Misc
 prompt.txt

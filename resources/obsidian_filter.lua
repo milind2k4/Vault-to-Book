@@ -187,10 +187,55 @@ function Link(el)
 end
 
 function Image(el)
+  -- Remove wikilink class if present
   if el.classes:includes("wikilink") then
       el.classes = el.classes:filter(function(c) return c ~= "wikilink" end)
-      return el
   end
+  
+  -- Handle Obsidian resizing syntax in Alt Text: ![Alt|100x200](...)
+  local has_width = false
+  for k, v in pairs(el.attributes) do
+      if k == "width" or k == "height" then has_width = true end
+  end
+  
+  -- Get default max width/height from config
+  local max_w = PANDOC_READER_OPTIONS and PANDOC_READER_OPTIONS.variables and PANDOC_READER_OPTIONS.variables["image-max-width"]
+  local max_h = PANDOC_READER_OPTIONS and PANDOC_READER_OPTIONS.variables and PANDOC_READER_OPTIONS.variables["image-max-height"]
+
+  if not max_w and PANDOC_DOCUMENT and PANDOC_DOCUMENT.meta then max_w = PANDOC_DOCUMENT.meta["image-max-width"] end
+  if not max_h and PANDOC_DOCUMENT and PANDOC_DOCUMENT.meta then max_h = PANDOC_DOCUMENT.meta["image-max-height"] end
+
+  if max_w and type(max_w) == 'table' then max_w = pandoc.utils.stringify(max_w) end
+  if max_h and type(max_h) == 'table' then max_h = pandoc.utils.stringify(max_h) end
+
+  -- If no manual width/height, apply max logic
+  if not has_width then
+      local tex = nil
+      
+      if max_h then
+           -- If height is provided, ignore width per user request
+           tex = "\\includegraphics[max height=" .. max_h .. ",keepaspectratio]{" .. el.src .. "}"
+      elseif max_w then
+           -- Else fallback to width
+           tex = "\\includegraphics[max width=" .. max_w .. ",keepaspectratio]{" .. el.src .. "}"
+      end
+
+      if tex then
+          -- If caption exists, handle it (simple inline approach)
+          local caption_txt = pandoc.utils.stringify(el.caption)
+          if #caption_txt > 0 and caption_txt ~= "fig:" then
+              return {
+                  pandoc.RawInline("latex", tex),
+                  pandoc.LineBreak(),
+                  pandoc.Emph(el.caption)
+              }
+          else
+              return pandoc.RawInline("latex", tex)
+          end
+      end
+  end
+  
+  return el
 end
 
 function Str(el)

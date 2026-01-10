@@ -19,6 +19,9 @@ def generate_headers_tex(output_dir: str) -> str:
 \\usepackage{{amsmath}}
 \\usepackage{{amssymb}}
 \\usepackage{{mathtools}}
+\\usepackage{{gensymb}}
+\\usepackage[export]{{adjustbox}} % For max width=... in includegraphics
+\\usepackage{{cancel}}
 % \\mtcselectlanguage{{english}} - Removed
 \\definecolor{{mylinkcolor}}{{HTML}}{{{link_color}}}
 \\definecolor{{myurlcolor}}{{HTML}}{{{url_color}}}

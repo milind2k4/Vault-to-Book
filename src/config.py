@@ -29,6 +29,11 @@ DEFAULT_CONFIG = {
         "default_width": None,
         "scale": 3.0
     },
+    "images": {
+        "max_width": None, # Max width for images (scales down if larger)
+        "max_height": "0.3\\linewidth",            # Max height (if set, overrides width constraint)
+        "keep_aspect_ratio": True
+    },
     "resources": {
         "dir": "resources",
         "images_dir": "images"

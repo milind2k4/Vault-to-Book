@@ -8,6 +8,7 @@ from .utils import clean_title, slugify, ensure_dir
 from .mermaider import process_mermaid
 from .tex_manager import generate_headers_tex, generate_cover_tex
 from .cleaner import cleanup_artifacts
+from .colors import Colors
 
 def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     """
@@ -22,6 +23,11 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     filename = os.path.basename(filepath)
     title = clean_title(filename)
     file_id = slugify(title)
+
+    # 0. Formatting Fixes
+    # Ensure images starting on a new line after text get a blank line before them
+    # Pattern: Non-newline char, newline, then ![
+    content = re.sub(r'([^\n])\n(!\[)', r'\1\n\n\2', content)
 
     lines = content.split('\n')
     new_lines = []
@@ -65,11 +71,11 @@ def build() -> None:
     # Create artifacts directory
     artifacts_dir = os.path.join(source_dir, artifacts_dir_name)
     ensure_dir(artifacts_dir)
-    print(f"Build artifacts will be stored in: {artifacts_dir}")
+    print(Colors.info(f"Build artifacts will be stored in: {artifacts_dir}"))
 
     temp_file = os.path.join(artifacts_dir, "temp_master.md")
     
-    print(f"Scanning {source_dir}...")
+    print(Colors.info(f"Scanning {source_dir}..."))
     
     md_files = []
     for root, dirs, files in os.walk(source_dir):
@@ -85,31 +91,28 @@ def build() -> None:
     md_files.sort(key=lambda p: os.path.basename(p).lower())
 
     if not md_files:
-        print("No markdown files found!")
+        print(Colors.error("No markdown files found!"))
         return
 
-    print(f"Found {len(md_files)} files.\n")
+    print(Colors.info(f"Found {len(md_files)} files.\n"))
 
     master_content = []
     
+    print(Colors.section("Generating Master Markdown"))
+    
     # 1. Generate Headers and Cover (put them in artifacts_dir)
     headers_tex_file = generate_headers_tex(artifacts_dir)
-    cover_tex_path = generate_cover_tex(artifacts_dir) # Only content changes? No, it writes file.
+    cover_tex_path = generate_cover_tex(artifacts_dir)
 
-    # YAML block removed, minitoc init moved to cover.tex
-
+    # ... loop content ...
     for filepath in md_files:
         title, content, fid = process_file(filepath, source_dir)
-        # Add Chapter Header + Mini TOC (using etoc)
-        # We style it to look like a mini TOC box
+        # ... logic ...
         header = f"""
-
 # {title} {{#{fid}}}
-
 \\etocsettocstyle{{\\textbf{{Chapter Contents}}\\par\\rule{{\\linewidth}}{{0.5pt}}}}{{\\par\\rule{{\\linewidth}}{{0.5pt}}}}
 \\localtableofcontents
-\\noindent
-
+\\noindent {{}}
 """
         master_content.append(header)
         master_content.append(content)
@@ -120,7 +123,7 @@ def build() -> None:
 
     print(f"Created {temp_file}")
     
-    # Resource Resolution
+    # ... resolution logic ...
     resource_dir = CONFIG['resources']['dir']
     template_name = CONFIG['style']['template']
     
@@ -139,17 +142,16 @@ def build() -> None:
     callouts_arg = resolve_resource("callouts.tex")
 
     # 1. Generate LaTeX (Pandoc)
-    # Output tex file in artifacts_dir
+    print(Colors.section("Generating LaTeX (Pandoc)"))
+    
     tex_file_name = output_file.replace(".pdf", ".tex")
     tex_file = os.path.join(artifacts_dir, tex_file_name)
     
-    # Prepare Cover Path for Pandoc (needs to be absolute or relative to CWD)
-    # We will run pandoc from source_dir so that images (which are links like "images/foo.png") work.
-    
+    # ... cmd_tex setup ...
     cmd_tex = [
         "pandoc",
-        os.path.relpath(temp_file, source_dir), # Relative path to temp file
-        "-o", os.path.relpath(tex_file, source_dir), # Relative path to output
+        os.path.relpath(temp_file, source_dir), 
+        "-o", os.path.relpath(tex_file, source_dir),
         "--from", "markdown+wikilinks_title_after_pipe+mark+task_lists+tex_math_dollars",
         "--template", template_arg,
         "--include-before-body", os.path.relpath(cover_tex_path, source_dir),
@@ -173,27 +175,31 @@ def build() -> None:
         "--variable", f"urlcolor=myurlcolor",
         "--standalone"
     ]
-    
     if CONFIG['style'].get('mainfont'): cmd_tex.extend(["--variable", f"mainfont={CONFIG['style']['mainfont']}"])
     if CONFIG['style'].get('sansfont'): cmd_tex.extend(["--variable", f"sansfont={CONFIG['style']['sansfont']}"])
     if CONFIG['style'].get('monofont'): cmd_tex.extend(["--variable", f"monofont={CONFIG['style']['monofont']}"])
     if CONFIG['style'].get('geometry'): cmd_tex.extend(["--variable", f"geometry={CONFIG['style']['geometry']}"])
     
-    print(f"\nGenerating LaTeX: {tex_file}...\n")
+    # Image Configuration
+    if CONFIG.get('images', {}).get('max_width'):
+        cmd_tex.extend(["--variable", f"image-max-width={CONFIG['images']['max_width']}"])
+    if CONFIG.get('images', {}).get('max_height'):
+        cmd_tex.extend(["--variable", f"image-max-height={CONFIG['images']['max_height']}"])
+    
+    print(f"Generating LaTeX: {tex_file}...")
     try:
-        # Run in source_dir so that image links "images/..." are found relative to it
-        subprocess.run(cmd_tex, check=True, cwd=source_dir)
-        print(f"\nDone! {tex_file}\n")
+        subprocess.run(cmd_tex, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(Colors.success(f"Done! {tex_file}"))
     except subprocess.CalledProcessError as e:
-        print(f"Error generating LaTeX: {e}")
+        print(Colors.error(f"Error generating LaTeX: {e}"))
+        if e.stderr:
+            print(Colors.warning("\n--- Pandoc Errors ---"))
+            print(e.stderr.decode('utf-8', errors='ignore'))
         return
 
     # 2. Compile LaTeX to PDF (xelatex)
+    print(Colors.section("Compiling PDF (XeLaTeX)"))
     print(f"Compiling PDF from {tex_file} using {pdf_engine}...")
-    
-    # We need to run xelatex. 
-    # If we run from source_dir, we can use -output-directory=artifacts_dir
-    # Input file: artifacts_dir/book.tex
     
     tex_cmd = [
         pdf_engine, 
@@ -204,22 +210,54 @@ def build() -> None:
     
     try:
         print("Pass 1/3 (Init)...")
-        # Capture output to silence it, only show on error
         subprocess.run(tex_cmd, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print("Pass 2/3 (TOC)...")
         subprocess.run(tex_cmd, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print("Pass 3/3 (Refs/MiniTOC)...")
         subprocess.run(tex_cmd, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
-        print(f"Error compiling PDF: {e}")
-        # Print the captured output for debugging if it failed
-        if e.stdout:
-            print("\n--- STDOUT ---")
-            print(e.stdout.decode('utf-8', errors='ignore'))
+        print(f"\nError compiling PDF: {e}")
+        
+        def filter_latex_log(output_bytes):
+            if not output_bytes: return ""
+            text = output_bytes.decode('utf-8', errors='ignore')
+            lines = text.splitlines()
+            filtered = []
+            capture_context = 0
+            
+            for line in lines:
+                stripped = line.strip()
+                # 1. Catch fatal errors starting with !
+                if stripped.startswith('!'):
+                    filtered.append(line)
+                    capture_context = 5 # Capture next 5 lines for context
+                    continue
+                
+                # 2. Catch lines with "Error" explicitly
+                if "Error" in line and "Error:" not in line: # Avoid "Error compiling PDF" repeated
+                     filtered.append(line)
+                     continue
+                     
+                # 3. Capture context lines
+                if capture_context > 0:
+                    filtered.append(line)
+                    capture_context -= 1
+                    continue
+            
+            if not filtered:
+                return "(No critical errors found in log. Check full log file.)"
+                
+            return "\n".join(filtered)
+
+        print("\n--- LaTeX Errors ---")
+        print(filter_latex_log(e.stdout))
+        
+        # Stderr usually empty for xelatex, but check if needed
         if e.stderr:
             print("\n--- STDERR ---")
             print(e.stderr.decode('utf-8', errors='ignore'))
-        print("Check the .log file in artifacts directory for details.")
+            
+        print("\nCheck the .log file in artifacts directory for full details.")
         return # Stop if failed
         
     # 3. Move PDF to source_dir
