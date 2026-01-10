@@ -23,9 +23,9 @@ $r$ is relation
 $p$ is predicate i.e. logic ("filter")
 
 E.g.
-$$ \ce{\sigma_{ subject = 'database' \ and \ price = 1000} (Books)} $$
-$$ \ce{\sigma_{branch\_name ='Perryride'}(Loan)} $$
-$$ \ce{\sigma_{Amount > 1000\  \wedge\ Branch\_name \neq 'Perryride'}(Loan)} $$
+$$\ce{ \sigma_{ subject = 'database' \ and \ price = 1000} (Books) }$$
+$$\ce{ \sigma_{branch\_name ='Perryride'}(Loan) }$$
+$$\ce{ \sigma_{Amount > 1000\  \wedge\ Branch\_name \neq 'Perryride'}(Loan) }$$
 
 #### Project ($\Pi$)
 
@@ -36,7 +36,7 @@ where,
 $A_{i}$ are attribute names and
 $r$ is relation
 E.g. To get only the name and duration from the Course table:
-$$ \ce{\Pi_{Name, Duration}(Course)} $$
+$$\ce{ \Pi_{Name, Duration}(Course) }$$
 
 #### Rename ($\rho$)
 
@@ -97,11 +97,11 @@ It returns all tuples $t$ from the $R-S$ part of $r$ such that for _every_ tuple
 
 **E.g. "Find students who have taken _all_ courses in the 'CS' department."**
 
-1. $\ce{AllStudentsAndCourses(StudentID, CourseID)}$
+1. $\ce{ AllStudentsAndCourses(StudentID, CourseID) }$
     
-2. $\ce{CS\_Courses(CourseID) = \Pi_{CourseID}(\sigma_{Dept\ =  \ 'CS'}(Course))}$
+2. $\ce{ CS\_Courses(CourseID) = \Pi_{CourseID}(\sigma_{Dept\ =  \ 'CS'}(Course)) }$
     
-3. $\ce{Result(StudentID) = AllStudentsAndCourses \div CS\_Courses}$
+3. $\ce{ Result(StudentID) = AllStudentsAndCourses \div CS\_Courses }$
 
 ### Queries in Relational Algebra
 
@@ -114,29 +114,29 @@ booking(pid, aid, fid, fdate)
 ```
 
 Q: Find all flights to 'New Delhi'.
-$$\ce{\sigma_{dest\ =\ 'New Delhi'} (flight)}$$
+$$\ce{ \sigma_{dest\ =\ 'New Delhi'} (flight) }$$
 
 Q: Find all flights from 'Chennai' to 'New Delhi'.
-$$ \ce{\sigma_{src\ =\ 'Chennai'\ and\ dest\ =\ 'New Delhi'} (flight)} $$
+$$\ce{ \sigma_{src\ =\ 'Chennai'\ and\ dest\ =\ 'New Delhi'} (flight) }$$
 
 **Q: Find only the flight numbers (fid) for passenger with pid '123' for flights to 'Chennai' before '06.11.2020'.**
 - First, find the relevant flights:
-    $$ \ce{F \leftarrow \sigma_{ dest\ =\  'Chennai'\ and\ fdate\ <\ '06.11.2020'}(flight)} $$
+    $$\ce{ F \leftarrow \sigma_{ dest\ =\  'Chennai'\ and\ fdate\ <\ '06.11.2020'}(flight) }$$
     
 - Next, find the relevant bookings:
-    $$ \ce{B \leftarrow \sigma_{pid\ = '123'}(booking)} $$
+    $$\ce{ B \leftarrow \sigma_{pid\ = '123'}(booking) }$$
     
 - Join them and project the fid:
-    $$ \ce{\Pi_{ fid} (B \bowtie F)} $$
+    $$\ce{ \Pi_{ fid} (B \bowtie F) }$$
 
 Q: Find passenger names for passengers who have bookings on at least one flight.
-$$ \ce{\Pi_{pname}( passenger \bowtie  booking)} $$
+$$\ce{ \Pi_{pname}( passenger \bowtie  booking) }$$
 
 **Q: Find passenger IDs (pid) who have used _all_ agencies located in 'Mumbai'.**
 
 - Find the agency IDs in 'Mumbai':
-    $$ \ce{A_{Mumbai} \leftarrow \Pi_{aid}(\sigma_{acity\ =\  'Mumbai'}(agency))} $$
+    $$\ce{ A_{Mumbai} \leftarrow \Pi_{aid}(\sigma_{acity\ =\  'Mumbai'}(agency)) }$$
 - Find all bookings by passenger and agency:
-    $$ \ce{B_{PA} \leftarrow \Pi_{pid, aid}(booking)} $$
+    $$\ce{ B_{PA} \leftarrow \Pi_{pid, aid}(booking) }$$
 - Divide the bookings by the agencies:
-    $$ \ce{Result \leftarrow B_{PA} \div A_{Mumbai}} $$
+    $$\ce{ Result \leftarrow B_{PA} \div A_{Mumbai} }$$

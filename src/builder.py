@@ -45,10 +45,10 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
                 first_header_removed = True
                 continue
 
-        # Demote remaining headers
-        if stripped.startswith('#'):
-             if re.match(r'^#+\s', line):
-                 line = '#' + line
+        # Demote remaining headers - REMOVED
+        # if stripped.startswith('#'):
+        #      if re.match(r'^#+\s', line):
+        #          line = '#' + line
                  
         new_lines.append(line)
         
@@ -101,19 +101,21 @@ def build() -> None:
     headers_tex_file = generate_headers_tex(artifacts_dir)
     cover_tex_path = generate_cover_tex(artifacts_dir) # Only content changes? No, it writes file.
 
-    yaml_block = f"""---
-include-before:
-  - \\dominitoc
-  - \\setcounter{{minitocdepth}}{{4}}
----
-
-"""
-    master_content.append(yaml_block)
+    # YAML block removed, minitoc init moved to cover.tex
 
     for filepath in md_files:
         title, content, fid = process_file(filepath, source_dir)
-        # Add Chapter Header + Mini TOC
-        header = f"\n\n# {title} {{#{fid}}}\n\n\\minitoc\n\n"
+        # Add Chapter Header + Mini TOC (using etoc)
+        # We style it to look like a mini TOC box
+        header = f"""
+
+# {title} {{#{fid}}}
+
+\\etocsettocstyle{{\\textbf{{Chapter Contents}}\\par\\rule{{\\linewidth}}{{0.5pt}}}}{{\\par\\rule{{\\linewidth}}{{0.5pt}}}}
+\\localtableofcontents
+\\noindent
+
+"""
         master_content.append(header)
         master_content.append(content)
         master_content.append("\n\n\\newpage\n\n")
@@ -180,6 +182,7 @@ include-before:
     if CONFIG['style'].get('mainfont'): cmd_tex.extend(["--variable", f"mainfont={CONFIG['style']['mainfont']}"])
     if CONFIG['style'].get('sansfont'): cmd_tex.extend(["--variable", f"sansfont={CONFIG['style']['sansfont']}"])
     if CONFIG['style'].get('monofont'): cmd_tex.extend(["--variable", f"monofont={CONFIG['style']['monofont']}"])
+    if CONFIG['style'].get('geometry'): cmd_tex.extend(["--variable", f"geometry={CONFIG['style']['geometry']}"])
     
     print(f"\nGenerating LaTeX: {tex_file}...\n")
     try:

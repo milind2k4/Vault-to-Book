@@ -1,31 +1,28 @@
----
-include-before:
-  - \dominitoc
-  - \setcounter{minitocdepth}{4}
----
-
 
 
 # DBMS {#dbms}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
-### Fundamental Concepts
-#### Data vs. Information
+## Fundamental Concepts
+### Data vs. Information
 
 - **Data**: Raw, unprocessed facts and figures without context.
   - _Example_: `100`, `Red`, `John`.
 - **Information**: Processed data that has meaning and context.
   - _Example_: "John scored 100 marks in the Red team."
 
-#### Database Management System (DBMS)
+### Database Management System (DBMS)
 
 A **DBMS** is a general-purpose software system that facilitates the process of defining, constructing, manipulating, and sharing databases among various users and applications.
 
-> [!TIP] > **Analogy:** Think of a **Database** as a library full of books (data). The **DBMS** is the librarian who manages the catalog, organizes the books, ensures security, and helps you find exactly what you need. You don't go to the shelf yourself; you ask the librarian.
+> [!TIP] > **Analogy** 
+> Think of a **Database** as a library full of books (data). The **DBMS** is the librarian who manages the catalog, organizes the books, ensures security, and helps you find exactly what you need. You don't go to the shelf yourself; you ask the librarian.
 
-#### Database System vs. File System
+### Database System vs. File System
 
 Before DBMS, data was stored in OS files (File Processing System).
 
@@ -39,9 +36,9 @@ Before DBMS, data was stored in OS files (File Processing System).
 | **Security**    | OS-level (File permissions).                                                                              | Granular (Table/Row/Column level).                      |
 | **Concurrency** | **Poor:** OS locks entire files.                                                                          | **High:** Fine-grained locking (Row-level).             |
 
-### Database Architecture
+## Database Architecture
 
-#### Three-Schema Architecture
+### Three-Schema Architecture
 
 Proposed by ANSI/SPARC to achieve **Data Independence**. It separates the user view from the physical storage.
 
@@ -57,34 +54,34 @@ Proposed by ANSI/SPARC to achieve **Data Independence**. It separates the user v
     - Describes **how** data is stored (block size, compression, indexes, hashing).
     - _Example_: "Stored as a B+ Tree on Drive D:".
 
-#### Data Independence
+### Data Independence
 
 The capacity to change the schema at one level of a database system without having to change the schema at the next higher level.
 
-##### Logical Data Independence
+#### Logical Data Independence
 
 - **Definition**: Ability to change the **Conceptual Schema** without affecting **External Schemas** (Application Programs).
 - **Scenario**: Adding a new column `DateOfBirth` to the `Student` table.
 - **Result**: Existing apps that only read `Name` and `ID` **do not crash**. They simply ignore the new column.
 - **Analogy**: A restaurant changes its kitchen layout (Conceptual). The menu (External) remains the same for the customer.
 
-##### Physical Data Independence
+#### Physical Data Independence
 
 - **Definition**: Ability to change the **Internal Schema** without affecting the **Conceptual Schema**.
 - **Scenario**: Creating a new **Index** on `Student(ID)` for faster search, or moving data from HDD to SSD.
 - **Result**: The logical table structure (`CREATE TABLE`) remains exactly the same. The query runs faster, but the query _code_ doesn't change.
 - **Analogy**: The library moves books from wooden shelves to metal shelves (Physical). The catalog numbers (Conceptual) and how you search for books (External) remain unchanged.
 
-### DBMS Architecture Styles
+## DBMS Architecture Styles
 
-#### 2-Tier Architecture (Client-Server)
+### 2-Tier Architecture (Client-Server)
 
 - **Client**: Runs the application and UI. Communicates directly with the DB.
 - **Server**: Runs the DBMS.
 - **Drawback**: Security risk (direct DB access), poor scalability.
 - **Use Case**: JDBC/ODBC applications.
 
-#### 3-Tier Architecture (Web Applications)
+### 3-Tier Architecture (Web Applications)
 
 - **Client**: Web Browser (Presentation Layer).
 - **Application Server**: Business Logic (Java/Spring, Node.js).
@@ -92,7 +89,7 @@ The capacity to change the schema at one level of a database system without havi
 - **Flow**: Client $\leftrightarrow$ App Server $\leftrightarrow$ DB Server.
 - **Benefit**: Enhanced security (Client never touches DB directly), scalability.
 
-### Database Users & Administrators
+## Database Users & Administrators
 
 | Role                             | Responsibilities                                                                      |
 | :------------------------------- | :------------------------------------------------------------------------------------ |
@@ -101,7 +98,7 @@ The capacity to change the schema at one level of a database system without havi
 | **Sophisticated User**           | Analysts/Scientists who write complex SQL queries/scripts for data mining.            |
 | **Naive User**                   | End-users accessing DB via GUI (e.g., Bank teller using a form). They don't know SQL. |
 
-### Data Models
+## Data Models
 
 A collection of conceptual tools for describing data, relationships, semantics, and constraints.
 
@@ -117,12 +114,14 @@ A collection of conceptual tools for describing data, relationships, semantics, 
 
 # Entity Relation Diagram {#entity-relation-diagram}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 The **ER Model** is a high-level conceptual data model used to define the data elements and relationships for a specified system. It develops a conceptual design for the database.
 
-#### Entity
+### Entity
 
 An object in the real world that is distinguishable from other objects.
 
@@ -132,7 +131,7 @@ An object in the real world that is distinguishable from other objects.
 - **Weak Entity**: An entity that cannot be uniquely identified by its own attributes alone. It must be associated with a _Strong Entity_ (Owner Entity). Represented by a **double rectangle**.
   - _Discriminator (Partial Key)_: Attributes that distinguish weak entities within the owner entity set. Dashed underline.
 
-#### Attributes
+### Attributes
 
 Properties used to describe an entity.
 
@@ -141,7 +140,7 @@ Properties used to describe an entity.
 - **Multi-valued**: Can have multiple values for a single entity (e.g., `PhoneNumbers`). **Double Ellipse**.
 - **Derived**: Value is derived from other attributes (e.g., `Age` from `DOB`). **Dashed Ellipse**.
 
-#### Relationships
+### Relationships
 
 An association among several entities.
 
@@ -157,7 +156,7 @@ An association among several entities.
   - **Total Participation** (Double Line): Every entity in the set _must_ participate (e.g., Every Loan must belong to a Customer).
   - **Partial Participation** (Single Line): Some entities may not participate.
 
-### Keys
+## Keys
 
 A **Key** is a set of attributes that uniquely identifies an entity in an entity set.
 
@@ -168,18 +167,18 @@ A **Key** is a set of attributes that uniquely identifies an entity in an entity
 3.  **Primary Key**: The candidate key chosen by the database designer as the principal means of identifying entities.
     - _Constraint_: Cannot be NULL.
 
-### Reduction of ER Diagram to Relational Tables
+## Reduction of ER Diagram to Relational Tables
 
 This is the algorithm to convert a conceptual ER design into a logical Relational Schema.
 
-##### Step 1: Strong Entity Sets
+#### Step 1: Strong Entity Sets
 
 Create a table for each strong entity.
 
 - **Columns**: All simple attributes.
 - **PK**: The primary key of the entity.
 
-##### Step 2: Weak Entity Sets
+#### Step 2: Weak Entity Sets
 
 Create a table for the weak entity $W$ with owner $E$.
 
@@ -187,33 +186,33 @@ Create a table for the weak entity $W$ with owner $E$.
 - **PK**: Composite Key $\{ \text{PK of } E, \text{Discriminator of } W \}$.
 - **Constraint**: `ON DELETE CASCADE` (usually).
 
-##### Step 3: 1:1 Relationship
+#### Step 3: 1:1 Relationship
 
 - **Option A (Foreign Key)**: Add the PK of one side as a FK to the other side. Prefer adding to the side with **Total Participation** to avoid NULLs.
 - **Option B (Merged)**: If both sides have total participation, merge them into a single table.
 
-##### Step 4: 1:N Relationship
+#### Step 4: 1:N Relationship
 
 - **Rule**: Take the PK of the "1" side and add it as a Foreign Key to the "N" side table.
 - _Example_: `Dept (1) ---- (N) Employee`. Add `DeptID` to `Employee` table.
 
-##### Step 5: M:N Relationship
+#### Step 5: M:N Relationship
 
 Create a new **Junction Table** (Relationship Table).
 
 - **Columns**: PK of Entity A + PK of Entity B + Attributes of the relationship itself.
 - **PK**: Composite Key $\{ \text{PK of A}, \text{PK of B} \}$.
 
-##### Step 6: Multi-valued Attributes
+#### Step 6: Multi-valued Attributes
 
 Create a new table for the attribute.
 
 - **Columns**: PK of the Entity + The Attribute Value.
 - **PK**: Composite Key $\{ \text{PK of Entity}, \text{Attribute Value} \}$.
 
-### Case Study: Banking System
+## Case Study: Banking System
 
-#### Scenario
+### Scenario
 
 - **Bank** has multiple **Branches**.
 - **Customers** open **Accounts** at a branch.
@@ -222,7 +221,7 @@ Create a new table for the attribute.
 - **Customer** can have multiple **Addresses** (Multi-valued).
 - **Loan** is a Weak Entity dependent on Branch (conceptually, though often modeled as strong in practice, let's assume weak for this example).
 
-#### ER Design
+### ER Design
 
 1.  **Entities**: `Branch`, `Customer`, `Account`, `Loan`, `Employee`.
 2.  **Relationships**:
@@ -231,7 +230,7 @@ Create a new table for the attribute.
     - `Customer` (M) --- (N) `Loan` (_Borrower_).
     - `Branch` (1) --- (N) `Account`.
 
-#### Reduction to Tables
+### Reduction to Tables
 
 1.  **Branch** (Strong Entity)
     - `Branch(BranchName, BranchCity, Assets)`
@@ -277,14 +276,16 @@ Create a new table for the attribute.
 
 # Relational Data Model {#relational-data-model}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 The **Relational Model** (proposed by E.F. Codd, 1970) represents data as a collection of **relations** (tables). It is the theoretical basis for SQL.
 
-### Definitions
+## Definitions
 
-#### Relation ($R$)
+### Relation ($R$)
 
 Mathematically, a relation is a subset of the Cartesian product of a list of domains.
 
@@ -293,7 +294,7 @@ Mathematically, a relation is a subset of the Cartesian product of a list of dom
 - **Attribute ($A$)**: A column header. Represents a property of the entity.
 - **Domain ($D$)**: The set of atomic values allowed for an attribute (e.g., Integer, String).
 
-#### Schema vs. Instance
+### Schema vs. Instance
 
 - **Relation Schema ($R$)**: The logical design (blueprint).
   - Notation: $R(A_1, A_2, ..., A_n)$
@@ -302,16 +303,16 @@ Mathematically, a relation is a subset of the Cartesian product of a list of dom
   - Notation: $r(R)$
   - _Property_: A relation is a **Set**, meaning **no duplicate tuples** are allowed and **order does not matter**.
 
-##### Properties
+#### Properties
 1.  **Degree (Arity)**: The number of attributes (columns).
 2.  **Cardinality**: The number of tuples (rows).
 
-### Relational Keys
+## Relational Keys
 [[01 Entity Relation Diagram#Keys]]
 
 A **Key** is a set of attributes used to uniquely identify a tuple.
 
-#### Hierarchy of Keys
+### Hierarchy of Keys
 
 1.  **Super Key ($SK$)**: A set of attributes that **uniquely identifies** a tuple.
     - _Condition_: For any two distinct tuples $t_1, t_2$, if $t_1[SK] = t_2[SK]$, then $t_1 = t_2$.
@@ -329,29 +330,29 @@ A **Key** is a set of attributes used to uniquely identify a tuple.
 > - **Candidate Key:** Just _one_ ID card (Passport OR Driver's License).
 > - **Primary Key:** The one you show at the airport (Passport).
 
-### Integrity Constraints
+## Integrity Constraints
 
 Rules that maintain the quality and consistency of data.
 
-##### Domain Constraints
+#### Domain Constraints
 
 Ensures that values for an attribute come from the defined domain.
 
 - _Example_: `Age` must be an Integer $> 0$. `Name` cannot be an Image.
 
-##### Entity Integrity Constraint
+#### Entity Integrity Constraint
 
 - **Rule**: The **Primary Key** cannot be **NULL**.
 - **Reason**: The PK is the identity of the tuple. A NULL identity implies the entity doesn't exist or cannot be distinguished.
 
-##### Referential Integrity Constraint
+#### Referential Integrity Constraint
 
 - **Rule**: A **Foreign Key** value must either:
   1.  Match an existing Primary Key value in the referenced relation.
   2.  Be NULL (if allowed).
 - **Purpose**: Prevents **Dangling Pointers** (referencing non-existent data).
 
-###### Handling Violations (ON DELETE / ON UPDATE)
+##### Handling Violations (ON DELETE / ON UPDATE)
 
 When a referenced row (e.g., Department) is deleted, what happens to the referencing rows (e.g., Employees)?
 
@@ -361,7 +362,7 @@ When a referenced row (e.g., Department) is deleted, what happens to the referen
 4.  **Set Default**: Set the FK to a default value.
 
 
-### [[03 Relational Algebra]]
+## [[03 Relational Algebra]]
 
 | Operation             |  Symbol  | Type   | Description                                  |
 | :-------------------- | :------: | :----- | :------------------------------------------- |
@@ -379,7 +380,9 @@ When a referenced row (e.g., Department) is deleted, what happens to the referen
 
 # Relational Algebra {#relational-algebra}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 The algebra which can be performed on a relational database.
@@ -392,9 +395,9 @@ There are two types of query languages:
 
 The fundamental operations of relational algebra are grouped into unary (acting on one relation) and binary (acting on two relations) operations.
 
-#### Unary Relational Operations
+### Unary Relational Operations
 
-##### Select ($\sigma$)
+#### Select ($\sigma$)
 
 Selects a subset of tuples (rows) from a relation that satisfy a given predicate (condition). It acts like a `WHERE` clause in SQL.
 $$\sigma_{p}(r)$$
@@ -403,11 +406,11 @@ $r$ is relation
 $p$ is predicate i.e. logic ("filter")
 
 E.g.
-$$ \ce{\sigma_{ subject = 'database' \ and \ price = 1000} (Books)} $$
-$$ \ce{\sigma_{branch\_name ='Perryride'}(Loan)} $$
-$$ \ce{\sigma_{Amount > 1000\  \wedge\ Branch\_name \neq 'Perryride'}(Loan)} $$
+$$\ce{ \sigma_{ subject = 'database' \ and \ price = 1000} (Books) }$$
+$$\ce{ \sigma_{branch\_name ='Perryride'}(Loan) }$$
+$$\ce{ \sigma_{Amount > 1000\  \wedge\ Branch\_name \neq 'Perryride'}(Loan) }$$
 
-##### Project ($\Pi$)
+#### Project ($\Pi$)
 
 Selects a subset of attributes (columns) from a relation. It automatically removes duplicate rows from the result, as relations are sets.
 
@@ -416,9 +419,9 @@ where,
 $A_{i}$ are attribute names and
 $r$ is relation
 E.g. To get only the name and duration from the Course table:
-$$ \ce{\Pi_{Name, Duration}(Course)} $$
+$$\ce{ \Pi_{Name, Duration}(Course) }$$
 
-##### Rename ($\rho$)
+#### Rename ($\rho$)
 
 Renames the output relation or its attributes. This is crucial for self-joins or for clarifying the results of complex expressions.
 $$\rho_{x}( E)$$
@@ -426,8 +429,8 @@ where the result of expression E is saved with name $x$.
 $$\rho_{x(A1, A2, ...)}( E)$$
 where the result of expression E is saved as $x$, and its attributes are renamed to $A1, A2, ...$
 
-#### Binary Relational Operations
-##### Set Theory Operations
+### Binary Relational Operations
+#### Set Theory Operations
 These operations require the two relations ($r$ and $s$) to be **union-compatible** (or type-compatible):
 1. They must have the same number of attributes (same degree/arity).
 2. The domains of corresponding attributes must be the same.
@@ -440,23 +443,23 @@ These operations require the two relations ($r$ and $s$) to be **union-compatibl
     The result contains all tuples that are in both $r$ and $s$.
     (Note: This is a derived operator, as $r \cap s = r - (r - s)$)
 
-##### Cartesian Product / Cross Product ($r \times s$)
+#### Cartesian Product / Cross Product ($r \times s$)
 
 Combines every tuple from $r$ with every tuple from $s$. If $r$ has $n$ tuples and $s$ has $m$ tuples, the result will have $n \times m$ tuples. The resulting relation has all attributes from both $r$ and $s$.
 
-##### Join Operations
+#### Join Operations
 
 Joins are used to combine related tuples from two different relations into a single tuple.
 
-###### Theta Join ($\bowtie_{\theta}$)
+##### Theta Join ($\bowtie_{\theta}$)
 This is the most general join. It is equivalent to a Cartesian Product followed by a Select operation.
 $$r \bowtie_{\theta} s = \sigma_{\theta}(r \times s)$$
 Here, $\theta$ is a predicate (condition) that compares attributes from $r$ and $s$.
     
-###### Equi Join
+##### Equi Join
 A special type of Theta Join where the predicate $\theta$ only uses the equality operator (=).
 
-###### Natural Join ($r \bowtie s$)
+##### Natural Join ($r \bowtie s$)
 This is the most common join. It is a subset of the Cartesian product.
 1. It performs an Equi Join on _all_ attributes that have the _same name_ in both relations.
 2. The result has all attributes of both tables, but the common attributes appear only once. 
@@ -465,7 +468,7 @@ It results in the set of all combinations of tuples where they have equal values
 E.g. $r(A, B, C)$ and $s(B, D)$. The natural join $r \bowtie s$ is:
 $$\Pi_{r.A, r.B, r.C, s.D}(\sigma_{r.B = s.B}(r \times s))$$
 
-##### Division ($\div$)
+#### Division ($\div$)
 
 This operation is used for queries that include the phrase "for all".
 
@@ -477,13 +480,13 @@ It returns all tuples $t$ from the $R-S$ part of $r$ such that for _every_ tuple
 
 **E.g. "Find students who have taken _all_ courses in the 'CS' department."**
 
-1. $\ce{AllStudentsAndCourses(StudentID, CourseID)}$
+1. $\ce{ AllStudentsAndCourses(StudentID, CourseID) }$
     
-2. $\ce{CS\_Courses(CourseID) = \Pi_{CourseID}(\sigma_{Dept\ =  \ 'CS'}(Course))}$
+2. $\ce{ CS\_Courses(CourseID) = \Pi_{CourseID}(\sigma_{Dept\ =  \ 'CS'}(Course)) }$
     
-3. $\ce{Result(StudentID) = AllStudentsAndCourses \div CS\_Courses}$
+3. $\ce{ Result(StudentID) = AllStudentsAndCourses \div CS\_Courses }$
 
-#### Queries in Relational Algebra
+### Queries in Relational Algebra
 
 Given the following schema:
 ```
@@ -494,32 +497,32 @@ booking(pid, aid, fid, fdate)
 ```
 
 Q: Find all flights to 'New Delhi'.
-$$\ce{\sigma_{dest\ =\ 'New Delhi'} (flight)}$$
+$$\ce{ \sigma_{dest\ =\ 'New Delhi'} (flight) }$$
 
 Q: Find all flights from 'Chennai' to 'New Delhi'.
-$$ \ce{\sigma_{src\ =\ 'Chennai'\ and\ dest\ =\ 'New Delhi'} (flight)} $$
+$$\ce{ \sigma_{src\ =\ 'Chennai'\ and\ dest\ =\ 'New Delhi'} (flight) }$$
 
 **Q: Find only the flight numbers (fid) for passenger with pid '123' for flights to 'Chennai' before '06.11.2020'.**
 - First, find the relevant flights:
-    $$ \ce{F \leftarrow \sigma_{ dest\ =\  'Chennai'\ and\ fdate\ <\ '06.11.2020'}(flight)} $$
+    $$\ce{ F \leftarrow \sigma_{ dest\ =\  'Chennai'\ and\ fdate\ <\ '06.11.2020'}(flight) }$$
     
 - Next, find the relevant bookings:
-    $$ \ce{B \leftarrow \sigma_{pid\ = '123'}(booking)} $$
+    $$\ce{ B \leftarrow \sigma_{pid\ = '123'}(booking) }$$
     
 - Join them and project the fid:
-    $$ \ce{\Pi_{ fid} (B \bowtie F)} $$
+    $$\ce{ \Pi_{ fid} (B \bowtie F) }$$
 
 Q: Find passenger names for passengers who have bookings on at least one flight.
-$$ \ce{\Pi_{pname}( passenger \bowtie  booking)} $$
+$$\ce{ \Pi_{pname}( passenger \bowtie  booking) }$$
 
 **Q: Find passenger IDs (pid) who have used _all_ agencies located in 'Mumbai'.**
 
 - Find the agency IDs in 'Mumbai':
-    $$ \ce{A_{Mumbai} \leftarrow \Pi_{aid}(\sigma_{acity\ =\  'Mumbai'}(agency))} $$
+    $$\ce{ A_{Mumbai} \leftarrow \Pi_{aid}(\sigma_{acity\ =\  'Mumbai'}(agency)) }$$
 - Find all bookings by passenger and agency:
-    $$ \ce{B_{PA} \leftarrow \Pi_{pid, aid}(booking)} $$
+    $$\ce{ B_{PA} \leftarrow \Pi_{pid, aid}(booking) }$$
 - Divide the bookings by the agencies:
-    $$ \ce{Result \leftarrow B_{PA} \div A_{Mumbai}} $$
+    $$\ce{ Result \leftarrow B_{PA} \div A_{Mumbai} }$$
 
 \newpage
 
@@ -527,12 +530,14 @@ $$ \ce{\Pi_{pname}( passenger \bowtie  booking)} $$
 
 # SQL {#sql}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 SQL is the standard language for interacting with Relational Database Management Systems (RDBMS). It is **Declarative** (you specify _what_ you want, not _how_ to get it).
 
-### SQL Command Categories
+## SQL Command Categories
 
 | Category | Full Form                    | Commands                               | Purpose                                         |
 | :------- | :--------------------------- | :------------------------------------- | :---------------------------------------------- |
@@ -541,9 +546,9 @@ SQL is the standard language for interacting with Relational Database Management
 | **DCL**  | Data Control Language        | `GRANT`, `REVOKE`                      | Manages access rights/permissions.              |
 | **TCL**  | Transaction Control Language | `COMMIT`, `ROLLBACK`, `SAVEPOINT`      | Manages transactions (ACID).                    |
 
-### DDL (Data Definition Language)
+## DDL (Data Definition Language)
 
-#### CREATE
+### CREATE
 
 Creates a new table or object.
 
@@ -555,7 +560,7 @@ CREATE TABLE Student (
 );
 ```
 
-#### ALTER
+### ALTER
 
 Modifies the structure of an existing table.
 
@@ -565,16 +570,16 @@ ALTER TABLE Student DROP COLUMN Email;      -- Remove Column
 ALTER TABLE Student MODIFY Name VARCHAR(100); -- Change Data Type
 ```
 
-#### DROP vs TRUNCATE
+### DROP vs TRUNCATE
 
 - **DROP**: Removes the table structure AND data. Irreversible.
   - _Analogy_: Burning down the house.
 - **TRUNCATE**: Removes all data but keeps the structure. Faster than DELETE. Cannot be rolled back.
   - _Analogy_: Removing all furniture but keeping the house.
 
-### DML (Data Manipulation Language)
+## DML (Data Manipulation Language)
 
-#### SELECT (The Core)
+### SELECT (The Core)
 
 Retrieves data.
 **Execution Order**: `FROM` $\rightarrow$ `WHERE` $\rightarrow$ `GROUP BY` $\rightarrow$ `HAVING` $\rightarrow$ `SELECT` $\rightarrow$ `ORDER BY`.
@@ -586,7 +591,7 @@ WHERE GPA > 3.5
 ORDER BY GPA DESC;
 ```
 
-#### INSERT, UPDATE, DELETE
+### INSERT, UPDATE, DELETE
 
 ```sql
 -- INSERT
@@ -599,9 +604,9 @@ UPDATE Student SET GPA = 4.0 WHERE ID = 1;
 DELETE FROM Student WHERE GPA < 2.0;
 ```
 
-### Advanced Querying
+## Advanced Querying
 
-#### Aggregate Functions
+### Aggregate Functions
 
 Functions that perform a calculation on a set of values and return a single value.
 
@@ -615,7 +620,7 @@ The following are numeric functions (they all ignore NULL values):
 - `MAX()` finds the max.
 - `MIN()` finds the min.
 
-##### Other Functions (Numeric)
+#### Other Functions (Numeric)
 
 - `CEIL()` returns the smallest integer larger than the input fraction.
 - `FLOOR()` returns the largest integer smaller than the input fraction.
@@ -634,7 +639,7 @@ The following are numeric functions (they all ignore NULL values):
 
 Using numeric functions on non-numeric data types will give an error.
 
-##### Non Numeric Functions (String)
+#### Non Numeric Functions (String)
 
 - `ASCII()`
 - `CHR(ascii_value)`
@@ -656,7 +661,7 @@ Using numeric functions on non-numeric data types will give an error.
     SMITH
     ```
 
-##### Date Functions
+#### Date Functions
 
 - `SYSDATE`: Returns the current system date and time.
 - `ADD_MONTHS(date, n)`: Adds `n` months to a date.
@@ -664,7 +669,7 @@ Using numeric functions on non-numeric data types will give an error.
 - `TO_DATE(string, format)`: Converts a string to a DATE value.
 - `TO_CHAR(date, format)`: Converts a DATE value to a string.
 
-#### GROUP BY and HAVING
+### GROUP BY and HAVING
 
 - **GROUP BY**: Groups rows that have the same values into summary rows.
 - **HAVING**: Filters groups (like `WHERE` filters rows).
@@ -681,9 +686,9 @@ GROUP BY Dept
 HAVING AVG(Salary) > 50000;
 ```
 
-### [[4.5 Joins]]
+## [[4.5 Joins]]
 
-#### Union, Intersect and Minus
+### Union, Intersect and Minus
 
 These are set operators that combine the results of two `SELECT` statements. The result sets must be "union-compatible" (same number of columns, and compatible data types).
 
@@ -699,11 +704,11 @@ UNION
 SELECT did FROM dept;
 ```
 
-### Subqueries
+## Subqueries
 
 A query nested inside another query.
 
-#### Nested Subquery
+### Nested Subquery
 
 The inner query executes once, and its result is used by the outer query.
 
@@ -713,7 +718,7 @@ SELECT Name FROM Student
 WHERE GPA > (SELECT AVG(GPA) FROM Student);
 ```
 
-#### Correlated Subquery
+### Correlated Subquery
 
 The inner query depends on the outer query and executes **once for every row** processed by the outer query. **Performance Heavy**.
 
@@ -732,7 +737,9 @@ WHERE Salary > (
 
 # Views {#views}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Views are virtual tables. They do not store any data themselves but are based on the result-set of an SQL query.
@@ -773,7 +780,7 @@ Views' schemas (their definitions, not their data) are stored in the data dictio
 
 At runtime, when a view is queried, the database executes the view's underlying SELECT statement, creates the virtual table, and then runs the query against it.
 
-#### Updating the View
+### Updating the View
 
 ```sql
 CREATE OR REPLACE VIEW <viewname> AS SELECT <column> FROM <table>;
@@ -781,7 +788,7 @@ CREATE OR REPLACE VIEW <viewname> AS SELECT <column> FROM <table>;
 
 If view already exists, it will update it (replace its definition), if not, then it will create one.
 
-#### Dropping the View
+### Dropping the View
 
 If we want to drop the view,
 
@@ -793,7 +800,7 @@ This drops the view's definition only. It has no effect on the data in the under
 
 If we drop the base table, then all the views connected to the table will become invalid and will be dropped as well.
 
-#### Insertion, Updation and Deletion in View
+### Insertion, Updation and Deletion in View
 
 This is also known as "updatability". Whether a view is updatable (allows `INSERT`, `UPDATE`, `DELETE`) depends on its definition.
 
@@ -822,7 +829,7 @@ If we try to INSERT into a view, what about the attributes not in the view?
 - The base table's attributes which are not in the view will be given `NULL` value.
 - If any of those attributes has a `NOT NULL` constraint (and no `DEFAULT` value), the `INSERT` operation will fail.
 
-#### WITH CHECK OPTION
+### WITH CHECK OPTION
 
 This is a constraint that can be added to a view. It forces all `INSERT` and `UPDATE` operations on the view to conform to the `WHERE` clause in the view's definition.
 
@@ -861,10 +868,12 @@ Without `WITH CHECK OPTION`, Operation 2 would succeed, and the row would silent
 
 # Indexes {#indexes}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
-#### Sequences (Auto-number)
+### Sequences (Auto-number)
 
 In oracle, we can create an auto-number field by using using sequences. A sequence is an object in Oracle that is used to generate a number sequence. This can be used when we need to create a unique number to act as a primary.
 
@@ -882,7 +891,7 @@ Once a sequence is created, you can access its values in SQL statements with
 1. `CURRVAL` pseudo column which returns the current value of the sequence _for your session_, and,
 2. `NEXTVAL` pseudo column, which increments the sequence and returns the new value.
 
-##### Index Modifiers
+#### Index Modifiers
 
 `NOMAXVALUE` to denote a max value of $10^{27}$ for ascending sequence and -1 for descending sequence. Oracle uses this by default.
 
@@ -913,7 +922,7 @@ CREATE SEQUENCE emp_id_seq
     CACHE 20;
 ```
 
-#### How to Use a Sequence
+### How to Use a Sequence
 
 You typically use `NEXTVAL` within an `INSERT` statement to populate a primary key column.
 
@@ -928,7 +937,7 @@ To retrieve the value you just inserted within your current session, you can use
 SELECT emp_id_seq.CURRVAL FROM DUAL;
 ```
 
-#### Index
+### Index
 
 When the user executes a select statement to search for a particular record, the oracle engine is first required to locate the table on the hard disk. The oracle engine reads system information and starts searching the location of the table in storage media.
 
@@ -955,7 +964,7 @@ Index consists of,
 
 A table's **ROWID** identifies a row's physical address. The format you may see (`BBBBBB.RRRR.FFFF`) is the older _Restricted ROWID_. Modern Oracle databases use an _Extended ROWID_ which is more complex (using a Base64-encoded string) and includes the Data Object Number, allowing it to uniquely identify rows in different objects.
 
-#### Creating an Index
+### Creating an Index
 
 ```sql
 CREATE INDEX index_name
@@ -971,7 +980,7 @@ ON table_name(column1, column2, ...);
 
 This syntax creates a **unique index**. It enforces a constraint that no two rows in the table can have the same value (or combination of values) in the indexed column(s). `NULL` values are permitted (unless a `NOT NULL` constraint also exists). **Primary Key constraints automatically create a unique index.**
 
-#### Types of Indexes
+### Types of Indexes
 
 | Index Type           | Best For                                  | Pros                              | Cons                                   |
 | :------------------- | :---------------------------------------- | :-------------------------------- | :------------------------------------- |
@@ -983,13 +992,13 @@ This syntax creates a **unique index**. It enforces a constraint that no two row
 - **Bitmap Index:** Good for low-cardinality data (e.g., `gender`, `is_active`). Very fast for `OR` and `AND` queries on these columns, but slow to update (high DML overhead).
 - **Function-Based Index:** An index built on the result of a function or expression (e.g., `CREATE INDEX idx_emp_name ON employees (UPPER(last_name))` to speed up case-insensitive searches).
 
-#### When _Not_ to Use an Index
+### When _Not_ to Use an Index
 
 - **On very small tables:** A full table scan is often faster because reading the index is an extra step.
 - **On columns with very low cardinality (B-Tree):** A standard B-Tree index on a column like `gender` (M/F) is inefficient. A bitmap index is better here.
 - **On tables with very frequent DML:** Heavy `INSERT`, `UPDATE`, and `DELETE` operations require constant index updates, which can slow down these operations.
 
-#### Managing Indexes
+### Managing Indexes
 
 You can drop an index that is no longer needed:
 
@@ -1012,14 +1021,16 @@ WHERE table_name = 'EMPLOYEES';
 
 # PLSQL {#plsql}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 
 
 PL/SQL combines the data manipulation power of SQL with the processing power of procedural languages (Loops, Conditions, Variables).
 
-### Block Structure
+## Block Structure
 
 The basic unit of a PL/SQL program.
 
@@ -1038,13 +1049,13 @@ END;
 /
 ```
 
-### Variables & Data Types
+## Variables & Data Types
 
-#### Scalar Types
+### Scalar Types
 
 Single values (e.g., `NUMBER`, `VARCHAR2`, `DATE`, `BOOLEAN`).
 
-#### Attributes (%TYPE and %ROWTYPE)
+### Attributes (%TYPE and %ROWTYPE)
 
 - **`%TYPE`**: Declares a variable with the _same type_ as a table column.
   ```sql
@@ -1056,9 +1067,9 @@ Single values (e.g., `NUMBER`, `VARCHAR2`, `DATE`, `BOOLEAN`).
   -- Access fields: v_emp.Name, v_emp.Salary
   ```
 
-### Control Structures
+## Control Structures
 
-#### Conditional Logic
+### Conditional Logic
 
 **IF-THEN-ELSIF-ELSE**
 
@@ -1082,7 +1093,7 @@ CASE grade
 END CASE;
 ```
 
-#### Loops
+### Loops
 
 **Basic Loop**
 
@@ -1109,11 +1120,11 @@ FOR i IN 1..5 LOOP
 END LOOP;
 ```
 
-### Cursors
+## Cursors
 
 A pointer to a memory area (Context Area) that stores the result of a SQL statement.
 
-#### Implicit Cursor
+### Implicit Cursor
 
 Automatically created for `INSERT`, `UPDATE`, `DELETE`, and single-row `SELECT INTO`.
 
@@ -1122,7 +1133,7 @@ Automatically created for `INSERT`, `UPDATE`, `DELETE`, and single-row `SELECT I
   - `%NOTFOUND`: True if no row affected.
   - `%ROWCOUNT`: Number of rows affected.
 
-#### Explicit Cursor
+### Explicit Cursor
 
 Defined by the programmer for queries returning **multiple rows**.
 **Steps**:
@@ -1151,7 +1162,7 @@ Defined by the programmer for queries returning **multiple rows**.
 > /
 > ```
 
-### Procedures vs Functions
+## Procedures vs Functions
 
 | Feature          | Procedure                                   | Function                                              |
 | :--------------- | :------------------------------------------ | :---------------------------------------------------- |
@@ -1170,11 +1181,11 @@ Defined by the programmer for queries returning **multiple rows**.
 > /
 > ```
 
-### Triggers
+## Triggers
 
 Stored programs automatically fired (executed) in response to events (`INSERT`, `UPDATE`, `DELETE`).
 
-#### Types
+### Types
 
 1.  **Row-Level**: Fires once for _each row_ affected. (Uses `FOR EACH ROW`).
 2.  **Statement-Level**: Fires once for the _entire SQL statement_ (even if 100 rows are updated).
@@ -1195,18 +1206,18 @@ Stored programs automatically fired (executed) in response to events (`INSERT`, 
 
 - `:NEW`: Access values _after_ the update/insert.
 
-### Exception Handling
+## Exception Handling
 
 Errors in PL/SQL are called Exceptions.
 
-#### Predefined Exceptions
+### Predefined Exceptions
 
 - `NO_DATA_FOUND`: SELECT INTO returns no rows.
 - `TOO_MANY_ROWS`: SELECT INTO returns more than one row.
 - `ZERO_DIVIDE`: Division by zero.
 - `DUP_VAL_ON_INDEX`: Unique constraint violation.
 
-#### User-Defined Exceptions
+### User-Defined Exceptions
 
 Declared by the programmer and raised explicitly.
 
@@ -1227,7 +1238,7 @@ END;
 /
 ```
 
-### Dynamic SQL
+## Dynamic SQL
 Used to execute SQL statements that are constructed at runtime (e.g., DDL statements inside PL/SQL).
 
 ```sql
@@ -1244,11 +1255,13 @@ END;
 
 # Normalization {#normalization}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 Normalization is the process of organizing data to minimize redundancy and dependency.
 
-### Functional Dependencies (FD)
+## Functional Dependencies (FD)
 An FD is a constraint between two sets of attributes in a relation.
 Notation: $X \rightarrow Y$ ("X determines Y").
 
@@ -1257,7 +1270,7 @@ Notation: $X \rightarrow Y$ ("X determines Y").
 - **Meaning**: For every unique value of $X$, there is exactly one corresponding value of $Y$.
   - _Analogy_: `SSN -> Name`. If you know the SSN, you know the Name.
 
-#### Types of FDs
+### Types of FDs
 
 1.  **Trivial FD**: $Y \subseteq X$ (e.g., $AB \rightarrow A$). Always true.
 2.  **Non-Trivial FD**: $Y \not\subseteq X$ (e.g., $A \rightarrow B$).
@@ -1265,7 +1278,7 @@ Notation: $X \rightarrow Y$ ("X determines Y").
 4.  **Partial FD**: $Y$ depends on a _part_ of $X$ (e.g., $AB \rightarrow C$, but $A \rightarrow C$ is also true).
 5.  **Transitive FD**: $X \rightarrow Y$ and $Y \rightarrow Z$, so $X \rightarrow Z$.
 
-#### Armstrong's Axioms (Inference Rules)
+### Armstrong's Axioms (Inference Rules)
 
 Used to derive all implied FDs.
 
@@ -1273,9 +1286,9 @@ Used to derive all implied FDs.
 2.  **Augmentation**: If $X \rightarrow Y$, then $XZ \rightarrow YZ$.
 3.  **Transitivity**: If $X \rightarrow Y$ and $Y \rightarrow Z$, then $X \rightarrow Z$.
 
-### Algorithms
+## Algorithms
 
-#### Closure of Attributes ($X^+$)
+### Closure of Attributes ($X^+$)
 
 The set of all attributes that can be determined by $X$.
 
@@ -1295,7 +1308,7 @@ The set of all attributes that can be determined by $X$.
 > 4.  Use $BC \rightarrow D$: We have $B$ and $C$, so add $D$. Now $\{A, E, B, C, D\}$.
 > 5.  Result: All attributes. So, $AE$ is a **Super Key**.
 
-#### Canonical Cover (Minimal Cover)
+### Canonical Cover (Minimal Cover)
 
 A simplified set of FDs that is equivalent to the original set but has no redundancy.
 
@@ -1310,7 +1323,7 @@ A simplified set of FDs that is equivalent to the original set but has no redund
 > - $A \rightarrow C$ is redundant because $A \rightarrow B \rightarrow C$.
 > - Minimal Cover: $\{ A \rightarrow B, B \rightarrow C \}$.
 
-##### Complex Example 1: Extraneous Attributes
+#### Complex Example 1: Extraneous Attributes
 
 **Given F:** $\{ AB \rightarrow C, A \rightarrow C, B \rightarrow D \}$
 
@@ -1323,7 +1336,7 @@ A simplified set of FDs that is equivalent to the original set but has no redund
     - New Set: $\{ A \rightarrow C, A \rightarrow C, B \rightarrow D \}$.
 3.  **Remove Duplicates:** $\{ A \rightarrow C, B \rightarrow D \}$.
 
-##### Complex Example 2: Full Reduction
+#### Complex Example 2: Full Reduction
 
 **Given F:** $\{ A \rightarrow BC, B \rightarrow C, A \rightarrow B, AB \rightarrow C \}$
 
@@ -1354,11 +1367,11 @@ Current Set: $\{ A \rightarrow B, A \rightarrow C, B \rightarrow C, A \rightarro
 
 **Final Minimal Cover:** $\{ A \rightarrow B, B \rightarrow C \}$
 
-### Normal Forms
+## Normal Forms
 
 A series of steps to reduce redundancy.
 
-#### 1NF (First Normal Form)
+### 1NF (First Normal Form)
 
 - **Rule**: Atomic values only. No multi-valued attributes or repeating groups.
 - **Fix**: Create a new row for each value.
@@ -1378,7 +1391,7 @@ A series of steps to reduce redundancy.
 > | John | Physics |
 
 
-#### 2NF (Second Normal Form)
+### 2NF (Second Normal Form)
 
 - **Rule**: Must be in 1NF **AND** No **Partial Dependency**.
 - **Partial Dependency**: A non-prime attribute depends on _part_ of a composite Primary Key.
@@ -1399,7 +1412,7 @@ A series of steps to reduce redundancy.
 > Table 1: `(RaceID, RunnerID, FinishTime)`
 > Table 2: `(RunnerID, RunnerName)`
 
-#### 3NF (Third Normal Form)
+### 3NF (Third Normal Form)
 
 - **Rule**: Must be in 2NF **AND** No **Transitive Dependency**.
 - **Transitive Dependency**: Non-Prime $\rightarrow$ Non-Prime.
@@ -1420,7 +1433,7 @@ A series of steps to reduce redundancy.
 > Table 1: `(StudentID, ZipCode)`
 > Table 2: `(ZipCode, City)`
 
-#### BCNF (Boyce-Codd Normal Form)
+### BCNF (Boyce-Codd Normal Form)
 
 - **Rule**: For every FD $X \rightarrow Y$, $X$ must be a **Super Key**.
 - **Stricter than 3NF**: Handles cases where a Prime attribute depends on a Non-Prime attribute.
@@ -1439,7 +1452,7 @@ A series of steps to reduce redundancy.
 > Table 1: `(Professor, Course)`
 > Table 2: `(Student, Professor)`
 
-#### 4NF (Fourth Normal Form)
+### 4NF (Fourth Normal Form)
 
 - **Rule**: No **Multi-valued Dependencies (MVD)**.
 - **MVD ($X \twoheadrightarrow Y$)**: $X$ determines a _set_ of values for $Y$, independent of other attributes.
@@ -1461,7 +1474,7 @@ A series of steps to reduce redundancy.
 > Table 1: `(Course, Book)`
 > Table 2: `(Course, Lecturer)`
 
-#### 5NF (Project-Join Normal Form)
+### 5NF (Project-Join Normal Form)
 
 - **Rule**: No **Join Dependency**.
 - **Concept**: A table that can only be losslessly decomposed into 3 or more tables (not 2). Very rare.
@@ -1476,15 +1489,15 @@ A series of steps to reduce redundancy.
 >
 > If you store `(Supplier, Product, Consumer)` in one table, you might have redundancy that 4NF can't catch. You must split it into three tables: `(Supplier, Product)`, `(Product, Consumer)`, `(Supplier, Consumer)`.
 
-### Decomposition Properties
+## Decomposition Properties
 
-#### Lossless Join
+### Lossless Join
 
 When decomposing $R$ into $R_1$ and $R_2$, the join $R_1 \bowtie R_2$ must yield exactly $R$ (no spurious tuples).
 
 - **Condition**: $R_1 \cap R_2$ (common attributes) must be a **Key** for either $R_1$ or $R_2$.
 
-#### Dependency Preservation
+### Dependency Preservation
 
 All original FDs should be enforceable within the individual decomposed tables without joining.
 
@@ -1497,14 +1510,16 @@ All original FDs should be enforceable within the individual decomposed tables w
 
 # Transactions {#transactions}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 
 
 A **Transaction** is a single logical unit of work (a sequence of operations) that accesses and possibly modifies the database.
 
-### ACID Properties
+## ACID Properties
 
 To ensure data integrity, every transaction must satisfy:
 
@@ -1515,7 +1530,7 @@ To ensure data integrity, every transaction must satisfy:
 | **I**solation   | Concurrent transactions should not interfere. T1 should not see T2's intermediate updates. | **Concurrency Control Manager** (Locks)    |
 | **D**urability  | Committed changes are permanent, even after a crash.                                       | **Recovery Manager** (Redo Logs)           |
 
-#### Transaction States
+### Transaction States
 
 1.  **Active**: Executing.
 2.  **Partially Committed**: Last statement executed.
@@ -1525,11 +1540,11 @@ To ensure data integrity, every transaction must satisfy:
 
 ![\ ](images/mermaid_e90299367a579276801ab63f91cd4362.png){height=11cm}
 
-### Schedules & Serializability
+## Schedules & Serializability
 
 A **Schedule** is the execution order of instructions from multiple transactions.
 
-#### Serial vs. Concurrent
+### Serial vs. Concurrent
 
 - **Serial Schedule**: T1 finishes, then T2 starts. (Slow, Consistent).
 - **Concurrent Schedule**: T1 and T2 interleaved. (Fast, Potential Inconsistency).
@@ -1557,7 +1572,7 @@ A **Schedule** is the execution order of instructions from multiple transactions
 > | 5    | Commit         |                |
 > | 6    |                | Commit         |
 
-#### Conflict Serializability
+### Conflict Serializability
 
 A schedule is **Conflict Serializable** if it is equivalent to a Serial Schedule.
 
@@ -1579,7 +1594,7 @@ A schedule is **Conflict Serializable** if it is equivalent to a Serial Schedule
 > **Graph:** $T_2 \rightarrow T_1$ and $T_1 \rightarrow T_2$.
 > **Result:** Cycle exists ($T_1 \leftrightarrow T_2$). **NOT Conflict Serializable.**
 
-#### View Serializability
+### View Serializability
 
 Less strict than Conflict Serializability. Handles **Blind Writes** (Write without Read).
 
@@ -1600,11 +1615,11 @@ Less strict than Conflict Serializability. Handles **Blind Writes** (Write witho
 > **Result:** S is **View Serializable** (equivalent to $T_1 \rightarrow T_2 \rightarrow T_3$).
 > _Note:_ This schedule is also Conflict Serializable ($T_2 \rightarrow T_1 \rightarrow T_3$), but View Serializability is often used to justify schedules with blind writes that might fail stricter conflict checks in more complex scenarios.
 
-### Recoverability of Schedules
+## Recoverability of Schedules
 
 Even if a schedule is Serializable, it might not be **Recoverable**. If a transaction fails, we must ensure we can rollback without affecting committed transactions.
 
-#### Recoverable Schedule
+### Recoverable Schedule
 
 A schedule is **Recoverable** if for every pair of transactions $T_i$ and $T_j$ such that $T_j$ reads a value written by $T_i$, $T_i$ must **commit before** $T_j$ commits.
 
@@ -1616,7 +1631,7 @@ A schedule is **Recoverable** if for every pair of transactions $T_i$ and $T_j$ 
 > - **Unrecoverable:** $W_1(A), R_2(A), C_2, C_1$ (If T1 fails, T2 is already committed with dirty data).
 > - **Recoverable:** $W_1(A), R_2(A), C_1, C_2$ (If T1 fails, T2 can still be aborted).
 
-#### Cascadeless Schedule (ACA - Avoid Cascading Aborts)
+### Cascadeless Schedule (ACA - Avoid Cascading Aborts)
 
 A schedule is **Cascadeless** if it avoids the "Domino Effect" of rollbacks.
 
@@ -1628,14 +1643,14 @@ A schedule is **Cascadeless** if it avoids the "Domino Effect" of rollbacks.
 > - **Cascading:** $W_1(A), R_2(A), R_3(A), Abort_1$ (T2 and T3 must also abort).
 > - **Cascadeless:** $W_1(A), C_1, R_2(A), C_2$ (T2 reads only committed data).
 
-#### Strict Schedule
+### Strict Schedule
 
 The most restrictive and practical level.
 
 - **Rule:** A transaction can neither **Read nor Write** a data item $X$ until the last transaction that wrote $X$ has committed (or aborted).
 - **Benefit:** Simplifies recovery (Undo involves simply restoring the "Before Image").
 
-#### Hierarchy
+### Hierarchy
 > Strict $\subset$ Cascadeless $\subset$ Recoverable $\subset$ All Schedules
 
 
@@ -1645,13 +1660,15 @@ The most restrictive and practical level.
 
 # Concurrency {#concurrency}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 Concurrency Control is the procedure used by the Database Management System (DBMS) to allow multiple transactions to run simultaneously (concurrently) without violating the consistency of data.
 
 If transactions are executed serially (one after another), consistency is guaranteed, but system throughput (efficiency) is very low. Concurrency improves throughput but introduces several problems.
 
-#### Problems due to Concurrency
+### Problems due to Concurrency
 
 | Problem                           | Description                                                                                                                                     | Example                                                                                   |
 |:--------------------------------- |:----------------------------------------------------------------------------------------------------------------------------------------------- |:----------------------------------------------------------------------------------------- |
@@ -1660,7 +1677,7 @@ If transactions are executed serially (one after another), consistency is guaran
 | **Unrepeatable Read**             | A transaction reads the same item twice and gets different values because another transaction modified it in between.                           | T1 reads X, T2 modifies X and commits, T1 reads X again and gets a different value.       |
 | **Phantom Read**                  | A transaction executes a query twice and gets a different set of rows because another transaction inserted or deleted rows.                     | T1 counts employees. T2 adds a new employee. T1 counts again and gets a different number. |
 
-##### Lost Update Problem (Write-Write Conflict)
+#### Lost Update Problem (Write-Write Conflict)
 This occurs when two transactions update the same data item, but the second update overwrites the first update because it didn't know about it.
 
 **Example:**
@@ -1677,7 +1694,7 @@ Suppose A = 100.
 
 **Result:** The update from T1 (subtracting 50) is completely lost. The final value should be 70, but it is 120.
 
-##### Dirty Read Problem (Write-Read Conflict)
+#### Dirty Read Problem (Write-Read Conflict)
 This occurs when a transaction reads data that has been updated by another transaction that has *not yet committed*. If the other transaction rolls back, the first transaction has read data that technically never existed.
 
 **Example:**
@@ -1693,7 +1710,7 @@ This occurs when a transaction reads data that has been updated by another trans
 
 **Result:** T2 has read the updated value of A. But T1 failed and rolled back A to its original value. T2 is now working with "dirty" (incorrect) data.
 
-##### Unrepeatable Read Problem (Read-Write Conflict)
+#### Unrepeatable Read Problem (Read-Write Conflict)
 This occurs when a transaction reads the same variable twice during its execution. Between the two reads, another transaction updates the value.
 
 **Example:**
@@ -1708,8 +1725,8 @@ This occurs when a transaction reads the same variable twice during its executio
 
 **Result:** T1 reads A at t1 (say 100) and at t5 (say 200). The data has changed unexpectedly during the transaction.
 
-### 
-### Deadlock Handling in Concurrency
+## 
+## Deadlock Handling in Concurrency
 Deadlocks occur when two or more transactions are waiting indefinitely for one another to release locks.
 
 **Example:**
@@ -1718,7 +1735,7 @@ T1: Lock(A) ... waiting for B ...
 T2: Lock(B) ... waiting for A ...
 ```
 
-#### Necessary Conditions (Coffman Conditions)
+### Necessary Conditions (Coffman Conditions)
 
 Deadlock can occur only if **ALL** four conditions hold simultaneously:
 
@@ -1727,9 +1744,9 @@ Deadlock can occur only if **ALL** four conditions hold simultaneously:
 3.  **No Preemption**: Resources cannot be forcibly taken from a transaction; they must be released voluntarily.
 4.  **Circular Wait**: A set of transactions $\{T_0, T_1, ..., T_n\}$ exists such that $T_0$ waits for $T_1$, $T_1$ waits for $T_2$, ..., and $T_n$ waits for $T_0$.
 
-#### Handling Deadlocks
+### Handling Deadlocks
 
-##### Deadlock Prevention
+#### Deadlock Prevention
 We ensure that one of the necessary conditions for deadlock (Mutual Exclusion, Hold and Wait, No Preemption, Circular Wait) never holds.
 - **Wait-Die Scheme:** (Based on timestamps)
     - If older T1 requests lock held by younger T2: T1 waits.
@@ -1738,7 +1755,7 @@ We ensure that one of the necessary conditions for deadlock (Mutual Exclusion, H
     - If older T1 requests lock held by younger T2: T1 wounds T2 (T2 rolls back).
     - If younger T2 requests lock held by older T1: T2 waits.
 
-##### Deadlock Detection & Recovery
+#### Deadlock Detection & Recovery
 
 Allow deadlocks to occur, detect them, and recover.
 
@@ -1759,11 +1776,13 @@ Allow deadlocks to occur, detect them, and recover.
 
 # Concurrency Control {#concurrency-control}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 These are the rules the DBMS follows to ensure that concurrent transactions do not cause inconsistency.
 
-#### Lock-Based Protocols
+### Lock-Based Protocols
 A **lock** is a variable associated with a data item that describes the status of that item with respect to possible operations that can be applied to it.
 
 **Types of Locks:**
@@ -1778,7 +1797,7 @@ A **lock** is a variable associated with a data item that describes the status o
 | **Shared (S)**    | Grant              | Wait                  |
 | **Exclusive (X)** | Wait               | Wait                  |
 
-##### Two-Phase Locking (2PL) Protocol
+#### Two-Phase Locking (2PL) Protocol
 This protocol ensures serializability. It requires that each transaction issues lock and unlock requests in two phases.
 
 1.  **Growing Phase:** A transaction may obtain locks, but may not release any lock.
@@ -1797,16 +1816,16 @@ T1:
 - **Advantage:** Guarantees conflict serializability.
 - **Disadvantage:** Does *not* prevent deadlocks. Cascading rollbacks are possible (if strict 2PL is not used).
 
-##### Strict Two-Phase Locking (Strict 2PL)
+#### Strict Two-Phase Locking (Strict 2PL)
 This is the most widely used variation.
 - **Rule:** Same as 2PL, but a transaction must hold all its **Exclusive locks** until it commits or aborts.
 - **Advantage:** Prevents cascading rollbacks. Prevents dirty reads.
 
-##### Rigorous Two-Phase Locking (Rigorous 2PL)
+#### Rigorous Two-Phase Locking (Rigorous 2PL)
 - **Rule:** Same as 2PL, but a transaction must hold **ALL locks** (Shared and Exclusive) until it commits or aborts.
 - **Advantage:** Easier to implement, but less concurrency than Strict 2PL.
 
-#### Timestamp-Ordering Protocols
+### Timestamp-Ordering Protocols
 This protocol ensures serializability by selecting an order for transactions in advance.
 - **Timestamp (TS):** A unique identifier assigned to each transaction. If T1 starts before T2, then `TS(T1) < TS(T2)`.
 - **Data Item Timestamps:** Every data item `Q` has two values:
@@ -1828,7 +1847,7 @@ Suppose transaction `Ti` wants to issue `read(Q)` or `write(Q)`.
 - **Advantages:** Guarantees serializability; Ensures freedom from deadlock.
 - **Disadvantages:** High overhead; Possibility of starvation (long transactions might keep getting restarted).
 
-#### Validation-Based Protocols (Optimistic Concurrency Control)
+### Validation-Based Protocols (Optimistic Concurrency Control)
 This protocol assumes conflicts are rare. It allows transactions to execute without locking, and checks for conflicts only at the end.
 
 **Three Phases:**
@@ -1843,18 +1862,20 @@ This protocol assumes conflicts are rare. It allows transactions to execute with
 
 # Recovery {#recovery}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Recovery ensures **Atomicity** and **Durability** by restoring the database to a consistent state after a failure.
 
-### Failure Classification
+## Failure Classification
 
 1.  **Transaction Failure**: Logical error (Divide by Zero) or System error (Deadlock).
 2.  **System Crash**: Hardware/Software freeze. Volatile memory (RAM) lost.
 3.  **Disk Failure**: Head crash. Non-volatile storage lost. Requires backups.
 
-### Log-Based Recovery
+## Log-Based Recovery
 
 The system maintains a **Log** (Journal) on stable storage recording all updates.
 **Write-Ahead Logging (WAL)**:
@@ -1862,7 +1883,7 @@ The system maintains a **Log** (Journal) on stable storage recording all updates
 1.  Log record must be written to stable storage _before_ the database item is updated on disk.
 2.  Log must be saved _before_ commit.
 
-#### Deferred Database Modification
+### Deferred Database Modification
 
 No updates are made to the database on disk until the transaction **Commits.**
 
@@ -1878,7 +1899,7 @@ No updates are made to the database on disk until the transaction **Commits.**
 > - **Recovery:** Since T1 committed, the system **Redoes** `[Write T1, A, 100]` to ensure A=100 is on disk.
 > - If crash happened _before_ `[Commit T1]`, the system would simply **Ignore** T1.
 
-#### Immediate Database Modification
+### Immediate Database Modification
 
 Updates can be written to the database on disk **any time** (even before commit).
 
@@ -1892,7 +1913,7 @@ Updates can be written to the database on disk **any time** (even before commit)
 > - **Recovery**: T1 was active but didn't commit. The system **Undoes** the write, restoring A to 50.
 > - If `[Commit T1]` was present, the system would **Redo** to ensure A=100.
 
-### Checkpoints
+## Checkpoints
 
 To avoid replaying the _entire_ log during recovery, **Checkpoints** are used.
 
@@ -1908,7 +1929,7 @@ To avoid replaying the _entire_ log during recovery, **Checkpoints** are used.
 2.  Transactions committed _before_ checkpoint: **Ignore** (Already saved).
 3.  Transactions active _during/after_ checkpoint: **Redo** or **Undo** based on status.
 
-### Shadow Paging
+## Shadow Paging
 
 A non-log-based technique.
 
@@ -1929,7 +1950,7 @@ Maintain two Page Tables: **Current** and **Shadow.**
 
 ![\ ](images/mermaid_f54d9468e366dd56870d8c280a4ed51e.png){height=11cm}
 
-### ARIES Algorithm
+## ARIES Algorithm
 
 **Algorithms for Recovery and Isolation Exploiting Semantics.** The industry standard (used by IBM DB2, SQL Server).
 
@@ -1965,20 +1986,22 @@ Maintain two Page Tables: **Current** and **Shadow.**
 
 # Microsoft Azure SQL {#microsoft-azure-sql}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 #case_study
 
 **Azure SQL Database** is a fully managed Platform as a Service (PaaS) database engine that handles most of the database management functions such as upgrading, patching, backups, and monitoring without user involvement.
 
-### Architecture (Control Plane vs Data Plane)
+## Architecture (Control Plane vs Data Plane)
 
 Azure SQL separates the management layer from the data layer to ensure high availability and scalability.
 
 - **Control Plane**: Manages deployment, health monitoring, failover, and billing. It acts as the "Brain".
 - **Data Plane**: Handles the actual user queries and data storage. It consists of the SQL Server engine nodes.
 
-### Deployment Models
+## Deployment Models
 
 Choose the right level of isolation and resource sharing.
 
@@ -1988,14 +2011,14 @@ Choose the right level of isolation and resource sharing.
 | **Elastic Pool**     | A collection of databases sharing a _pool_ of resources. Cost-effective for unpredictable usage. | SaaS apps with many tenants (e.g., 1000 databases with low avg usage). |
 | **Managed Instance** | A nearly 100% compatible SQL Server instance. Supports cross-database queries, SQL Agent, CLR.   | Lift-and-shift migrations from on-premise SQL Server.                  |
 
-### Purchasing Models & Service Tiers
+## Purchasing Models & Service Tiers
 
-#### Purchasing Models
+### Purchasing Models
 
 1.  **DTU (Database Transaction Unit):** A bundled measure of CPU, Memory, and IO. Simple, pre-configured performance.
 2.  **vCore (Virtual Core):** Independent scaling of Compute and Storage. More flexibility and control (like choosing your own server specs).
 
-#### Service Tiers
+### Service Tiers
 
 | Tier                  | Description                                                           | Storage                          | HA/DR                    |
 | :-------------------- | :-------------------------------------------------------------------- | :------------------------------- | :----------------------- |
@@ -2003,7 +2026,7 @@ Choose the right level of isolation and resource sharing.
 | **Business Critical** | High performance. Local SSD storage attached to the compute node.     | Local SSD (Low Latency)          | 3 Replicas + 1 Read-Only |
 | **Hyperscale**        | Limitless scale. Storage grows automatically up to 100TB.             | Distributed Storage Architecture | Rapid Scale-out          |
 
-### High Availability & Disaster Recovery
+## High Availability & Disaster Recovery
 
 Azure SQL guarantees 99.99% to 99.995% availability.
 
@@ -2011,7 +2034,7 @@ Azure SQL guarantees 99.99% to 99.995% availability.
 - **Auto-Failover Groups:** Automatically manages replication and failover of a group of databases to another region.
 - **Point-in-Time Restore (PITR):** Restore the database to _any second_ in the past (up to 35 days) to recover from accidental data deletion.
 
-### Security Features (The "Defense in Depth" Strategy)
+## Security Features (The "Defense in Depth" Strategy)
 
 1.  **Network Security:**
     - **Firewall Rules:** Allow traffic only from specific IPs.
@@ -2025,7 +2048,7 @@ Azure SQL guarantees 99.99% to 99.995% availability.
 4.  **Advanced Threat Protection:**
     - Detects SQL Injection, anomalous login attempts, and potential vulnerabilities.
 
-### Intelligent Features
+## Intelligent Features
 
 - **Automatic Tuning:** The AI analyzes your queries and automatically:
   - Creates missing indexes.
@@ -2033,7 +2056,7 @@ Azure SQL guarantees 99.99% to 99.995% availability.
   - Fixes query plan regressions.
 - **Intelligent Query Processing:** Optimizes query execution plans based on runtime data.
 
-### Comparison: Azure SQL vs SQL Server (On-Premises)
+## Comparison: Azure SQL vs SQL Server (On-Premises)
 
 | Feature           | Azure SQL (PaaS)                                 | SQL Server (On-Premises)                     |
 | :---------------- | :----------------------------------------------- | :--------------------------------------- |
@@ -2049,7 +2072,9 @@ Azure SQL guarantees 99.99% to 99.995% availability.
 
 # Joins {#joins}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Combines rows from two or more tables based on a related column.
@@ -2070,7 +2095,7 @@ INNER JOIN Enrollments E ON S.ID = E.StudentID
 INNER JOIN Courses C ON E.CourseID = C.ID;
 ```
 
-##### Inner Join
+#### Inner Join
 
 Fetches common tuples (rows that have matching values in both tables).
 
@@ -2080,7 +2105,7 @@ FROM supplier INNER JOIN orders
 ON supplier.supplier_id = orders.supplier_id;
 ```
 
-##### Outer Join
+#### Outer Join
 
 Fetches all tuples from one table and the common ones from the other.
 
@@ -2100,7 +2125,7 @@ FROM supplier FULL JOIN orders
 ON supplier.supplier_id = orders.supplier_id;
 ```
 
-##### Equi Join
+#### Equi Join
 
 This is a join that only uses an equality operator (=) in its condition.
 
@@ -2114,7 +2139,7 @@ WHERE table1.column_name = table2.column_name;
 
 It is better practice to use the `INNER JOIN...ON` syntax to separate the join logic from the `WHERE` clause filtering logic.
 
-##### Self Join
+#### Self Join
 
 When one table is joined with itself. We _must_ use table aliases (like `a` and `b`) to distinguish the two instances of the table.
 

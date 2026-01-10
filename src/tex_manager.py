@@ -12,15 +12,14 @@ def generate_headers_tex(output_dir: str) -> str:
     bottom_margin = CONFIG['style']['chapter_title_bottom_margin']
     
     headers_tex_content = f"""
-\\usepackage{{scrhack}} % Fixes KOMA-script compatibility issues (e.g. minitoc)
 \\usepackage{{caption}}
 \\captionsetup[figure]{{labelsep=none, justification=centering}}
-\\usepackage{{minitoc}}
+\\usepackage{{etoc}} % Replaces minitoc
 \\usepackage[version=4]{{mhchem}}
 \\usepackage{{amsmath}}
 \\usepackage{{amssymb}}
 \\usepackage{{mathtools}}
-\\mtcselectlanguage{{english}}
+% \\mtcselectlanguage{{english}} - Removed
 \\definecolor{{mylinkcolor}}{{HTML}}{{{link_color}}}
 \\definecolor{{myurlcolor}}{{HTML}}{{{url_color}}}
 % --- Chapter Title Styling (KOMA-Script) ---
@@ -96,6 +95,8 @@ def generate_cover_tex(output_dir: str) -> str:
     \\vspace{{3cm}}
     \\restoregeometry
 \\end{{titlepage}}
+
+% Initialize MiniTOC (Removed, using etoc)
 """
     cover_tex_path = os.path.join(output_dir, "cover.tex")
     with open(cover_tex_path, 'w', encoding='utf-8') as f:

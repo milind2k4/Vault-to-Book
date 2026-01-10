@@ -17,8 +17,14 @@ def cleanup_artifacts(artifacts_dir: str) -> None:
     # I will stick to the previous DELETE list to save space, but it's safe to keep more now.
     # Let's delete the noisy intermediates but keep .tex, .log, .md.
     
+    # extensions_to_delete = [
+    #     ".aux", ".toc", ".out", 
+    #     ".fls", ".fdb_latexmk", ".synctex.gz"
+    # ]
+    #
+    # Extensions to delete (keeping .maf temporarily for debug)
     extensions_to_delete = [
-        ".aux", ".toc", ".out", ".maf", 
+        ".aux", ".toc", ".out", 
         ".fls", ".fdb_latexmk", ".synctex.gz"
     ]
     
@@ -35,13 +41,14 @@ def cleanup_artifacts(artifacts_dir: str) -> None:
                 print(f"Error deleting {f}: {e}")
 
     # 2. Delete .mtc files (mtc, mtc0, mtc1...)
-    mtc_files = glob.glob(os.path.join(artifacts_dir, "*.mtc*"))
-    for f in mtc_files:
-        try:
-            os.remove(f)
-            count += 1
-        except OSError as e:
-            print(f"Error deleting {f}: {e}")
+    # Disabled for MiniTOC debugging
+    # mtc_files = glob.glob(os.path.join(artifacts_dir, "*.mtc*"))
+    # for f in mtc_files:
+    #     try:
+    #         os.remove(f)
+    #         count += 1
+    #     except OSError as e:
+    #         print(f"Error deleting {f}: {e}")
 
     print(f"Cleanup: Removed {count} temporary files from {os.path.basename(artifacts_dir)}.")
     print("Kept .tex, .log, and temp_master.md for debugging.")

@@ -59,9 +59,14 @@ function BlockQuote(el)
         -- "[!TAG]" is usually 1 Str node if no spaces inside.
         
         local title_inlines = {}
+        local body_inlines = {}
         local found_tag = false
+        local collecting_body = false
+        
         for i, node in ipairs(inlines) do
-            if not found_tag then
+            if collecting_body then
+                table.insert(body_inlines, node)
+            elseif not found_tag then
                 local s = pandoc.utils.stringify(node)
                 if s:find("%[!%w+.*%]") then
                     found_tag = true
@@ -70,7 +75,13 @@ function BlockQuote(el)
                     found_tag = true
                 end
             else
-                table.insert(title_inlines, node)
+                -- Found tag, checking for break to end title
+                if node.t == "SoftBreak" or node.t == "LineBreak" then
+                    collecting_body = true
+                    -- Don't add the break to title
+                else
+                    table.insert(title_inlines, node)
+                end
             end
         end
         
@@ -128,6 +139,10 @@ function BlockQuote(el)
         -- Construct the box
         local blocks = {}
         table.insert(blocks, pandoc.RawBlock("latex", "\\begin{" .. env .. "}{" .. box_title_tex .. "}"))
+        
+        if #body_inlines > 0 then
+            table.insert(blocks, pandoc.Para(body_inlines))
+        end
         
         for i = 2, #el.content do
             table.insert(blocks, el.content[i])

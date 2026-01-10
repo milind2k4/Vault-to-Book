@@ -1,14 +1,10 @@
----
-include-before:
-  - \dominitoc
-  - \setcounter{minitocdepth}{4}
----
-
 
 
 # Java {#java}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers _write once, run anywhere_ (WORA).
@@ -20,19 +16,19 @@ It follows the four pillars of OOP:
 3. [[03 Encapsulation]]
 4. [[04 Abstraction]]
 
-### Java Environment
+## Java Environment
 
 The Java environment consists of three main components: JDK, JRE, and JVM.
 
-#### JDK (Java Development Kit)
+### JDK (Java Development Kit)
 
 It is a software development environment used for developing Java applications. It includes the JRE, an interpreter/loader (Java), a compiler (javac), an archiver (jar), a documentation generator (Javadoc), and other tools needed in Java development.
 
-#### JRE (Java Runtime Environment)
+### JRE (Java Runtime Environment)
 
 It provides the libraries, the Java Virtual Machine (JVM), and other components to run applets and applications written in the Java programming language. It does not contain tools for development like compilers or debuggers.
 
-#### JVM (Java Virtual Machine)
+### JVM (Java Virtual Machine)
 
 It is an abstract machine. It is a specification that provides a runtime environment in which Java bytecode can be executed.
 
@@ -51,7 +47,7 @@ It is an abstract machine. It is a specification that provides a runtime environ
 > - **JRE (Runtime Env):** A kitchen that is only for _serving_ food. It has the stove and ingredients to cook (run) the meal, but no tools to write new recipes.
 > - **JVM (The Chef):** The person who actually cooks. They read the recipe (Bytecode) and use the stove (Hardware) to make the food (Machine Code).
 
-### Compilation Process
+## Compilation Process
 
 1.  **Source Code**: The programmer writes code in `.java` files.
 2.  **Compilation**: The `javac` compiler converts the source code into **Bytecode** (`.class` files). Bytecode is platform-independent.
@@ -59,7 +55,7 @@ It is an abstract machine. It is a specification that provides a runtime environ
 
 ![\ ](images/mermaid_f3f81ac6d1c2f9d8fb75fa7423927131.png){height=11cm}
 
-### Java Source File Structure
+## Java Source File Structure
 
 A Java source file can contain multiple classes, but there are specific rules:
 
@@ -79,13 +75,13 @@ class Helper { // Non-public class allowed in the same file
 }
 ```
 
-### Classes and Objects
+## Classes and Objects
 
-#### Class
+### Class
 
 A class is a blueprint or template from which objects are created. It defines a set of properties (fields) and methods that are common to all objects of one type.
 
-#### Object
+### Object
 
 An object is an instance of a class. It has:
 
@@ -119,7 +115,7 @@ public class Test {
 }
 ```
 
-### Access Specifiers
+## Access Specifiers
 
 Access specifiers determine the visibility of classes, methods, and variables.
 
@@ -135,16 +131,16 @@ Access specifiers determine the visibility of classes, methods, and variables.
 3.  **protected**: Accessible within the package and by subclasses in other packages.
 4.  **public**: Accessible everywhere.
 
-### Static Members
+## Static Members
 
 The `static` keyword indicates that a member belongs to the **class** rather than to any specific instance (object).
 
-#### Static Variable
+### Static Variable
 
 - Shared among all instances of the class.
 - Memory is allocated only once when the class is loaded.
 
-#### Static Method
+### Static Method
 
 - Can be called without creating an object of the class.
 - Can only access static data members and other static methods.
@@ -164,7 +160,7 @@ class Counter {
 }
 ```
 
-### Final Members
+## Final Members
 
 The `final` keyword is used to restrict the user.
 
@@ -177,17 +173,17 @@ final int MAX_SPEED = 100;
 // MAX_SPEED = 120; // Compilation Error
 ```
 
-### Constructors
+## Constructors
 
 A constructor is a block of code similar to a method that is called when an instance of an object is created.
 
-#### Rules
+### Rules
 
 - Name must be the same as the class name.
 - No return type (not even `void`).
 - Called automatically when `new` is used.
 
-#### Types
+### Types
 
 1.  **Default Constructor**: Provided by the compiler if no constructor is defined.
 2.  **No-Args Constructor**: A constructor with no parameters defined by the user.
@@ -219,7 +215,7 @@ class Student {
 }
 ```
 
-### `this` Keyword
+## `this` Keyword
 
 `this` is a reference variable that refers to the **current object**.
 
@@ -250,7 +246,9 @@ class A {
 
 # Inheritance {#inheritance}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Inheritance is a mechanism where one class acquires the properties and behaviors (methods) of another class.
@@ -295,9 +293,9 @@ class B extends A { // Child / Sub class
 
 Here, B is child class and A is parent class.
 
-#### Types of Inheritance
+### Types of Inheritance
 
-##### Single Level
+#### Single Level
 
 When one class inherits another. (A -> B)
 
@@ -307,7 +305,7 @@ class A {}
 class B extends A {}
 ```
 
-##### Multi Level
+#### Multi Level
 
 When one class inherits another, which in turn inherits from another class. (A -> B -> C)
 
@@ -319,7 +317,7 @@ class B extends A {}
 class C extends B {}
 ```
 
-##### Hierarchical
+#### Hierarchical
 
 When many classes inherit one single class. (A -> B, A -> C)
 
@@ -331,7 +329,7 @@ class B extends A {}
 class C extends A {}
 ```
 
-##### Multiple
+#### Multiple
 
 When one class inherits from many classes.
 
@@ -347,7 +345,7 @@ class B {}
 // class C extends A,B {} // This does not work. Compilation Error.
 ```
 
-##### Hybrid
+#### Hybrid
 
 When we use more than one kind of inheritance at the same time.
 
@@ -363,7 +361,7 @@ class C extends B {} // Child (Multi-level)
 class D extends A {} // Parent 2 (Hierarchical)
 ```
 
-#### Method Overriding
+### Method Overriding
 
 When a child class provides a specific implementation for a method that is already defined in its parent class.
 
@@ -386,7 +384,7 @@ class Dog extends Animal {
 }
 ```
 
-#### `super` Keyword
+### `super` Keyword
 
 `super` is a reference variable used within a child class to refer to the immediate parent class object.
 
@@ -442,7 +440,9 @@ class Child extends Parent {
 
 # Polymorphism {#polymorphism}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 "Many Forms"
@@ -463,7 +463,7 @@ It is achieved by two ways:
 - **Compile-Time Polymorphism (Static Binding):** Achieved via **Method Overloading**.
 - **Run-Time Polymorphism (Dynamic Binding):** Achieved via **Method Overriding**.
 
-#### Compile-Time Polymorphism (Method Overloading)
+### Compile-Time Polymorphism (Method Overloading)
 
 When a class has multiple methods with the same name but different parameters, it is known as method overloading. The correct method to call is decided at **compile-time** based on the arguments provided.
 
@@ -491,7 +491,7 @@ class Calculator {
 }
 ```
 
-##### Constructor Overloading
+#### Constructor Overloading
 
 We can also overload constructors in the same way to provide different ways of initializing an object.
 
@@ -512,7 +512,7 @@ class A {
 }
 ```
 
-#### Run-Time Polymorphism (Method Overriding)
+### Run-Time Polymorphism (Method Overriding)
 
 When a method in a **subclass** has the same name, parameters, and return type as a method in its **superclass**, it is known as method overriding.
 
@@ -520,14 +520,14 @@ This is also known as dynamic polymorphism because the actual method call is res
 
 This requires an "IS-A" relationship ([[01 Inheritance]]).
 
-##### Rules for Method Overriding
+#### Rules for Method Overriding
 
 - The method signature (name and parameters) must be identical.
 - The return type must be the same or a _covariant_ type (a subclass of the original return type).
 - The access modifier in the child class must be the same or _less restrictive_ (e.g., `protected` in parent can be `public` in child, but not `private`).
 - `final` or `static` methods cannot be overridden.
 
-##### Dynamic Method Dispatch
+#### Dynamic Method Dispatch
 
 This is the mechanism that makes run-time polymorphism work. We can use a parent class reference to hold a child class object.
 
@@ -576,7 +576,9 @@ Here, even though the reference `a` is of type `Animal`, the JVM calls the `soun
 
 # Encapsulation {#encapsulation}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 It is a fundamental OOP principle used for **data hiding**.
 Encapsulation is a mechanism in which data (attributes or variables) and the methods that operate on that data are bundled together within a single unit (a class).
@@ -591,7 +593,7 @@ Encapsulation provides:
 - **Flexibility & Modularity:** The implementation details are hidden. We can change the internal implementation (e.g., rename a variable, change its data type) without breaking the external code that uses our class, as long as the public getter/setter methods remain the same.
 - **Code Reusability:** Encapsulated classes are easier to reuse as self-contained "black boxes."
 
-#### How to Achieve Encapsulation
+### How to Achieve Encapsulation
 1.  Declare the class's variables (fields) as `private`.
 2.  Provide public **getter** (accessor) methods to view the variables.
 3.  Provide public **setter** (mutator) methods to modify the variables.
@@ -646,7 +648,9 @@ The encapsulation is:
 
 # Abstraction {#abstraction}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 It is a concept which is used for **hiding implementation complexity** and showing only the essential features or functionality to the user.
 
@@ -656,7 +660,7 @@ Abstraction focuses on *what* an object does, not *how* it does it.
 
 Abstraction can be achieved using an abstract class or by an interface.
 
-#### Abstract Class
+### Abstract Class
 We use `abstract` keyword to declare a class as abstract.
 An abstract class provides a template for other classes, forcing them to implement certain methods.
 
@@ -692,7 +696,7 @@ class Circle extends Shape {
 }
 ````
 
-#### Interface
+### Interface
 An interface is a blueprint of a class. It specifies what a class must do, but not how.
 
 It is used to achieve 100% abstraction (before Java 8).
@@ -726,14 +730,14 @@ class Circle implements Drawable, Loggable {
 }
 ```
 
-##### `default` and `static` methods
+#### `default` and `static` methods
 
 Java 8 allowed interfaces to have methods with implementation:
 
 - **`default` methods:** A class can override them, but doesn't have to. It allows adding new functionality to an interface without breaking existing classes.
 - **`static` methods:** Utility methods that are part of the interface, not a specific object.
 
-###### Default Methods
+##### Default Methods
 
 Allows adding new methods to interfaces with a default implementation, without breaking existing classes that implement the interface.
 
@@ -756,7 +760,7 @@ class MyClass implements MyInterface {
 }
 ```
 
-###### Static Method
+##### Static Method
 
 Interfaces can now have static methods. These are utility methods that are part of the interface, not the implementing class.
 
@@ -773,7 +777,7 @@ interface MyInterface {
 MyInterface.utilityMethod();
 ```
 
-#### Abstract Class vs. Interface
+### Abstract Class vs. Interface
 
 - **Methods:** An abstract class can have both abstract and concrete methods. An interface (pre-Java 8) can only have abstract methods.
 
@@ -795,7 +799,9 @@ MyInterface.utilityMethod();
 
 # Exception Handling {#exception-handling}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Java is robust i.e. it can deal with the errors.
@@ -836,7 +842,7 @@ There are two types of exceptions:
 
   E.g. `ArithmeticException`, `ArrayIndexOutOfBoundsException`, `NumberFormatException`, `NullPointerException`.
 
-#### Using `try - catch - finally` block
+### Using `try - catch - finally` block
 
 - **`try`:** The code which might throw an exception is written inside the `try` block.
 - **`catch`:** The handler for the exception. If an exception of the specified type occurs in `try`, this block is executed.
@@ -859,7 +865,7 @@ try {
 }
 ```
 
-#### `throw` Keyword
+### `throw` Keyword
 
 The `throw` keyword is used to **manually** or **explicitly** throw an exception (or any `Throwable` object) from within a method body.
 
@@ -886,7 +892,7 @@ public static void main(String[] args) {
 }
 ```
 
-#### `throws` Keyword
+### `throws` Keyword
 
 The throws keyword is used in a method signature (the method declaration).
 
@@ -913,7 +919,7 @@ public void openMyFile() {
 }
 ```
 
-#### `throw` vs. `throws`
+### `throw` vs. `throws`
 
 | Feature     | `throw`                                               | `throws`                                                       |
 | ----------- | ----------------------------------------------------- | -------------------------------------------------------------- |
@@ -923,7 +929,7 @@ public void openMyFile() {
 | **Example** | `throw new IOException();`                            | `void myMethod() throws IOException { ... }`                   |
 | **Type**    | Can throw any `Throwable`.                            | Used only for **checked exceptions** (unchecked are optional). |
 
-#### User Defined Exceptions
+### User Defined Exceptions
 
 We can create our own exceptions by extending the `Exception` class (for checked) or `RuntimeException` class (for unchecked).
 
@@ -948,7 +954,7 @@ class BankAccount {
 }
 ```
 
-#### Try with resource
+### Try with resource
 
 We can use try with resource on objects of classes which implement `AutoClosable` interface.
 
@@ -970,7 +976,9 @@ We use this when we want to perform an operation on one resource and then close 
 
 # Collections {#collections}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Collections are predefined data structures that Java provides.
@@ -986,7 +994,7 @@ The main interfaces are **List**, **Queue**, **Set**, and **Map**.
 - List, Queue, and Set store single items.
 - Map stores data in **key-value pairs**.
 
-##### Synchronization
+#### Synchronization
 
 Synchronization (in this context) means **thread-safety**.
 
@@ -995,7 +1003,7 @@ Synchronization (in this context) means **thread-safety**.
 - Most modern collections (`ArrayList`, `HashMap`) are **non-synchronized** for better performance in single-threaded applications.
 - Legacy classes (`Vector`, `Hashtable`) are synchronized.
 
-##### Collection Framework
+#### Collection Framework
 
 The Collection Framework is a group of classes and interfaces that implements these data structures.
 
@@ -1006,11 +1014,11 @@ It is divided into two main categories:
 
 ![\ ](images/mermaid_2bbb338543a985e865fb5b42b134c270.png){height=11cm}
 
-###### Collection Interface
+##### Collection Interface
 
 It is the main interface of the collection framework that is inherited by `List`, `Queue`, and `Set`.
 
-#### Wrapper Classes for Primitive Datatypes
+### Wrapper Classes for Primitive Datatypes
 
 Since collections can only store objects, we need wrapper classes for primitive datatypes.
 
@@ -1020,7 +1028,7 @@ Since collections can only store objects, we need wrapper classes for primitive 
 - `Character` for `char`
 - Also: `Float`, `Long`, `Short`, `Byte`
 
-#### Array
+### Array
 
 A basic, fixed-size data structure.
 
@@ -1038,7 +1046,7 @@ st[0] = "John"
 st[9] = "Silksong"
 ```
 
-#### Iterator
+### Iterator
 
 It is an interface used to traverse (access) the data in a `Collection`.
 
@@ -1054,13 +1062,13 @@ Creation of Iterator:
 Iterator<String> it = myCollection.iterator();
 ```
 
-##### Methods of Iterator
+#### Methods of Iterator
 
 - `hasNext() -> bool`: Returns `true` if the iteration has more elements.
 - `next() -> Object`: Returns the next element in the iteration.
 - `remove()`: Removes the last element returned by `next()` from the collection.
 
-#### ListIterator (child of Iterator)
+### ListIterator (child of Iterator)
 
 An iterator for `List`s that allows traversal in both directions.
 
@@ -1077,11 +1085,11 @@ It is created as:
 ListIterator<Integer> it = myList.listIterator();
 ```
 
-### [[06.1 Linear Collections]]
+## [[06.1 Linear Collections]]
 
-### [[06.2 Maps]]
+## [[06.2 Maps]]
 
-### [[06.3 Sets]]
+## [[06.3 Sets]]
 
 \newpage
 
@@ -1089,9 +1097,11 @@ ListIterator<Integer> it = myList.listIterator();
 
 # Linear Collections {#linear-collections}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
-#### List
+### List
 It is an interface for an **ordered** collection of elements.
 
 Features of this interface:
@@ -1104,7 +1114,7 @@ Features of this interface:
 
 List is implemented by: `ArrayList`, `LinkedList`, and `Vector`.
 
-##### Common List Methods
+#### Common List Methods
 
 - `add(Object o)`: Appends to the end.
 - `add(int index, Object o)`: Inserts at a specific index.
@@ -1118,7 +1128,7 @@ List is implemented by: `ArrayList`, `LinkedList`, and `Vector`.
 - `size()`
 - `clear()`: Remove all the elements from the list.
 
-##### ArrayList (implements List)
+#### ArrayList (implements List)
 
 It is a class that implements a **resizable array**.
 
@@ -1127,7 +1137,7 @@ It is a class that implements a **resizable array**.
 - Slower for insertions/deletions in the middle.
 - It by default has size 10 and it grows by 1.5x when full.
 
-#### LinkedList
+### LinkedList
 Java's LinkedList is a doubly-linked list.
 
 It also implements the Deque (Double-Ended Queue) interface.
@@ -1149,14 +1159,14 @@ removeFirst();
 removeLast();
 ```
 
-#### Vector
+### Vector
 It is a legacy class (JDK 1.0) that acts like a resizable array.
 
 - It is **synchronized** (thread-safe).
 - It by default has size 10 and it grows by **2x** when full.
 - `ArrayList` is preferred in single-threaded environments.
 
-#### Stack
+### Stack
 
 It is a legacy class (JDK 1.0) that extends `Vector`.
 
@@ -1164,7 +1174,7 @@ It is a legacy class (JDK 1.0) that extends `Vector`.
 - It is **synchronized**.
 - The modern, preferred alternative is using an `ArrayDeque`.
 
-##### Methods
+#### Methods
 
 ```java
 push(object o);
@@ -1174,7 +1184,7 @@ search(object o); // returns 1-based index, or -1
 empty(); // checks if stack is empty
 ```
 
-#### Queue
+### Queue
 An interface for a collection that follows **FIFO** (First-In, First-Out) order.
 
 Classes used to implement queue:
@@ -1183,7 +1193,7 @@ Classes used to implement queue:
 - `PriorityQueue` (a priority-based queue)
 - `ArrayDeque` (a double-ended queue)
 
-##### PriorityQueue
+#### PriorityQueue
 
 It implements the `Queue` interface, but orders elements by priority.
 
@@ -1204,7 +1214,9 @@ Methods come in two flavors:
 
 # Maps {#maps}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 A `Map` is an object that maps keys to values. A map cannot contain duplicate keys; each key can map to at most one value.
@@ -1213,7 +1225,7 @@ It does **not** inherit from the `Collection` interface.
 
 ![\ ](images/mermaid_f6d824d47b6c392df1fe568f948a1af2.png){height=11cm}
 
-### Map Interface Methods
+## Map Interface Methods
 
 - `put(K key, V value)`: Associates the specified value with the specified key.
 - `get(Object key)`: Returns the value to which the specified key is mapped.
@@ -1222,7 +1234,7 @@ It does **not** inherit from the `Collection` interface.
 - `keySet()`: Returns a `Set` view of the keys.
 - `entrySet()`: Returns a `Set` view of the mappings.
 
-### HashMap
+## HashMap
 
 `HashMap` is a hash table based implementation.
 
@@ -1240,7 +1252,7 @@ map.put(null, 0); // Valid
 System.out.println(map.get("Apple")); // 10
 ```
 
-### LinkedHashMap
+## LinkedHashMap
 
 `LinkedHashMap` extends `HashMap` and maintains a linked list of the entries.
 
@@ -1255,7 +1267,7 @@ map.put("Two", 2);
 // Iteration will guarantee "One" then "Two"
 ```
 
-### TreeMap
+## TreeMap
 
 `TreeMap` implements `SortedMap` and uses a Red-Black tree.
 
@@ -1271,7 +1283,7 @@ map.put("Apple", 1);
 System.out.println(map); // {Apple=1, Banana=2} (Sorted by Key)
 ```
 
-### Hashtable
+## Hashtable
 
 `Hashtable` is a legacy class (JDK 1.0).
 
@@ -1280,7 +1292,7 @@ System.out.println(map); // {Apple=1, Banana=2} (Sorted by Key)
 - **Synchronization**: **Synchronized** (Thread-safe).
 - **Performance**: Slower than `HashMap` due to synchronization.
 
-### Properties Class
+## Properties Class
 
 The `Properties` class extends `Hashtable`. It represents a persistent set of properties.
 
@@ -1307,7 +1319,7 @@ try (FileOutputStream fos = new FileOutputStream("config.properties")) {
 }
 ```
 
-#### Comparison
+### Comparison
 
 | Feature          | HashMap     | LinkedHashMap | TreeMap     | Hashtable   |
 | :--------------- | :---------- | :------------ | :---------- | :---------- |
@@ -1323,7 +1335,9 @@ try (FileOutputStream fos = new FileOutputStream("config.properties")) {
 
 # Sets {#sets}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 A `Set` is a collection that cannot contain duplicate elements. It models the mathematical set abstraction.
@@ -1332,7 +1346,7 @@ The `Set` interface contains only methods inherited from `Collection` and adds t
 
 ![\ ](images/mermaid_e83c82c1a45f1bd02c6ad13d4939839c.png){height=11cm}
 
-### HashSet
+## HashSet
 
 `HashSet` is the best-performing implementation. It uses a hash table.
 
@@ -1350,7 +1364,7 @@ fruits.add("Apple"); // Duplicate, will be ignored
 System.out.println(fruits); // Output order is unpredictable
 ```
 
-### LinkedHashSet
+## LinkedHashSet
 
 `LinkedHashSet` is a hash table and linked list implementation of the `Set` interface.
 
@@ -1367,11 +1381,11 @@ fruits.add("Orange");
 System.out.println(fruits); // Output: [Apple, Banana, Orange]
 ```
 
-### SortedSet Interface
+## SortedSet Interface
 
 A `Set` that further provides a _total ordering_ on its elements. The elements are ordered using their **natural ordering**, or by a `Comparator` provided at sorted set creation time.
 
-### TreeSet
+## TreeSet
 
 `TreeSet` implements `SortedSet` (and `NavigableSet`). It uses a **Red-Black tree** structure.
 
@@ -1389,7 +1403,7 @@ numbers.add(10);
 System.out.println(numbers); // Output: [1, 5, 10]
 ```
 
-#### Comparison
+### Comparison
 
 | Feature              | HashSet     | LinkedHashSet        | TreeSet                  |
 | :------------------- | :---------- | :------------------- | :----------------------- |
@@ -1405,7 +1419,9 @@ System.out.println(numbers); // Output: [1, 5, 10]
 
 # Sorting and Comparator {#sorting-and-comparator}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 The Java sort methods use **Timm sort**, which is a hybrid of insertion sort and merge sort.
@@ -1421,7 +1437,7 @@ Collections.sort();
 
 `Collections.sort()` sorts lists (like `ArrayList`).
 
-#### Comparable Interface
+### Comparable Interface
 
 It is used to sort the data or object in its **natural order**, inside the class itself.
 
@@ -1455,7 +1471,7 @@ class Student implements Comparable<Student>{
 Collections.sort(listOfStudents);
 ```
 
-#### Comparator Interface
+### Comparator Interface
 
 This is used when we want to define a custom sorting order, _separate_ from the class.
 
@@ -1484,7 +1500,7 @@ class SortStudentByName implements Comparator<Student> {
 Collections.sort(listOfStudents, new SortStudentByName());
 ```
 
-#### Sorting with Lambda Expressions
+### Sorting with Lambda Expressions
 
 Since `Comparator` is a **[[10 Functional Interface]]** (it has only one abstract method), we can use a lambda expression instead of writing a whole new class.
 
@@ -1512,7 +1528,9 @@ Collections.sort(listOfStudents, byNameThenRoll);
 
 # Multi Threading {#multi-threading}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 A **thread** is a single, lightweight execution path within a process.
@@ -1535,7 +1553,7 @@ This is used to:
 >   - **Thread 3 (Dishwasher):** Cleaning plates.
 > - **Result:** Everything happens at once (Concurrency), and the meal is ready much faster.
 
-#### Thread Life Cycle
+### Thread Life Cycle
 
 A thread goes through several states:
 
@@ -1547,7 +1565,7 @@ A thread goes through several states:
 4.  **Waiting / Blocked:** The thread is temporarily inactive. It might be waiting for a lock (to enter a `synchronized` block), or it has been told to wait (`wait()`), sleep (`sleep()`), or join (`join()`).
 5.  **Terminated (Dead):** The thread has finished its `run()` method or has otherwise stopped.
 
-#### Thread Priorities
+### Thread Priorities
 
 Every thread has a priority, which is an integer between 1 and 10. The thread scheduler uses this to decide which thread to run.
 
@@ -1561,11 +1579,11 @@ t1.setPriority(Thread.MAX_PRIORITY); // 10
 System.out.println(t1.getPriority());
 ```
 
-#### How to Create a Thread
+### How to Create a Thread
 
 There are two ways:
 
-##### By extending the `Thread` class
+#### By extending the `Thread` class
 
 You override the `run()` method with the code you want the thread to execute.
 
@@ -1583,7 +1601,7 @@ MyThread t1 = new MyThread();
 t1.start(); // This calls the run() method in a new thread
 ```
 
-##### By implementing the `Runnable` interface
+#### By implementing the `Runnable` interface
 
 This is the **preferred** way because Java does not support multiple inheritance. By implementing `Runnable`, your class is free to extend another class.
 
@@ -1609,7 +1627,7 @@ Thread t3 = new Thread(r);
 t3.start();
 ```
 
-#### Key Thread Methods
+### Key Thread Methods
 
 - **`start()`**: This is the method you call to begin the thread. It puts the thread in the **Runnable** state. The JVM then calls the `run()` method. **You never call `run()` directly.**
 
@@ -1623,7 +1641,7 @@ t3.start();
 
 - **`isAlive()`**: Checks if the thread is in the New or Terminated state.
 
-#### Synchronization
+### Synchronization
 
 When multiple threads access shared resources (like a variable), you can get problems like data inconsistency or race conditions.
 
@@ -1638,7 +1656,9 @@ This is achieved using the synchronized keyword (on methods or blocks) or other 
 
 # Synchronization {#synchronization}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 
@@ -1650,7 +1670,7 @@ If we don't do synchronization, it leads to:
 - **Data inconsistency:** The shared data is left in an incorrect or invalid state.
 We can achieve synchronization using several mechanisms:
 
-#### Mutual Exclusion (Mutex)
+### Mutual Exclusion (Mutex)
 
 A **Mutex** (or lock) is a simple synchronization primitive. It ensures that only one thread can be in a **critical section** (the part of the code accessing the shared resource) at a time.
 
@@ -1658,14 +1678,14 @@ A **Mutex** (or lock) is a simple synchronization primitive. It ensures that onl
 - If the lock is already held, the thread blocks (waits) until the lock is **released**.
 - The thread **releases** the lock after exiting the critical section.
 
-#### Semaphores
+### Semaphores
 
 A semaphore is a more general synchronization tool. It manages a counter (a number of "permits").
 
 - **Counting Semaphore:** Allows up to $N$ threads to access a resource. A thread must `acquire()` a permit to proceed. If the counter is zero, the thread blocks. When done, it `release()` the permit.
 - **Binary Semaphore:** A semaphore with $N=1$. It acts just like a Mutex.
 
-#### Monitors (Java's `synchronized`)
+### Monitors (Java's `synchronized`)
 
 A **Monitor** is a high-level construct that combines a Mutex with condition variables, making synchronization easier. Java's `synchronized` keyword is a built-in implementation of a monitor.
 
@@ -1700,7 +1720,7 @@ A **Monitor** is a high-level construct that combines a Mutex with condition var
     }
     ```
 
-#### Key Thread Methods
+### Key Thread Methods
 
 - **`sleep(long millis)`**: (Static method) Pauses the **current** thread for a specified time. **It does not release any locks it holds.**
 - **`join()`**: A thread (`t1`) calls `t2.join()`. This makes `t1` (the _calling_ thread) wait until `t2` (the thread the method is called on) completes its execution. Join kills the thread it is used on. 
@@ -1719,7 +1739,9 @@ A **Monitor** is a high-level construct that combines a Mutex with condition var
 
 # Functional Interface {#functional-interface}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 A **Functional Interface** is an interface that contains exactly one abstract method. It can have any number of default or static methods.
@@ -1730,17 +1752,17 @@ The `Runnable` interface is a classic example: it has only one abstract method `
 
 We use the `@FunctionalInterface` annotation to ensure compile-time checking.
 
-### Functional Programming in Java
+## Functional Programming in Java
 
 Java 8 introduced functional programming features, allowing for more concise and declarative code.
 
-#### Key Concepts
+### Key Concepts
 
 1.  **Pure Functions**: Functions that always produce the same output for the same input and have no side effects.
 2.  **Immutability**: Data objects are not modified after creation.
 3.  **Higher-Order Functions**: Functions that can take other functions as arguments or return them as results.
 
-#### Example: Returning a Function
+### Example: Returning a Function
 
 ```java
 // Higher-Order Function Example
@@ -1753,13 +1775,13 @@ Function<Integer, Integer> doubler = createMultiplier(2);
 System.out.println(doubler.apply(5)); // Output: 10
 ```
 
-### Lambda Expressions
+## Lambda Expressions
 
 Lambda expressions are a concise way to represent an anonymous function that implements a functional interface.
 
 **Syntax**: `(parameters) -> { body }`
 
-#### Use in Threads
+### Use in Threads
 
 **Old Way (Anonymous Class):**
 
@@ -1777,11 +1799,11 @@ Thread t = new Thread(r2);
 t.start();
 ```
 
-### Types of Functional Interface
+## Types of Functional Interface
 
 Java provides built-in functional interfaces in the `java.util.function` package.
 
-#### Consumer
+### Consumer
 
 Takes an argument and returns nothing (`void`). Used for performing actions.
 
@@ -1792,7 +1814,7 @@ Consumer<String> printer = (s) -> System.out.println(s);
 printer.accept("Hello Consumer");
 ```
 
-#### Supplier
+### Supplier
 
 Takes no argument and returns a value. Used for lazy generation of values.
 
@@ -1803,7 +1825,7 @@ Supplier<Double> randomValue = () -> Math.random();
 System.out.println(randomValue.get());
 ```
 
-#### Function
+### Function
 
 Takes an argument and returns a result. Used for transformation.
 
@@ -1814,7 +1836,7 @@ Function<String, Integer> lengthFinder = (s) -> s.length();
 System.out.println(lengthFinder.apply("Hello")); // 5
 ```
 
-#### Predicate
+### Predicate
 
 Takes an argument and returns a boolean. Used for conditional checks.
 
@@ -1825,7 +1847,7 @@ Predicate<Integer> isEven = (n) -> n % 2 == 0;
 System.out.println(isEven.test(4)); // true
 ```
 
-### Method References
+## Method References
 
 A shorthand notation of a lambda expression to call a method.
 
@@ -1841,7 +1863,7 @@ names.forEach(s -> System.out.println(s));
 names.forEach(System.out::println);
 ```
 
-### Stream API
+## Stream API
 
 The Stream API (`java.util.stream`) is used to process collections of objects in a functional style.
 
@@ -1868,12 +1890,14 @@ System.out.println(result); // [ALICE]
 
 # Advanced Features {#advanced-features}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 This file covers modern Java language enhancements and features introduced in recent versions (Java 7+).
 
-### Try-with-resources
+## Try-with-resources
 
 Introduced in Java 7, it simplifies resource management by automatically closing resources that implement the `AutoCloseable` interface.
 
@@ -1886,9 +1910,9 @@ try (FileInputStream fis = new FileInputStream("test.txt")) {
 }
 ```
 
-### Annotations
+## Annotations
 
-#### Type Annotations (Java 8)
+### Type Annotations (Java 8)
 
 Annotations can be placed almost anywhere a type is used, not just on declarations. This is primarily used by plug-in type-checking tools to find bugs (e.g., `@NonNull`).
 
@@ -1896,7 +1920,7 @@ Annotations can be placed almost anywhere a type is used, not just on declaratio
 List<@NonNull String> names = new ArrayList<>();
 ```
 
-#### Repeating Annotations (Java 8)
+### Repeating Annotations (Java 8)
 
 Allows the same annotation to be applied multiple times to a single declaration.
 
@@ -1906,7 +1930,7 @@ Allows the same annotation to be applied multiple times to a single declaration.
 class MyTask { }
 ```
 
-### Java Module System (Java 9)
+## Java Module System (Java 9)
 
 Also known as **Project Jigsaw**. It is used to organize large applications into modules.
 
@@ -1922,7 +1946,7 @@ module com.myapp.main {
 }
 ```
 
-### Diamond Syntax with Anonymous Classes (Java 9)
+## Diamond Syntax with Anonymous Classes (Java 9)
 
 The diamond operator `<>` can be used with anonymous inner classes.
 
@@ -1932,7 +1956,7 @@ List<String> list = new ArrayList<>() {
 };
 ```
 
-### Local Variable Type Inference (Java 10)
+## Local Variable Type Inference (Java 10)
 
 Allows the compiler to infer the type of a local variable from its initializer using the `var` keyword.
 
@@ -1941,7 +1965,7 @@ var message = "Hello"; // Inferred as String
 var map = new HashMap<String, Integer>(); // Inferred as HashMap
 ```
 
-### Switch Expressions (Java 14)
+## Switch Expressions (Java 14)
 
 An enhanced switch statement that can be used as an expression (returns a value).
 
@@ -1957,7 +1981,7 @@ String type = switch (day) {
 };
 ```
 
-### Records (Java 16)
+## Records (Java 16)
 
 A concise way to create immutable data carrier classes. The compiler automatically generates the constructor, getters, `equals`, `hashCode`, and `toString`.
 
@@ -1968,7 +1992,7 @@ Point p = new Point(10, 20);
 System.out.println(p.x()); // 10
 ```
 
-### Sealed Classes (Java 17)
+## Sealed Classes (Java 17)
 
 Restricts which other classes or interfaces may extend or implement them.
 
@@ -1982,7 +2006,7 @@ final class Circle implements Shape {}
 final class Square implements Shape {}
 ```
 
-### Text Blocks (Java 15)
+## Text Blocks (Java 15)
 
 Used to represent multi-line strings.
 
@@ -2002,23 +2026,25 @@ String json = """
 
 # JDBC {#jdbc}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 JDBC is an API that helps Java applications communicate with databases. It allows us to execute SQL statements and retrieve results.
 
-### Architecture
+## Architecture
 
 ![\ ](images/mermaid_4750328d8f7e588abc24f72d5512ed27.png){height=11cm}
 
-#### JDBC Drivers
+### JDBC Drivers
 
 1.  **Type 1 (JDBC-ODBC Bridge)**: Uses ODBC driver. Legacy.
 2.  **Type 2 (Native API)**: Uses client-side libraries.
 3.  **Type 3 (Network Protocol)**: Uses middleware server.
 4.  **Type 4 (Thin Driver)**: Pure Java driver. Direct connection. **Most common.**
 
-### Basic Steps
+## Basic Steps
 
 1.  **Import Package**: `import java.sql.*;`
 2.  **Load Driver**: `Class.forName("com.mysql.cj.jdbc.Driver");`
@@ -2042,7 +2068,7 @@ try (Connection con = DriverManager.getConnection(url, "root", "pass");
 }
 ```
 
-### Prepared Statement
+## Prepared Statement
 
 Used for pre-compiled SQL statements. It is faster and prevents **SQL Injection**.
 
@@ -2056,7 +2082,7 @@ ps.setString(2, "john@example.com");
 int rows = ps.executeUpdate();
 ```
 
-### Transactions
+## Transactions
 
 A transaction is a group of operations that are treated as a single unit. Either all succeed (Commit) or all fail (Rollback).
 
@@ -2078,7 +2104,7 @@ try {
 }
 ```
 
-### Stored Procedures (CallableStatement)
+## Stored Procedures (CallableStatement)
 
 Used to call stored procedures in the database.
 
@@ -2094,7 +2120,7 @@ cs.execute();
 String name = cs.getString(2); // Get output
 ```
 
-### Merging Data (Joins)
+## Merging Data (Joins)
 
 We can execute complex SQL queries involving joins using JDBC just like normal queries.
 
@@ -2110,13 +2136,15 @@ ResultSet rs = st.executeQuery(sql);
 
 # JSP {#jsp}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 JSP is a server-side technology used to create dynamic web content. It is an extension of Servlets.
 JSP files are compiled into Servlets by the container.
 
-### JSP Life Cycle
+## JSP Life Cycle
 
 1.  **Translation**: JSP -> Servlet (.java)
 2.  **Compilation**: Servlet -> Bytecode (.class)
@@ -2124,7 +2152,7 @@ JSP files are compiled into Servlets by the container.
 4.  **Execution**: `_jspService()`
 5.  **Destruction**: `jspDestroy()`
 
-### Scripting Elements
+## Scripting Elements
 
 1.  **Scriptlet Tag** `<% ... %>`: Contains Java code.
     ```jsp
@@ -2139,7 +2167,7 @@ JSP files are compiled into Servlets by the container.
     <%! int square(int n) { return n*n; } %>
     ```
 
-### Implicit Objects
+## Implicit Objects
 
 Objects created by the container and available automatically.
 
@@ -2153,7 +2181,7 @@ Objects created by the container and available automatically.
 8.  **page**: `this` (current servlet instance)
 9.  **exception**: `Throwable` (only in error pages)
 
-### Directives
+## Directives
 
 Instructions to the container. Syntax: `<%@ directive ... %>`
 
@@ -2170,7 +2198,7 @@ Instructions to the container. Syntax: `<%@ directive ... %>`
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     ```
 
-### Standard Actions
+## Standard Actions
 
 XML tags to perform common tasks.
 
@@ -2195,16 +2223,18 @@ XML tags to perform common tasks.
 
 # Servlets {#servlets}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 A Servlet is a Java class that runs on a web server and responds to HTTP requests. It extends the capabilities of a server.
 
-### Architecture
+## Architecture
 
 ![\ ](images/mermaid_c127fdcaa7a04518981756eac27da55a.png){height=11cm}
 
-### Servlet Life Cycle
+## Servlet Life Cycle
 
 The life cycle is managed by the Servlet Container (e.g., Tomcat).
 
@@ -2215,7 +2245,7 @@ The life cycle is managed by the Servlet Container (e.g., Tomcat).
 
 ![\ ](images/mermaid_304226551b100a332d837b4fa69c4324.png){height=11cm}
 
-### Handling Requests
+## Handling Requests
 
 We typically extend `HttpServlet`.
 
@@ -2238,11 +2268,11 @@ public class HelloServlet extends HttpServlet {
 }
 ```
 
-### Session Tracking
+## Session Tracking
 
 HTTP is **stateless**. To maintain state between requests (e.g., login status), we use session tracking.
 
-#### Cookies
+### Cookies
 
 Small pieces of data stored on the client's browser.
 
@@ -2255,7 +2285,7 @@ res.addCookie(c);
 Cookie[] cookies = req.getCookies();
 ```
 
-#### HttpSession
+### HttpSession
 
 Stored on the server. A unique Session ID is sent to the client (usually via cookie).
 
@@ -2271,12 +2301,12 @@ String user = (String) session.getAttribute("user");
 session.invalidate();
 ```
 
-#### URL Rewriting
+### URL Rewriting
 
 Appending the session ID to the URL.
 `http://example.com/app?jsessionid=12345`
 
-#### Hidden Form Fields
+### Hidden Form Fields
 
 `<input type="hidden" name="session_id" value="12345">`
 
@@ -2287,16 +2317,18 @@ Appending the session ID to the URL.
 
 # Spring Framework {#spring-framework}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 Spring is a powerful, lightweight, and open-source framework for building enterprise Java applications. It provides comprehensive infrastructure support, allowing developers to focus on the application logic.
 
-### Spring MVC Architecture
+## Spring MVC Architecture
 
 Spring MVC (Model-View-Controller) is a framework built on the Servlet API. It is designed around a central servlet called **DispatcherServlet** that dispatches requests to controllers.
 
-#### Key Components
+### Key Components
 
 1.  **DispatcherServlet**: The "Front Controller". It receives all incoming HTTP requests and delegates them to other components.
 2.  **HandlerMapping**: Maps a request to a specific Controller method (based on URL, method, etc.).
@@ -2304,7 +2336,7 @@ Spring MVC (Model-View-Controller) is a framework built on the Servlet API. It i
 4.  **ViewResolver**: Resolves the view name (e.g., "home") to an actual view file (e.g., `/WEB-INF/views/home.jsp`).
 5.  **View**: Renders the response (HTML, JSON, etc.).
 
-#### Request Flow
+### Request Flow
 
 ![\ ](images/mermaid_b819483cc3fb2d24eda1ab688c19e936.png){height=11cm}
 
@@ -2316,9 +2348,9 @@ Spring MVC (Model-View-Controller) is a framework built on the Servlet API. It i
 6.  **Resolution**: `DispatcherServlet` asks `ViewResolver` to find the actual View file.
 7.  **Rendering**: The View is rendered with the Model data and sent back to the client.
 
-### Core Concepts
+## Core Concepts
 
-#### POJO (Plain Old Java Object)
+### POJO (Plain Old Java Object)
 
 A **POJO** is an ordinary Java object that is not bound by any special restriction other than those forced by the Java Language Specification. It does not depend on any external libraries or frameworks.
 
@@ -2339,7 +2371,7 @@ public class StudentPojo {
 }
 ```
 
-#### Inversion of Control (IoC)
+### Inversion of Control (IoC)
 
 In traditional programming, the custom code calls the library to perform tasks. In **IoC**, the flow of control is inverted: the framework (container) calls the custom code.
 
@@ -2347,7 +2379,7 @@ In traditional programming, the custom code calls the library to perform tasks. 
 - **Role**: The IoC Container is responsible for instantiating, configuring, and assembling objects (Beans).
 
 
-##### IoC Containers
+#### IoC Containers
 
 Spring provides two types of containers:
 
@@ -2364,7 +2396,7 @@ class Application {
 }
 ```
 
-#### Dependency Injection (DI)
+### Dependency Injection (DI)
 
 DI is the specific design pattern used to implement IoC. It removes the dependency creation responsibility from the class.
 
@@ -2380,7 +2412,7 @@ DI is the specific design pattern used to implement IoC. It removes the dependen
 - [[#Setter Injection]]
 - [[#Field Injection]]
 
-##### Constructor Injection (Recommended)
+#### Constructor Injection (Recommended)
 
 Dependencies are providfed through the class constructor.
 
@@ -2399,7 +2431,7 @@ class UserService {
 }
 ```
 
-##### Setter Injection
+#### Setter Injection
 
 Dependencies are provided through setter methods.
 
@@ -2418,7 +2450,7 @@ class OrderService {
 }
 ```
 
-##### Field Injection
+#### Field Injection
 
 Dependencies are injected directly into fields using reflection.
 
@@ -2433,7 +2465,7 @@ class PaymentService {
 }
 ```
 
-#### Aspect-Oriented Programming (AOP)
+### Aspect-Oriented Programming (AOP)
 
 AOP is a programming paradigm that aims to increase modularity by allowing the separation of **cross-cutting concerns** (functionality that affects multiple parts of an application, like logging, security, or transaction management).
 
@@ -2450,7 +2482,7 @@ AOP is a programming paradigm that aims to increase modularity by allowing the s
 - **JoinPoint**: The specific point in execution (e.g., method execution) where an aspect can be plugged in.
 - **Weaving**: The process of linking aspects with other application types to create an advised object.
 
-##### Example: Around Advice (Measuring Execution Time)
+#### Example: Around Advice (Measuring Execution Time)
 
 ```java
 @Aspect
@@ -2471,13 +2503,13 @@ public class PerformanceAspect {
 }
 ```
 
-### [[14.5 Beans and Autowiring]]
+## [[14.5 Beans and Autowiring]]
 
-### Configuration Styles
+## Configuration Styles
 
 Spring supports three ways to define beans:
 
-#### XML Configuration (Legacy)
+### XML Configuration (Legacy)
 
 Beans are defined in an XML file (e.g., `applicationContext.xml`).
 
@@ -2488,7 +2520,7 @@ Beans are defined in an XML file (e.g., `applicationContext.xml`).
 <bean id="Course" class="Student" autowire="course"/>
 ```
 
-#### Annotation-based Configuration
+### Annotation-based Configuration
 
 Beans are defined using annotations on classes.
 
@@ -2496,7 +2528,7 @@ Beans are defined using annotations on classes.
 - `@Autowired` for injection.
 - Requires `<context:component-scan>` or `@ComponentScan`.
 
-#### Java-based Configuration (Modern)
+### Java-based Configuration (Modern)
 
 Beans are defined in a Java class using `@Configuration` and `@Bean`.
 
@@ -2517,7 +2549,9 @@ public class AppConfig {
 
 # Beans and Autowiring {#beans-and-autowiring}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 They are objects managed by spring IoC container. It forms the backbone of the application.
@@ -2547,7 +2581,7 @@ Or we can use:
 public class MyPrototypeBean { ... }
 ```
 
-### Autowiring
+## Autowiring
 
 Autowiring is the process where Spring automatically resolves and injects dependent beans into your bean without need for explicit configuration.
 
@@ -2574,7 +2608,7 @@ If multiple beans of the same type exist (e.g., `PayPalService` and `StripeServi
     public class PayPalService implements PaymentService { ... }
     ```
 
-### Bean Life Cycle
+## Bean Life Cycle
 
 The lifecycle of a Spring Bean is managed by the container, from creation to destruction.
 
@@ -2589,7 +2623,7 @@ The lifecycle of a Spring Bean is managed by the container, from creation to des
 7.  **Ready**: Bean is ready for use.
 8.  **Destruction**: When container shuts down, `@PreDestroy` or `destroy-method` is called.
 
-##### Implementing Life Cycle Callbacks
+#### Implementing Life Cycle Callbacks
 
 **Using Interfaces:**
 
@@ -2631,7 +2665,9 @@ public class MyBean {
 
 # Spring Boot {#spring-boot}
 
-\minitoc
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+\noindent
 
 
 
@@ -2645,7 +2681,7 @@ Spring Boot is an extension of the Spring Framework that simplifies the setup an
 - **Starter Dependencies**: Simplified build configuration (e.g., `spring-boot-starter-web`).
 - **Production-ready**: Metrics, health checks, externalized configuration.
 
-### Difference between Spring and Spring Boot
+## Difference between Spring and Spring Boot
 
 | Feature           | Spring Framework                           | Spring Boot                                             |
 | :---------------- | :----------------------------------------- | :------------------------------------------------------ |
@@ -2655,14 +2691,14 @@ Spring Boot is an extension of the Spring Framework that simplifies the setup an
 | **Dependency**    | Dependencies managed manually.             | **Starters** simplify dependency management.            |
 | **Boilerplate**   | Significant boilerplate code.              | Reduces boilerplate code drastically.                   |
 
-### Build Systems
+## Build Systems
 
 Spring Boot projects typically use **Maven** or **Gradle**.
 
 - `pom.xml` (Maven)
 - `build.gradle` (Gradle)
 
-### Code Structure
+## Code Structure
 
 ```java
 com
@@ -2676,14 +2712,14 @@ com
          +- web (Controllers)
 ```
 
-### Spring Boot Runners
+## Spring Boot Runners
 
 Interfaces used to run code _after_ the application starts.
 
 1.  **CommandLineRunner**: `run(String... args)`
 2.  **ApplicationRunner**: `run(ApplicationArguments args)`
 
-### Logging
+## Logging
 
 Spring Boot uses Commons Logging for all internal logging but leaves the underlying log implementation open. Default is **Logback**.
 
@@ -2692,11 +2728,11 @@ Logger logger = LoggerFactory.getLogger(MyClass.class);
 logger.info("This is an info message");
 ```
 
-### RESTful Web Services
+## RESTful Web Services
 
 **REST** (Representational State Transfer) is an architectural style for web services.
 
-#### Annotations
+### Annotations
 
 - `@RestController`: Combines `@Controller` and `@ResponseBody`.
 - `@RequestMapping`: Maps HTTP requests to handler methods.
@@ -2704,7 +2740,7 @@ logger.info("This is an info message");
 - `@PathVariable`: Extracts values from the URI path.
 - `@RequestParam`: Extracts query parameters.
 
-#### HTTP Methods
+### HTTP Methods
 
 | Method     | Annotation       | Purpose                                    |
 | :--------- | :--------------- | :----------------------------------------- |
@@ -2713,7 +2749,7 @@ logger.info("This is an info message");
 | **PUT**    | `@PutMapping`    | Update an existing resource (full update). |
 | **DELETE** | `@DeleteMapping` | Delete a resource.                         |
 
-#### Example Controller
+### Example Controller
 
 ```java
 @RestController

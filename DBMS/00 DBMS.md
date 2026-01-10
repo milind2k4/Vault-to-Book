@@ -14,7 +14,8 @@ ___
 
 A **DBMS** is a general-purpose software system that facilitates the process of defining, constructing, manipulating, and sharing databases among various users and applications.
 
-> [!TIP] > **Analogy:** Think of a **Database** as a library full of books (data). The **DBMS** is the librarian who manages the catalog, organizes the books, ensures security, and helps you find exactly what you need. You don't go to the shelf yourself; you ask the librarian.
+> [!TIP] > **Analogy** 
+> Think of a **Database** as a library full of books (data). The **DBMS** is the librarian who manages the catalog, organizes the books, ensures security, and helps you find exactly what you need. You don't go to the shelf yourself; you ask the librarian.
 
 ### Database System vs. File System
 

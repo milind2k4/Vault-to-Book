@@ -22,6 +22,7 @@ style:
   url_color: "07455c"
   chapter_title_top_margin: "0pt"
   chapter_title_bottom_margin: "20pt"
+  geometry: "margin=2.5cm"
 
 # Mermaid Diagram Settings
 mermaid:
