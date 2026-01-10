@@ -5,11 +5,16 @@ __pycache__/
 
 # Obsidian
 .obsidian/
+DBMS/
+Java/
 
 # Misc
 todo.md 
 prompt.txt
 
+# Test files 
+compile_test.py
+run_import.ps1
 
 
 # Tex files
