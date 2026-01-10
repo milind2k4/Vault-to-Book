@@ -27,21 +27,53 @@ A robust tool to convert Obsidian vaults into professional PDF books using Pytho
 
 ## Usage
 
-### 1. Import Vault
-Prepare your notes by importing them from your Obsidian vault.
+Run the `main.py` script to import your vault and build the PDF in a single step.
+
 ```bash
-python import_vault.py --source "E:\Obsidian\MyVault" --output "MyBook"
+python main.py "path/to/notes" "path/to/attachments" [OPTIONS]
 ```
 
-### 2. Build PDF
-Convert the imported notes into a PDF.
+### Examples
+
+**Basic Usage:**
 ```bash
-python build_book.py
+python main.py "E:\Obsidian\MyVault" "E:\Obsidian\Attachments"
 ```
+
+**Custom Title & Author:**
+```bash
+python main.py "E:\Obsidian\DBMS" "E:\Obsidian\Images" --title "Database Systems" --author "Jane Doe"
+```
+
+**Clean Release Build (Strict):**
+Generates the PDF, moves it to the output path, and deletes all intermediate build files.
+```bash
+python main.py "E:\Obsidian\Java" "E:\Obsidian\Images" --cleanup strict --output-pdf "JavaBook.pdf"
+```
+
+**Using a Specific Build Directory:**
+Perform the build in a specific folder (e.g., `tmp_build`) to keep your root clean.
+```bash
+python main.py "source" "attachments" --build-path "tmp_build"
+```
+
+### Arguments
+
+| Argument | Flag | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `notes_dir` | (Positional) | Path to the source Obsidian vault folder | Required |
+| `attachments_dir` | (Positional) | Path to the global Attachments folder | Required |
+| `--title` | `-t` | Book title | Folder Name |
+| `--subtitle` | `-s` | Book subtitle | "Personal Notes..." |
+| `--author` | `-a` | Book author | "Anonymous" |
+| `--cleanup` | `-c` | Cleanup strategy (`none`, `latex`, `artifacts`, `strict`) | `latex` |
+| `--output-pdf` | `-o` | Specific output path for the PDF | None |
+| `--build-path` | `-bp` | Directory where build takes place | Same as Title |
 
 ## Configuration
-Edit `config.yaml` to change:
-- Book Title/Author
+Edit `config.yaml` to change global style settings:
 - Fonts and Colors
-- Margins
+- Margins and Geometry
 - Mermaid settings
+
+*Note: Book metadata (Title/Author) is set via CLI args.*

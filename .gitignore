@@ -6,10 +6,10 @@ __pycache__/
 # Obsidian
 .obsidian/
 DBMS/
-Java/
+Java/images
+Java/build_artifacts
 
 # Misc
-todo.md 
 prompt.txt
 
 # Test files 
@@ -31,6 +31,9 @@ run_import.ps1
 # Temp files
 *.mtc*
 *.maf
+
+# Output files 
+*.pdf
 
 # C extensions
 *.so

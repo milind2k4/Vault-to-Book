@@ -62,6 +62,12 @@ def load_config(config_path: str = "config.yaml") -> dict:
     # Environment Variable Overrides
     if os.getenv("BOOK_TITLE"):
         config['book']['title'] = os.getenv("BOOK_TITLE")
+
+    if os.getenv("BOOK_SUBTITLE"):
+        config['book']['subtitle'] = os.getenv("BOOK_SUBTITLE")
+
+    if os.getenv("BOOK_AUTHOR"):
+        config['book']['author'] = os.getenv("BOOK_AUTHOR")
     
     if os.getenv("SOURCE_DIR"):
         config['build']['source_dir'] = os.getenv("SOURCE_DIR")

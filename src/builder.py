@@ -44,9 +44,7 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
             if re.match(r'^#+\s', line):
                 first_header_removed = True
                 continue
-
-
-                 
+ 
         new_lines.append(line)
         
     content = '\n'.join(new_lines)

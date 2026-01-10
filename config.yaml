@@ -1,15 +1,7 @@
 # Vault-to-Book Configuration
 
-# Book Metadata
-book:
-  title: ""
-  subtitle: "Personal Notes & References"
-  author: "Milind"
-
-# Build Settings
+# Build Settings (defaults)
 build:
-  source_dir: "DBMS"       # Default source directory if not provided
-  output_file: "DBMS.pdf"  # Default output filename
   pdf_engine: "xelatex"    # xelatex or pdflatex
 
 # Visual Settings
