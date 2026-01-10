@@ -39,7 +39,7 @@ It is an abstract machine. It is a specification that provides a runtime environ
 - Executes code
 - Provides runtime environment
 
-![\ ](images/mermaid_50517291671604cd81160fb1649263ab.png){height=11cm}
+![\ ](images/mermaid_1e798736723c4f875ac413d0452f3ad9.png){height=12cm}
 
 > [!TIP] > Analogy: The Kitchen
 >
@@ -53,7 +53,7 @@ It is an abstract machine. It is a specification that provides a runtime environ
 2.  **Compilation**: The `javac` compiler converts the source code into **Bytecode** (`.class` files). Bytecode is platform-independent.
 3.  **Execution**: The JVM reads the bytecode and translates it into machine code (native machine language) for the specific operating system.
 
-![\ ](images/mermaid_f3f81ac6d1c2f9d8fb75fa7423927131.png){height=11cm}
+![\ ](images/mermaid_6e7ba5245d5d5d1714ab6c7246cfbbd0.png){height=12cm}
 
 ## Java Source File Structure
 
@@ -824,7 +824,7 @@ To handle an exception, we can either:
 
 $\\$
 
-![\ ](images/mermaid_e066c7bd39d3bee4bbaba152bde2f264.png){height=11cm}
+![\ ](images/mermaid_e8324c84be579f49405a4b2f588d0f6a.png){height=12cm}
 
 **Throwable:** The root class for everything that can be thrown.
 
@@ -1012,7 +1012,7 @@ It is divided into two main categories:
 1.  `java.util.Collection`: The root interface for lists, sets, and queues.
 2.  `java.util.Map`: A separate interface for key-value pair structures.
 
-![\ ](images/mermaid_2bbb338543a985e865fb5b42b134c270.png){height=11cm}
+![\ ](images/mermaid_1444162a5ef9ccef97f9fa90989fe41e.png){height=12cm}
 
 ##### Collection Interface
 
@@ -1223,7 +1223,7 @@ A `Map` is an object that maps keys to values. A map cannot contain duplicate ke
 
 It does **not** inherit from the `Collection` interface.
 
-![\ ](images/mermaid_f6d824d47b6c392df1fe568f948a1af2.png){height=11cm}
+![\ ](images/mermaid_3ef2efab9f27fcab7200943365754237.png){height=12cm}
 
 ## Map Interface Methods
 
@@ -1344,7 +1344,7 @@ A `Set` is a collection that cannot contain duplicate elements. It models the ma
 
 The `Set` interface contains only methods inherited from `Collection` and adds the restriction that duplicate elements are prohibited.
 
-![\ ](images/mermaid_e83c82c1a45f1bd02c6ad13d4939839c.png){height=11cm}
+![\ ](images/mermaid_9934d9007b0733cab1c3a47829717e16.png){height=12cm}
 
 ## HashSet
 
@@ -1557,7 +1557,7 @@ This is used to:
 
 A thread goes through several states:
 
-![\ ](images/mermaid_7c666472a608e74cc9950ecdfe374af8.png){height=11cm}
+![\ ](images/mermaid_4c48113ca2c68b7954222978162e91db.png){height=12cm}
 
 1.  **New:** The thread object has been created, but `start()` has not been called.
 2.  **Runnable:** The thread is ready to run. `start()` has been called, and it's waiting for the thread scheduler to allocate CPU time.
@@ -2035,7 +2035,7 @@ JDBC is an API that helps Java applications communicate with databases. It allow
 
 ## Architecture
 
-![\ ](images/mermaid_4750328d8f7e588abc24f72d5512ed27.png){height=11cm}
+![\ ](images/mermaid_42d49cdccd14a0bec3580f23148ed8d9.png){height=12cm}
 
 ### JDBC Drivers
 
@@ -2232,7 +2232,7 @@ A Servlet is a Java class that runs on a web server and responds to HTTP request
 
 ## Architecture
 
-![\ ](images/mermaid_c127fdcaa7a04518981756eac27da55a.png){height=11cm}
+![\ ](images/mermaid_7bdc358ddbd0842bfa9bd342aeecc929.png){height=12cm}
 
 ## Servlet Life Cycle
 
@@ -2243,7 +2243,7 @@ The life cycle is managed by the Servlet Container (e.g., Tomcat).
 3.  **Request Handling (`service()`)**: Called for every request. Dispatches to `doGet()`, `doPost()`, etc.
 4.  **Destruction (`destroy()`)**: Called once before removing the servlet. Used for cleanup.
 
-![\ ](images/mermaid_304226551b100a332d837b4fa69c4324.png){height=11cm}
+![\ ](images/mermaid_3276dbb3b5ce7349bc9f3cb21074559f.png){height=12cm}
 
 ## Handling Requests
 
@@ -2338,7 +2338,7 @@ Spring MVC (Model-View-Controller) is a framework built on the Servlet API. It i
 
 ### Request Flow
 
-![\ ](images/mermaid_b819483cc3fb2d24eda1ab688c19e936.png){height=11cm}
+![\ ](images/mermaid_9edb12a375215ba8c3205ada5308d411.png){height=12cm}
 
 1.  **Request**: Client sends a request to the server.
 2.  **Dispatch**: `DispatcherServlet` intercepts the request.
@@ -2612,7 +2612,7 @@ If multiple beans of the same type exist (e.g., `PayPalService` and `StripeServi
 
 The lifecycle of a Spring Bean is managed by the container, from creation to destruction.
 
-![\ ](images/mermaid_b8f60dd0d3e1e984a652069a8c58d756.png){height=11cm}
+![\ ](images/mermaid_48e14d43d712729bf3648ea55829c262.png){height=12cm}
 
 1.  **Instantiation**: The container creates the bean instance (calls constructor).
 2.  **Populate Properties**: Dependencies are injected.

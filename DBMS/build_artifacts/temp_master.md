@@ -42,7 +42,7 @@ Before DBMS, data was stored in OS files (File Processing System).
 
 Proposed by ANSI/SPARC to achieve **Data Independence**. It separates the user view from the physical storage.
 
-![\ ](images/mermaid_b9c9351ddd0fc57ce753a9e2012f2ef8.png){height=11cm}
+![\ ](images/mermaid_98671ab23a215ceca177c3500aafbfdf.png){height=12cm}
 
 1.  **External Level (View Level)**:
     - Describes **part** of the database relevant to a specific user.
@@ -756,7 +756,7 @@ We create views for several reasons:
 > - **Table**: The actual room with all its furniture (Data).
 > - **View**: A tinted window that lets you see only _specific_ parts of the room (e.g., only the sofa, not the messy bed). You can't "touch" the furniture directly through the window (in complex views), but you can see it.
 
-![\ ](images/mermaid_4fa8d2727d630d8753e3b2d87462d2c3.png){height=11cm}
+![\ ](images/mermaid_085fa9ee54b516b0448bb3e7e30a6b07.png){height=12cm}
 
 One table can have any number of views.
 
@@ -948,7 +948,7 @@ Oracle engine then performs a sequential search (also called a **Full Table Scan
 > - **No Index (Full Table Scan)**: To find "Deadlock" in a book, you read _every single page_ from start to finish. Slow!
 > - **Index (Index Scan)**: You go to the back of the book, find "Deadlock" in the sorted list, and jump straight to Page 142. Fast!
 
-![\ ](images/mermaid_dc15ef82eb1a0b32a32c0b14535c5baf.png){height=11cm}
+![\ ](images/mermaid_e23796b98c7b2c902a39a09670f04a24.png){height=12cm}
 
 Indexes are essential to improve the speed with which records can be located and retrieved from the table. It involves creating a **data structure (commonly a B-tree)** that is stored separately from the table.
 
@@ -1538,7 +1538,7 @@ To ensure data integrity, every transaction must satisfy:
 4.  **Failed**: Error occurred.
 5.  **Aborted**: Rolled back.
 
-![\ ](images/mermaid_e90299367a579276801ab63f91cd4362.png){height=11cm}
+![\ ](images/mermaid_2e05c0f20a64a30ef819d0dd1bc703a1.png){height=12cm}
 
 ## Schedules & Serializability
 
@@ -1762,7 +1762,7 @@ Allow deadlocks to occur, detect them, and recover.
 - **Wait-For Graph**: A directed graph where nodes are transactions and edge $T_i \rightarrow T_j$ means $T_i$ is waiting for $T_j$.
 - **Cycle Detection**: If the graph has a cycle, a deadlock exists.
 
-![\ ](images/mermaid_1502401081c7041895920ff56c6e1bae.png){height=11cm}
+![\ ](images/mermaid_fff4909b7322780d5d445eab625ac4fd.png){height=12cm}
 
 - **Recovery**: Select a **Victim** to rollback based on:
   - Cost (least progress).
@@ -1948,7 +1948,7 @@ Maintain two Page Tables: **Current** and **Shadow.**
 > - **Shadow Page Table:** The "Saved" version on disk.
 > - **Commit**: You hit "Save As" and overwrite the old file with the new one. If the power goes out _before_ you save, you just open the old file (Shadow) and nothing is corrupted.
 
-![\ ](images/mermaid_f54d9468e366dd56870d8c280a4ed51e.png){height=11cm}
+![\ ](images/mermaid_b763819ce63a072931b0799f5ded2ad8.png){height=12cm}
 
 ## ARIES Algorithm
 

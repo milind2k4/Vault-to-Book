@@ -8,8 +8,8 @@ book:
 
 # Build Settings
 build:
-  source_dir: "Java"       # Default source directory if not provided
-  output_file: "Java.pdf"  # Default output filename
+  source_dir: "DBMS"       # Default source directory if not provided
+  output_file: "DBMS.pdf"  # Default output filename
   pdf_engine: "xelatex"    # xelatex or pdflatex
 
 # Visual Settings
@@ -22,11 +22,11 @@ style:
   url_color: "07455c"
   chapter_title_top_margin: "0pt"
   chapter_title_bottom_margin: "20pt"
-  geometry: "margin=2.5cm"
+  geometry: "top=1.5cm, bottom=2.5cm, left=3cm, right=3cm, includeheadfoot, heightrounded"
 
 # Mermaid Diagram Settings
 mermaid:
-  default_height: "11cm"
+  default_height: "12cm"
   default_width: null # Use null for auto/unspecified
   scale: 3.0
 

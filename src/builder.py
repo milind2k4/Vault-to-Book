@@ -45,10 +45,7 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
                 first_header_removed = True
                 continue
 
-        # Demote remaining headers - REMOVED
-        # if stripped.startswith('#'):
-        #      if re.match(r'^#+\s', line):
-        #          line = '#' + line
+
                  
         new_lines.append(line)
         
