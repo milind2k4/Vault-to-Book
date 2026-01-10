@@ -16,6 +16,10 @@ def generate_headers_tex(output_dir: str) -> str:
 \\usepackage{{caption}}
 \\captionsetup[figure]{{labelsep=none, justification=centering}}
 \\usepackage{{minitoc}}
+\\usepackage[version=4]{{mhchem}}
+\\usepackage{{amsmath}}
+\\usepackage{{amssymb}}
+\\usepackage{{mathtools}}
 \\mtcselectlanguage{{english}}
 \\definecolor{{mylinkcolor}}{{HTML}}{{{link_color}}}
 \\definecolor{{myurlcolor}}{{HTML}}{{{url_color}}}

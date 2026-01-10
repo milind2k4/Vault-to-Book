@@ -185,3 +185,15 @@ function Str(el)
      return pandoc.RawInline("latex", "$\\boxtimes$")
   end
 end
+
+-- Math Fix: Replace \ce{...} with \mathrm{...}
+function Math(el)
+    if el.text:find("\\ce{") then
+        -- Simple global substitution for \ce to \mathrm
+        -- This preserves the braces structure: \ce{...} -> \mathrm{...}
+        -- Assuming \ce only takes one argument block.
+        local new_tex = el.text:gsub("\\ce", "\\symup")
+        el.text = new_tex
+        return el
+    end
+end

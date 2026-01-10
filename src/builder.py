@@ -121,7 +121,7 @@ include-before:
     with open(temp_file, 'w', encoding='utf-8') as f:
         f.write("".join(master_content))
 
-    print(f"\nCreated {temp_file}")
+    print(f"Created {temp_file}")
     
     # Resource Resolution
     resource_dir = CONFIG['resources']['dir']
