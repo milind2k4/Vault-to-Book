@@ -1,7 +1,5 @@
 Links: [[02 Polymorphism]], [[01 Inheritance]]
-
----
-
+___
 # Abstraction
 It is a concept which is used for **hiding implementation complexity** and showing only the essential features or functionality to the user.
 

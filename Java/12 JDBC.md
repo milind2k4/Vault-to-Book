@@ -1,7 +1,5 @@
 Links: [[13.5 Servlets]]
-
----
-
+___
 # Java Database Connectivity (JDBC)
 
 JDBC is an API that helps Java applications communicate with databases. It allows us to execute SQL statements and retrieve results.

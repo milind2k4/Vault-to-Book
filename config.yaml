@@ -1,0 +1,35 @@
+# Vault-to-Book Configuration
+
+# Book Metadata
+book:
+  title: ""
+  subtitle: "Personal Notes & References"
+  author: "Milind"
+
+# Build Settings
+build:
+  source_dir: "Java"       # Default source directory if not provided
+  output_file: "Java.pdf"  # Default output filename
+  pdf_engine: "xelatex"    # xelatex or pdflatex
+
+# Visual Settings
+style:
+  template: "eisvogel.latex"
+  mainfont: "LMRoman10-Regular"
+  sansfont: "Arial"
+  monofont: "LMMono10-Regular"
+  link_color: "07455c"
+  url_color: "07455c"
+  chapter_title_top_margin: "0pt"
+  chapter_title_bottom_margin: "20pt"
+
+# Mermaid Diagram Settings
+mermaid:
+  default_height: "11cm"
+  default_width: null # Use null for auto/unspecified
+  scale: 3.0
+
+# Resource Paths (Relative to project root)
+resources:
+  dir: "resources"
+  images_dir: "images"

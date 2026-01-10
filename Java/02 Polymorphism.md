@@ -1,7 +1,5 @@
 Links: [[01 Inheritance]]
-
----
-
+___
 # Polymorphism
 
 "Many Forms"

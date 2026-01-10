@@ -74,12 +74,28 @@ function BlockQuote(el)
             end
         end
         
-        -- Clean leading ">" or whitespace from title_inlines
-        if #title_inlines > 0 and title_inlines[1].t == "Str" and title_inlines[1].text:match("^%s*>?%s*$") then
-            table.remove(title_inlines, 1)
-        end
-        if #title_inlines > 0 and title_inlines[1].t == "Space" then
-             table.remove(title_inlines, 1)
+        -- Clean leading ">", ":", or whitespace from title_inlines
+        local clean = false
+        while not clean and #title_inlines > 0 do
+            local first = title_inlines[1]
+            if first.t == "Space" or first.t == "SoftBreak" then
+                table.remove(title_inlines, 1)
+            elseif first.t == "Str" then
+                -- Check for leading ">" or ":"
+                local s = first.text
+                local new_s = s:gsub("^%s*[>:]+%s*", "")
+                if new_s == "" then
+                    -- Node became empty, remove it
+                    table.remove(title_inlines, 1)
+                else
+                    -- Node partially cleaned, update and stop
+                    first.text = new_s
+                    clean = true
+                end
+            else
+                -- Other elements (Emph, Strong), stop cleaning
+                clean = true
+            end
         end
 
         local box_title_tex = ""

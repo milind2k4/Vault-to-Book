@@ -1,7 +1,5 @@
 Links: [[09 Synchronization]]
-
----
-
+___
 # Functional Interface
 
 A **Functional Interface** is an interface that contains exactly one abstract method. It can have any number of default or static methods.

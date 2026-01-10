@@ -1,7 +1,6 @@
+
 Links: [[College/Operating System/08 Concurrency]]
-
----
-
+___
 # Synchronization
 
 It is a mechanism to control access of multiple threads to shared resources.

@@ -1,7 +1,5 @@
 Links: [[13.5 Servlets]]
-
----
-
+___
 # Java Server Pages (JSP)
 
 JSP is a server-side technology used to create dynamic web content. It is an extension of Servlets.

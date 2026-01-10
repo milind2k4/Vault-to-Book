@@ -11,8 +11,6 @@ include-before:
 \minitoc
 
 
-
-
 Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers _write once, run anywhere_ (WORA).
 
 It follows the four pillars of OOP:
@@ -255,8 +253,6 @@ class A {
 \minitoc
 
 
-
-
 Inheritance is a mechanism where one class acquires the properties and behaviors (methods) of another class.
 This creates an "IS-A" relationship (e.g., a `Dog` IS-A `Animal`).
 
@@ -449,8 +445,6 @@ class Child extends Parent {
 \minitoc
 
 
-
-
 "Many Forms"
 
 Polymorphism is an OOP mechanism where an object (or method) can take on many different forms. Its main advantage is code reusability and flexibility.
@@ -584,8 +578,6 @@ Here, even though the reference `a` is of type `Animal`, the JVM calls the `soun
 
 \minitoc
 
-
-
 It is a fundamental OOP principle used for **data hiding**.
 Encapsulation is a mechanism in which data (attributes or variables) and the methods that operate on that data are bundled together within a single unit (a class).
 
@@ -655,8 +647,6 @@ The encapsulation is:
 # Abstraction {#abstraction}
 
 \minitoc
-
-
 
 It is a concept which is used for **hiding implementation complexity** and showing only the essential features or functionality to the user.
 
@@ -808,8 +798,6 @@ MyInterface.utilityMethod();
 \minitoc
 
 
-
-
 Java is robust i.e. it can deal with the errors.
 
 Exception handling is a mechanism through which we catch and manage errors or unusual events during run time that disrupts the normal flow of the program.
@@ -848,7 +836,7 @@ There are two types of exceptions:
 
   E.g. `ArithmeticException`, `ArrayIndexOutOfBoundsException`, `NumberFormatException`, `NullPointerException`.
 
-#### Using `try-catch-finally` block
+#### Using `try - catch - finally` block
 
 - **`try`:** The code which might throw an exception is written inside the `try` block.
 - **`catch`:** The handler for the exception. If an exception of the specified type occurs in `try`, this block is executed.
@@ -985,8 +973,6 @@ We use this when we want to perform an operation on one resource and then close 
 \minitoc
 
 
-
-
 Collections are predefined data structures that Java provides.
 Collections are a group of objects or entities considered as a single unit that store data.
 
@@ -1105,8 +1091,6 @@ ListIterator<Integer> it = myList.listIterator();
 
 \minitoc
 
-
-
 #### List
 It is an interface for an **ordered** collection of elements.
 
@@ -1221,8 +1205,6 @@ Methods come in two flavors:
 # Maps {#maps}
 
 \minitoc
-
-
 
 
 A `Map` is an object that maps keys to values. A map cannot contain duplicate keys; each key can map to at most one value.
@@ -1344,8 +1326,6 @@ try (FileOutputStream fos = new FileOutputStream("config.properties")) {
 \minitoc
 
 
-
-
 A `Set` is a collection that cannot contain duplicate elements. It models the mathematical set abstraction.
 
 The `Set` interface contains only methods inherited from `Collection` and adds the restriction that duplicate elements are prohibited.
@@ -1426,8 +1406,6 @@ System.out.println(numbers); // Output: [1, 5, 10]
 # Sorting and Comparator {#sorting-and-comparator}
 
 \minitoc
-
-
 
 
 The Java sort methods use **Timm sort**, which is a hybrid of insertion sort and merge sort.
@@ -1535,8 +1513,6 @@ Collections.sort(listOfStudents, byNameThenRoll);
 # Multi Threading {#multi-threading}
 
 \minitoc
-
-
 
 
 A **thread** is a single, lightweight execution path within a process.
@@ -1666,7 +1642,6 @@ This is achieved using the synchronized keyword (on methods or blocks) or other 
 
 
 
-
 It is a mechanism to control access of multiple threads to shared resources.
 
 If we don't do synchronization, it leads to:
@@ -1745,8 +1720,6 @@ A **Monitor** is a high-level construct that combines a Mutex with condition var
 # Functional Interface {#functional-interface}
 
 \minitoc
-
-
 
 
 A **Functional Interface** is an interface that contains exactly one abstract method. It can have any number of default or static methods.
@@ -1898,8 +1871,6 @@ System.out.println(result); // [ALICE]
 \minitoc
 
 
-
-
 This file covers modern Java language enhancements and features introduced in recent versions (Java 7+).
 
 ### Try-with-resources
@@ -2034,8 +2005,6 @@ String json = """
 \minitoc
 
 
-
-
 JDBC is an API that helps Java applications communicate with databases. It allows us to execute SQL statements and retrieve results.
 
 ### Architecture
@@ -2144,8 +2113,6 @@ ResultSet rs = st.executeQuery(sql);
 \minitoc
 
 
-
-
 JSP is a server-side technology used to create dynamic web content. It is an extension of Servlets.
 JSP files are compiled into Servlets by the container.
 
@@ -2229,8 +2196,6 @@ XML tags to perform common tasks.
 # Servlets {#servlets}
 
 \minitoc
-
-
 
 
 A Servlet is a Java class that runs on a web server and responds to HTTP requests. It extends the capabilities of a server.
@@ -2323,8 +2288,6 @@ Appending the session ID to the URL.
 # Spring Framework {#spring-framework}
 
 \minitoc
-
-
 
 
 Spring is a powerful, lightweight, and open-source framework for building enterprise Java applications. It provides comprehensive infrastructure support, allowing developers to focus on the application logic.
@@ -2555,8 +2518,6 @@ public class AppConfig {
 # Beans and Autowiring {#beans-and-autowiring}
 
 \minitoc
-
-
 
 
 They are objects managed by spring IoC container. It forms the backbone of the application.

@@ -1,7 +1,5 @@
 Links:
-
----
-
+___
 # Encapsulation
 It is a fundamental OOP principle used for **data hiding**.
 Encapsulation is a mechanism in which data (attributes or variables) and the methods that operate on that data are bundled together within a single unit (a class).

@@ -1,7 +1,5 @@
 Links: [[06 Collections]]
-
----
-
+___
 # Sorting and Comparator
 
 The Java sort methods use **Timm sort**, which is a hybrid of insertion sort and merge sort.

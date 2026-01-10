@@ -1,7 +1,5 @@
 Links: [[01 Inheritance]], [[04 Abstraction]]
-
----
-
+___
 # Collections
 
 Collections are predefined data structures that Java provides.

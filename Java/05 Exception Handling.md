@@ -1,7 +1,5 @@
 Links:
-
----
-
+___
 # Exception Handling
 
 Java is robust i.e. it can deal with the errors.
@@ -49,7 +47,7 @@ There are two types of exceptions:
 
   E.g. `ArithmeticException`, `ArrayIndexOutOfBoundsException`, `NumberFormatException`, `NullPointerException`.
 
-### Using `try-catch-finally` block
+### Using `try - catch - finally` block
 
 - **`try`:** The code which might throw an exception is written inside the `try` block.
 - **`catch`:** The handler for the exception. If an exception of the specified type occurs in `try`, this block is executed.

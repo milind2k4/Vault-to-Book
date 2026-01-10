@@ -1,7 +1,5 @@
 Links: [[15 Spring Boot]]
-
----
-
+___
 # Spring Framework
 
 Spring is a powerful, lightweight, and open-source framework for building enterprise Java applications. It provides comprehensive infrastructure support, allowing developers to focus on the application logic.

@@ -1,7 +1,5 @@
 Links:
-
----
-
+___
 # Inheritance
 
 Inheritance is a mechanism where one class acquires the properties and behaviors (methods) of another class.

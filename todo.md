@@ -10,12 +10,8 @@ then the filter treats the whole block as title.
 
 ---
 
-Make a requirements.txt file
-
---- 
-
-Make a readme.md
+The first page of the main Content section isn't formatted correctly.
 
 ---
 
-
+Make it so that while the script is running, only the errors and warnings are printed on the console while xelatex is converting the tex to pdf.

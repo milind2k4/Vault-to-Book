@@ -1,7 +1,5 @@
 Links: [[10 Functional Interface]]
-
----
-
+___
 # Advanced Java Features
 
 This file covers modern Java language enhancements and features introduced in recent versions (Java 7+).

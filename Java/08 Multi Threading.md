@@ -1,7 +1,5 @@
 Links: [[10 Process Synchronization]], [[09 Synchronization]]
-
----
-
+___
 # Multi Threading
 
 A **thread** is a single, lightweight execution path within a process.
