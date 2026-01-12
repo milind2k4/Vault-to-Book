@@ -23,18 +23,31 @@ def generate_headers_tex(output_dir: str) -> str:
     
     opts = ",".join(img_opts)
     
+    # --- Configuration Preparation ---
+    table_conf = CONFIG.get('tables', {})
+    row_colors_tex = ""
+    if table_conf.get('row_colors', True):
+        odd = table_conf.get('odd_color', 'white')
+        even = table_conf.get('even_color', 'RoyalBlue!20')
+        row_colors_tex = f"\\rowcolors{{2}}{{{even}}}{{{odd}}}"
+    
+    table_stretch = table_conf.get('stretch', 1.2)
+    
     headers_tex_content = f"""
 \\usepackage{{caption}}
 \\captionsetup[figure]{{labelsep=none, justification=centering}}
-\\usepackage{{etoc}} % Replaces minitoc
+
+\\usepackage{{etoc}} 
+
 \\usepackage[version=4]{{mhchem}}
 \\usepackage{{amsmath}}
 \\usepackage{{amssymb}}
 \\usepackage{{mathtools}}
 \\usepackage{{gensymb}}
+\\usepackage{{cancel}}
+
 \\usepackage[export]{{adjustbox}} % For max width=... in includegraphics
 \\usepackage{{float}} % Required for [H] figure placement
-\\usepackage{{cancel}}
 
 % --- Global Image Sizing from Config ---
 \\makeatletter
@@ -50,24 +63,25 @@ def generate_headers_tex(output_dir: str) -> str:
 \\renewcommand*\\chapterformat{{\\thechapter.\\enskip}}
 \\addtokomafont{{chapter}}{{\\centering}}
 \\RedeclareSectionCommand[beforeskip={top_margin},afterskip={bottom_margin}]{{chapter}}
+
 % --- Table Styling ---
-\\rowcolors{{2}}{{RoyalBlue!20}}{{white}}
-\\renewcommand{{\\arraystretch}}{{1.2}}
-% --------------------------------------------------------
-% FORCE CENTER FOR PANDOC BOUNDED IMAGES - (User Requested Fix)
-% --------------------------------------------------------
+{row_colors_tex}
+\\renewcommand{{\\arraystretch}}{{{table_stretch}}}
+
+% --- Heading Styling (Lines) ---
 \\makeatletter
-% Check if \\pandocbounded is defined (to prevent crashes on old Pandoc versions)
-\\ifdef{{\\pandocbounded}}{{
-  % Save the original command
-  \\let\\oldpandocbounded\\pandocbounded
-  % Redefine it to include centering and a new line (\\par)
-  \\renewcommand{{\\pandocbounded}}[1]{{
-    {{\\centering\\oldpandocbounded{{#1}}\\par}}%
-  }}
-}}{{}}
+\\renewcommand\\sectionlinesformat[4]{{%
+  \\ifstr{{#1}}{{section}}{{%
+    \\vspace{{0.5em}}
+    \\rule{{\\linewidth}}{{0.5pt}}\\par\\nointerlineskip
+    \\@hangfrom{{\\hskip #2#3}}{{#4}}\\par\\nointerlineskip
+    \\vspace{{0.2em}}
+    \\rule{{\\linewidth}}{{0.5pt}}\\par
+  }}{{%
+    \\@hangfrom{{\\hskip #2#3}}{{#4}}%
+  }}%
+}}
 \\makeatother
-% -------------------------------------------
 """
     headers_tex_file = os.path.join(output_dir, "headers.tex")
     with open(headers_tex_file, 'w', encoding='utf-8') as f:
@@ -83,23 +97,13 @@ def generate_cover_tex(output_dir: str) -> str:
     book_author = CONFIG['book']['author']
     current_date = date.today().strftime("%B %d, %Y")
     
-    # Logic to find logo: It's usually in source_dir/images/logo.png
-    # But output_dir is source_dir/build_artifacts
-    # So we should check parent of output_dir for images?
-    # Or rely on Config?
-    
-    # We can infer source_dir from output_dir if assume standard structure
-    # output_dir = source_dir/build_artifacts
-    # source_dir = output_dir/..
+    # Logic to find logo: source_dir/images/logo.png
+    # output_dir is inside source_dir/build_artifacts, so parent is source_dir
     source_dir = os.path.dirname(output_dir)
     
     images_dir_name = CONFIG['resources'].get('images_dir', 'images')
     logo_file_path = os.path.join(source_dir, images_dir_name, "logo.png")
     
-    # For LaTeX, we need a path relative to where compilation happens (source_dir)
-    # OR an absolute path ( safest)
-    # Let's use absolute path for the image inclusion to be safe
-    # REPLACE BACKSLASHES for LaTeX
     logo_tex_path = logo_file_path.replace("\\", "/")
     
     # Conditional Logo
@@ -133,8 +137,6 @@ def generate_cover_tex(output_dir: str) -> str:
     \\vspace{{3cm}}
     \\restoregeometry
 \\end{{titlepage}}
-
-% Initialize MiniTOC (Removed, using etoc)
 """
     cover_tex_path = os.path.join(output_dir, "cover.tex")
     with open(cover_tex_path, 'w', encoding='utf-8') as f:

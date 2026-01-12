@@ -5,7 +5,6 @@ import re
 import sys
 import pickle
 import time
-import shutil
 
 # Add project root to sys.path so we can import 'src'
 sys.path.append(os.getcwd())
@@ -191,19 +190,13 @@ def main():
         # Use directory name of inputs
         args.title = os.path.basename(os.path.abspath(args.notes_dir))
     
-    print(f"Build Configuration:")
+    print(f"\nBuild Configuration:")
     print(f"  Title:    {args.title}")
     print(f"  Subtitle: {args.subtitle}")
     print(f"  Author:   {args.author}")
     print(f"  Cleanup:  {args.cleanup}")
     
-    # 3. Import
-    # We use a standard internal directory for build to avoid polluting root randomly
-    # UNLESS the user wants it somewhere specific, but usually 'dist' or 'build_output' is fine
-    # For compatibility with legacy behavior, we can use the title as directory name, 
-    # but that might be what the user wants.
-    # We check for collision with source dir.
-    
+    # 3. Import   
     safe_import_dir = args.build_path if args.build_path else args.title
     absolute_source = os.path.abspath(args.notes_dir)
     absolute_target = os.path.abspath(safe_import_dir)
@@ -212,15 +205,9 @@ def main():
         print(f"Notice: Output directory '{safe_import_dir}' conflicts with source. using '{safe_import_dir}_build' instead.")
         safe_import_dir = f"{safe_import_dir}_build"
     
-    
     # 4. Configure & Build
-    # Set env vars for builder to pick up
-    os.environ["BOOK_TITLE"] = args.title
-    os.environ["BOOK_SUBTITLE"] = args.subtitle
-    os.environ["BOOK_AUTHOR"] = args.author
     
     output_filename = f"{args.title}.pdf"
-    os.environ["OUTPUT_FILE"] = output_filename
     
     try:
         # Perform Import
@@ -232,9 +219,6 @@ def main():
         CONFIG['book']['title'] = args.title
         CONFIG['book']['subtitle'] = args.subtitle
         CONFIG['book']['author'] = args.author
-        
-        # Also keep env vars just in case other modules use them
-        os.environ["SOURCE_DIR"] = import_dir
 
         print(Colors.section("Starting Build Process"))
         build()
@@ -256,14 +240,16 @@ def main():
                 os.makedirs(dest_dir)
             
             # If user specified a directory (ends with slash or exists as dir), handle that
-             # But argparse doesn't tell us if it ended with slash easily without checking.
-             # Simple check: if os.path.isdir(dest_pdf) -> put inside.
             if os.path.isdir(dest_pdf):
                  dest_pdf = os.path.join(dest_pdf, output_filename)
             
             # If cleanup is strict, we MUST move it out because build dir is deleted.
-            # If cleanup is NOT strict, user expects it in build_path (per requirements), 
-            # so we should COPY it to the requested output path, leaving original in build_path.
+            # If cleanup is NOT strict, user expects it in build_path (per requirements)
+            if args.cleanup != "strict":
+                shutil.copy2(final_pdf_path, dest_pdf)
+                # final_pdf_path remains pointing to the build_dir version for logging if needed
+                # or strictly speaking, we validly created dest_pdf too.
+                pass
             else:
                 shutil.move(final_pdf_path, dest_pdf)
                 final_pdf_path = dest_pdf
@@ -271,10 +257,7 @@ def main():
             print(Colors.info(f"PDF Output: {dest_pdf}"))
         
         # 5. Cleanup
-        # Define artifacts dir location (it's inside import_dir/build_artifacts by default in builder.py)
-        # We need to know where it is. Builder logic: os.path.join(source_dir, artifacts_dir_name)
-        # defaulted to 'build_artifacts' in config.py
-        
+        # Define artifacts dir location (inside import_dir/build_artifacts by default)
         artifacts_dir = os.path.join(import_dir, "build_artifacts")
         
         if args.cleanup == "none":
@@ -290,12 +273,7 @@ def main():
                 shutil.rmtree(artifacts_dir)
                 print(Colors.info(f"Cleanup: Removed artifacts directory: {artifacts_dir}"))
                 
-        elif args.cleanup == "strict":
-            # If we didn't already move the PDF (because args.output_pdf wasn't set), we should move it now?
-            # But wait, if output_pdf WAS set, we just moved it.
-            # If output_pdf WAS NOT set, strict mode implies we want to keep NOTHING but the PDF.
-            # So we must move the PDF out of the import_dir before deleting import_dir.
-            
+        elif args.cleanup == "strict":            
             if not args.output_pdf:
                  # Default output was current dir
                  dest_pdf = os.path.abspath(output_filename)

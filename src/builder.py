@@ -2,13 +2,15 @@ import os
 import re
 import subprocess
 import shutil
-import sys
+
+
 from .config import CONFIG
 from .utils import clean_title, slugify, ensure_dir
 from .mermaider import process_mermaid
 from .tex_manager import generate_headers_tex, generate_cover_tex
 from .cleaner import cleanup_artifacts
 from .colors import Colors
+
 
 def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     """
@@ -74,7 +76,7 @@ def build() -> None:
     ensure_dir(artifacts_dir)
     print(Colors.info(f"Build artifacts will be stored in: {artifacts_dir}"))
 
-    temp_file = os.path.join(artifacts_dir, "temp_master.md")
+    temp_file = os.path.join(artifacts_dir, "book_master.md")
     
     print(Colors.info(f"Scanning {source_dir}..."))
     
@@ -86,7 +88,7 @@ def build() -> None:
         if artifacts_dir_name in dirs: dirs.remove(artifacts_dir_name)
         
         for file in files:
-            if file.lower().endswith(".md") and file != "temp_master.md":
+            if file.lower().endswith(".md") and file != "book_master.md":
                 md_files.append(os.path.join(root, file))
 
     md_files.sort(key=lambda p: os.path.basename(p).lower())
@@ -129,6 +131,7 @@ def build() -> None:
     template_name = CONFIG['style']['template']
     
     def resolve_resource(name: str) -> str:
+        """Finds a resource file in resources_dir or current path."""
         paths = [
             os.path.join(resource_dir, name),
             name
@@ -176,10 +179,16 @@ def build() -> None:
         "--variable", f"urlcolor=myurlcolor",
         "--standalone"
     ]
-    if CONFIG['style'].get('mainfont'): cmd_tex.extend(["--variable", f"mainfont={CONFIG['style']['mainfont']}"])
-    if CONFIG['style'].get('sansfont'): cmd_tex.extend(["--variable", f"sansfont={CONFIG['style']['sansfont']}"])
-    if CONFIG['style'].get('monofont'): cmd_tex.extend(["--variable", f"monofont={CONFIG['style']['monofont']}"])
-    if CONFIG['style'].get('geometry'): cmd_tex.extend(["--variable", f"geometry={CONFIG['style']['geometry']}"])
+
+    # Style Configuration
+    if CONFIG['style'].get('mainfont'): 
+        cmd_tex.extend(["--variable", f"mainfont={CONFIG['style']['mainfont']}"])
+    if CONFIG['style'].get('sansfont'): 
+        cmd_tex.extend(["--variable", f"sansfont={CONFIG['style']['sansfont']}"])
+    if CONFIG['style'].get('monofont'): 
+        cmd_tex.extend(["--variable", f"monofont={CONFIG['style']['monofont']}"])
+    if CONFIG['style'].get('geometry'): 
+        cmd_tex.extend(["--variable", f"geometry={CONFIG['style']['geometry']}"])
     
     # Image Configuration
     if CONFIG.get('images', {}).get('max_width'):
@@ -187,6 +196,8 @@ def build() -> None:
     if CONFIG.get('images', {}).get('max_height'):
         cmd_tex.extend(["--metadata", f"image-max-height={CONFIG['images']['max_height']}"])
     
+
+    # 1. Generate LaTeX (Pandoc)
     print(f"Generating LaTeX: {tex_file}...")
     try:
         result = subprocess.run(cmd_tex, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -216,15 +227,20 @@ def build() -> None:
     try:
         print("Pass 1/3 (Init)...")
         subprocess.run(tex_cmd, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
         print("Pass 2/3 (TOC)...")
         subprocess.run(tex_cmd, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
         print("Pass 3/3 (Refs/MiniTOC)...")
         subprocess.run(tex_cmd, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
     except subprocess.CalledProcessError as e:
         print(f"\nError compiling PDF: {e}")
         
-        def filter_latex_log(output_bytes):
+        def filter_latex_log(output_bytes: bytes) -> str:
+            """Filters LaTeX output to show only errors and relevant context."""
             if not output_bytes: return ""
+            
             text = output_bytes.decode('utf-8', errors='ignore')
             lines = text.splitlines()
             filtered = []

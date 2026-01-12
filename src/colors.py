@@ -10,19 +10,31 @@ class Colors:
     UNDERLINE = '\033[4m'
 
     @staticmethod
-    def header(text): return f"{Colors.HEADER}{text}{Colors.ENDC}"
+    def header(text: str) -> str:
+        """Formats text as header (purple)."""
+        return f"{Colors.HEADER}{text}{Colors.ENDC}"
 
     @staticmethod
-    def info(text): return f"{Colors.OKCYAN}{text}{Colors.ENDC}"
+    def info(text: str) -> str:
+        """Formats text as info (yellow)."""
+        return f"{Colors.WARNING}{text}{Colors.ENDC}"
 
     @staticmethod
-    def success(text): return f"{Colors.OKGREEN}{text}{Colors.ENDC}"
+    def success(text: str) -> str:
+        """Formats text as success (green)."""
+        return f"{Colors.OKGREEN}{text}{Colors.ENDC}"
     
     @staticmethod
-    def warning(text): return f"{Colors.WARNING}{text}{Colors.ENDC}"
+    def warning(text: str) -> str:
+        """Formats text as warning (yellow)."""
+        return f"{Colors.WARNING}{text}{Colors.ENDC}"
 
     @staticmethod
-    def error(text): return f"{Colors.FAIL}{Colors.BOLD}{text}{Colors.ENDC}"
+    def error(text: str) -> str:
+        """Formats text as error (red bold)."""
+        return f"{Colors.FAIL}{Colors.BOLD}{text}{Colors.ENDC}"
     
     @staticmethod
-    def section(text): return f"\n{Colors.BOLD}{Colors.OKBLUE}--- {text} ---{Colors.ENDC}"
+    def section(text: str) -> str:
+        """Formats text as a section header with separator."""
+        return f"\n{Colors.BOLD}{Colors.OKBLUE}--- {text} ---{Colors.ENDC}"

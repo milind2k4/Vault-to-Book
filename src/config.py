@@ -31,8 +31,14 @@ DEFAULT_CONFIG = {
     },
     "images": {
         "max_width": None, # Max width for images (scales down if larger)
-        "max_height": "0.3\\linewidth",            # Max height (if set, overrides width constraint)
+        "max_height": "0.7\\linewidth", # Max height (if set, overrides width constraint)
         "keep_aspect_ratio": True
+    },
+    "tables": {
+        "row_colors": True,
+        "odd_color": "white",
+        "even_color": "RoyalBlue!20",
+        "stretch": 1.2
     },
     "resources": {
         "dir": "resources",
@@ -47,24 +53,32 @@ def load_config(config_path: str = "config.yaml") -> dict:
     config = DEFAULT_CONFIG.copy()
     
     if os.path.exists(config_path):
-        try:
-            with open(config_path, "r", encoding="utf-8") as f:
-                user_config = yaml.safe_load(f)
-                if user_config:
-                    # Deep merge would be better, but simple update is okay for top-level keys
-                    # We need to update nested keys carefully
-                    for key, value in user_config.items():
-                        if key in config and isinstance(config[key], dict) and isinstance(value, dict):
-                            config[key].update(value)
-                        else:
-                            config[key] = value
-            print(f"Loaded configuration from {config_path}")
-        except Exception as e:
-            print(f"Error loading config: {e}. Using defaults.")
+        _merge_file_config(config, config_path)
     else:
         print(f"Config file {config_path} not found. Using defaults.")
     
-    # Environment Variable Overrides
+    _apply_env_vars(config)
+    _apply_fallbacks(config)
+    
+    return config
+
+def _merge_file_config(config: dict, config_path: str) -> None:
+    """Merges user config file into current config."""
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            user_config = yaml.safe_load(f) or {}
+            
+        for key, value in user_config.items():
+            if key in config and isinstance(config[key], dict) and isinstance(value, dict):
+                config[key].update(value)
+            else:
+                config[key] = value
+        print(f"Loaded configuration from {config_path}")
+    except Exception as e:
+        print(f"Error loading config: {e}. Using defaults.")
+
+def _apply_env_vars(config: dict) -> None:
+    """Overrides config with environment variables."""
     if os.getenv("BOOK_TITLE"):
         config['book']['title'] = os.getenv("BOOK_TITLE")
 
@@ -80,16 +94,15 @@ def load_config(config_path: str = "config.yaml") -> dict:
     if os.getenv("OUTPUT_FILE"):
         config['build']['output_file'] = os.getenv("OUTPUT_FILE")
 
-    # Fallback Logic: Default Title to Source Dir Name
+def _apply_fallbacks(config: dict) -> None:
+    """Applies dynamic defaults based on other values."""
     if not config['book'].get('title'):
         source_dir = config['build'].get('source_dir')
         if source_dir:
-             # Use the basename of the absolute path to handle cases like "." or "./foo"
              abs_source = os.path.abspath(source_dir)
              config['book']['title'] = os.path.basename(abs_source)
 
     return config
 
 # Global config instance to be used across modules
-# In a larger app, we might inject this, but for this script, a singleton-like pattern is fine.
 CONFIG = load_config()

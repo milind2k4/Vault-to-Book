@@ -105,15 +105,18 @@
 
 \usepackage{caption}
 \captionsetup[figure]{labelsep=none, justification=centering}
-\usepackage{etoc} % Replaces minitoc
+
+\usepackage{etoc} 
+
 \usepackage[version=4]{mhchem}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{gensymb}
+\usepackage{cancel}
+
 \usepackage[export]{adjustbox} % For max width=... in includegraphics
 \usepackage{float} % Required for [H] figure placement
-\usepackage{cancel}
 
 % --- Global Image Sizing from Config ---
 \makeatletter
@@ -129,24 +132,25 @@
 \renewcommand*\chapterformat{\thechapter.\enskip}
 \addtokomafont{chapter}{\centering}
 \RedeclareSectionCommand[beforeskip=0pt,afterskip=20pt]{chapter}
+
 % --- Table Styling ---
 \rowcolors{2}{RoyalBlue!20}{white}
 \renewcommand{\arraystretch}{1.2}
-% --------------------------------------------------------
-% FORCE CENTER FOR PANDOC BOUNDED IMAGES - (User Requested Fix)
-% --------------------------------------------------------
+
+% --- Heading Styling (Lines) ---
 \makeatletter
-% Check if \pandocbounded is defined (to prevent crashes on old Pandoc versions)
-\ifdef{\pandocbounded}{
-  % Save the original command
-  \let\oldpandocbounded\pandocbounded
-  % Redefine it to include centering and a new line (\par)
-  \renewcommand{\pandocbounded}[1]{
-    {\centering\oldpandocbounded{#1}\par}%
-  }
-}{}
+\renewcommand\sectionlinesformat[4]{%
+  \ifstr{#1}{section}{%
+    \vspace{0.5em}
+    \rule{\linewidth}{0.5pt}\par\nointerlineskip
+    \@hangfrom{\hskip #2#3}{#4}\par\nointerlineskip
+    \vspace{0.2em}
+    \rule{\linewidth}{0.5pt}\par
+  }{%
+    \@hangfrom{\hskip #2#3}{#4}%
+  }%
+}
 \makeatother
-% -------------------------------------------
 \usepackage[most]{tcolorbox}
 \usepackage{fontawesome5}
 \usepackage{xcolor}
@@ -391,8 +395,6 @@
     \vspace{3cm}
     \restoregeometry
 \end{titlepage}
-
-% Initialize MiniTOC (Removed, using etoc)
 
 {
 \setcounter{tocdepth}{3}

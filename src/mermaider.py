@@ -2,6 +2,7 @@ import os
 import re
 import hashlib
 import subprocess
+import shutil
 from .config import CONFIG
 
 def process_mermaid(content: str, source_dir: str) -> str:
@@ -18,7 +19,7 @@ def process_mermaid(content: str, source_dir: str) -> str:
     if not os.path.exists(images_dir):
         os.makedirs(images_dir)
 
-    def replacer(match):
+    def replacer(match: re.Match) -> str:
         mermaid_code = match.group(1).strip()
         
         # Parse configuration from comments
@@ -56,13 +57,18 @@ def process_mermaid(content: str, source_dir: str) -> str:
             with open(mmd_file, 'w', encoding='utf-8') as f:
                 f.write(mermaid_code)
             
-            # Use cmd /c to ensure it runs even if PS scripts are disabled
-            # -s for scale
-            cmd = f'cmd /c mmdc -i "{mmd_file}" -o "{image_path}" -b transparent -s {scale}'
+            # Use list args for cross-platform compatibility
+            # Use shutil.which to find the executable (handles .cmd on Windows, binary on Linux)
+            mmdc_executable = shutil.which("mmdc")
+            if not mmdc_executable:
+                # Fallback: hope it's in PATH if which fails (unlikely) or just use string
+                mmdc_executable = "mmdc"
+            
+            cmd = [mmdc_executable, "-i", mmd_file, "-o", image_path, "-b", "transparent", "-s", str(scale)]
+            
             try:
                 print(f"Generating Mermaid diagram: {image_filename} (scale={scale})...")
-                # Using shell=True for Windows compatibility with mmdc via cmd /c
-                subprocess.run(cmd, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                subprocess.run(cmd, shell=False, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             except subprocess.CalledProcessError:
                 print(f"Failed to generate mermaid diagram {image_filename}")
                 return match.group(0) # Return original on failure

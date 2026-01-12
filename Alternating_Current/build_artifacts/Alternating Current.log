@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.1.9)  12 JAN 2026 19:16
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.1.9)  12 JAN 2026 21:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1398,6 +1398,8 @@ Package mathtools Warning: For best results, please load mathtools *before*
 \xmathstrut@dim=\dimen271
 ) (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/gensymb\gensymb.sty
 Package: gensymb 2022/10/17 v1.0.2 (KJH)
+) (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/cancel\cancel.sty
+Package: cancel 2013/04/12 v2.2 Cancel math terms
 )
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjustbox.st
 y
@@ -1467,9 +1469,6 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box112
 \@float@everytoks=\toks38
 \@floatcapt=\box113
-)
-(C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/cancel\cancel.sty
-Package: cancel 2013/04/12 v2.2 Cancel math terms
 )
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.st
 y
@@ -1975,8 +1974,8 @@ File: bkm-dvipdfm.def 2023-12-10 v1.31 bookmark driver for dvipdfm (HO)
 )) (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/xurl\xurl.sty
 Package: xurl 2022/01/09 v 0.10 modify URL breaks
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 241.
-Package hyperref Info: Option `breaklinks' set `true' on input line 241.
+Package hyperref Info: Option `colorlinks' set `true' on input line 245.
+Package hyperref Info: Option `breaklinks' set `true' on input line 245.
 
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/csquotes\csquotes.sty
 Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
@@ -2004,7 +2003,7 @@ Class scrbook Warning: Mapping of
 (scrbook)              because the caption package is being used.
 (scrbook)              When using the caption package, it is recommended
 (scrbook)              to use the options of this package directly instead
-(scrbook)              of the KOMA-Script setting on line 275.
+(scrbook)              of the KOMA-Script setting on line 279.
 
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/mdframed\mdframed.sty
 Package: mdframed 2013/07/01 1.9b: mdframed
@@ -2144,7 +2143,7 @@ Package scrlayer-scrpage Info: Makeing stand-alone element `pagehead' from
 Package scrlayer-scrpage Warning: Command \deftripstyle is deprecate.
 (scrlayer-scrpage)                You should replace it by \deftriplepagestyle,
 
-(scrlayer-scrpage)                e.g., on input line 356.
+(scrlayer-scrpage)                e.g., on input line 360.
 
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
@@ -2153,36 +2152,36 @@ Package csquotes Info: ... none found.
 ent.aux)
 \openout1 = `"Alternating Current.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 364.
-LaTeX Font Info:    ... okay on input line 364.
-Package scrbase Info: activating english \partname on input line 364.
-Package scrbase Info: activating english \chaptername on input line 364.
-Package scrbase Info: activating english \appendixname on input line 364.
-Package scrbase Info: activating english \figurename on input line 364.
-Package scrbase Info: activating english \tablename on input line 364.
-Package scrbase Info: activating english \contentsname on input line 364.
-Package scrbase Info: activating english \listfigurename on input line 364.
-Package scrbase Info: activating english \listtablename on input line 364.
-Package scrbase Info: activating english \bibname on input line 364.
-Package scrbase Info: activating english \indexname on input line 364.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 368.
+LaTeX Font Info:    ... okay on input line 368.
+Package scrbase Info: activating english \partname on input line 368.
+Package scrbase Info: activating english \chaptername on input line 368.
+Package scrbase Info: activating english \appendixname on input line 368.
+Package scrbase Info: activating english \figurename on input line 368.
+Package scrbase Info: activating english \tablename on input line 368.
+Package scrbase Info: activating english \contentsname on input line 368.
+Package scrbase Info: activating english \listfigurename on input line 368.
+Package scrbase Info: activating english \listtablename on input line 368.
+Package scrbase Info: activating english \bibname on input line 368.
+Package scrbase Info: activating english \indexname on input line 368.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -2218,7 +2217,7 @@ Package scrbase Info: activating english \indexname on input line 364.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 364.
+Package hyperref Info: Link coloring ON on input line 368.
 
 Package fontspec Info: 
 (fontspec)             latinmodern-math scale = 0.9999967668407183.
@@ -2249,7 +2248,7 @@ pt=math;language=dflt;"
 pt=math;language=dflt;"
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(0)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 364.
+(Font)              scaled to size 10.95pt on input line 368.
 
 Package fontspec Info: 
 (fontspec)             latinmodern-math scale = 0.9999967668407183.
@@ -2292,18 +2291,18 @@ atinmodern-math.otf]/OT:script=math;language=dflt;+ssty=1;"
 pt=math;language=dflt;"
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 364.
+(Font)              scaled to size 10.95pt on input line 368.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 364.
+(Font)              `operators' in the math version `normal' on input line 368.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> TU/latinmodern-math.otf(1)/m/n on input
- line 364.
+ line 368.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 364.
+(Font)              `operators' in the math version `bold' on input line 368.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> TU/latinmodern-math.otf(1)/b/n on inpu
-t line 364.
+t line 368.
 
 Package fontspec Info: 
 (fontspec)             latinmodern-math scale = 0.9999967668407183.
@@ -2377,15 +2376,15 @@ nmodern-math.otf]/OT:script=math;language=dflt;+ssty=1;"
 t=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 364.
+(Font)              `symbols' in the math version `normal' on input line 368.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  OMS/lmsy/m/n --> TU/latinmodern-math.otf(2)/m/n on inpu
-t line 364.
+t line 368.
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 364.
+(Font)              `symbols' in the math version `bold' on input line 368.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  OMS/lmsy/b/n --> TU/latinmodern-math.otf(2)/b/n on inpu
-t line 364.
+t line 368.
 
 Package fontspec Info: 
 (fontspec)             latinmodern-math scale = 0.9999967668407183.
@@ -2454,16 +2453,16 @@ pt=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 3
-64.
+68.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/m/n on inpu
-t line 364.
+t line 368.
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 364
+(Font)              `largesymbols' in the math version `bold' on input line 368
 .
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on inpu
-t line 364.
+t line 368.
 
 Package unicode-math Warning: Using \overbracket and \underbracket from
 (unicode-math)                `mathtools' package.
@@ -2485,15 +2484,15 @@ Package unicode-math Warning: I'm going to overwrite the following commands
 Package microtype Info: Patching varwidth to enable character protrusion.
 \MT@vwid@leftmargin=\dimen346
 \MT@vwid@rightmargin=\dimen347
-LaTeX Info: Redefining \microtypecontext on input line 364.
-Package microtype Info: Applying patch `item' on input line 364.
-Package microtype Info: Applying patch `toc' on input line 364.
-Package microtype Info: Applying patch `eqnum' on input line 364.
+LaTeX Info: Redefining \microtypecontext on input line 368.
+Package microtype Info: Applying patch `item' on input line 368.
+Package microtype Info: Applying patch `toc' on input line 368.
+Package microtype Info: Applying patch `eqnum' on input line 368.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 364.
+Package microtype Warning: Unable to apply patch `footnote' on input line 368.
 
-Package microtype Info: Applying patch `verbatim' on input line 364.
-LaTeX Info: Redefining \microtypesetup on input line 364.
+Package microtype Info: Applying patch `verbatim' on input line 368.
+LaTeX Info: Redefining \microtypesetup on input line 368.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -2509,23 +2508,23 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \Etoc@tf=\read4
 
-Package chemgreek Info: Activating mapping `fontspec' on line 364.
+Package chemgreek Info: Activating mapping `fontspec' on line 368.
 
 \symgns@font=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `gns@font' in version `bold'
 (Font)                  TS1/LMRoman10-Regular(0)/m/n --> TS1/LMRoman10-Regular(
-0)/b/n on input line 364.
-Package gensymb Info: Math companion symbols declared on input line 364.
-LaTeX Info: Redefining \degree on input line 364.
-LaTeX Info: Redefining \celsius on input line 364.
+0)/b/n on input line 368.
+Package gensymb Info: Math companion symbols declared on input line 368.
+LaTeX Info: Redefining \degree on input line 368.
+LaTeX Info: Redefining \celsius on input line 368.
 Package gensymb Info: Using text companion symbols for \degree, \celsius and \p
-erthousand on input line 364.
-LaTeX Info: Redefining \ohm on input line 364.
-Package gensymb Info: Using \textohm for \ohm on input line 364.
-Package gensymb Info: Using \textmu for \micro on input line 364.
+erthousand on input line 368.
+LaTeX Info: Redefining \ohm on input line 368.
+Package gensymb Info: Using \textohm for \ohm on input line 368.
+Package gensymb Info: Using \textmu for \micro on input line 368.
 \c@lstlisting=\count414
 Package tocbasic Info: omitting babel extension for `lol'
-(tocbasic)             because of missing \bbl@set@language on input line 364.
+(tocbasic)             because of missing \bbl@set@language on input line 368.
 \scr@dte@lstlisting@maxnumwidth=\skip161
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: xetex
@@ -2560,15 +2559,15 @@ Package tocbasic Info: omitting babel extension for `lol'
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 50.0pt on input line 381.
+(Font)              scaled to size 50.0pt on input line 385.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/b/n' will be
-(Font)              scaled to size 50.0pt on input line 381.
+(Font)              scaled to size 50.0pt on input line 385.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 20.0pt on input line 383.
+(Font)              scaled to size 20.0pt on input line 387.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 18.0pt on input line 387.
+(Font)              scaled to size 18.0pt on input line 391.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 12.0pt on input line 389.
+(Font)              scaled to size 12.0pt on input line 393.
 [1
 
 
@@ -2580,41 +2579,41 @@ LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
 \openout4 = `"Alternating Current.toc"'.
 
 LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
-(Font)              scaled to size 9.10121pt on input line 400.
+(Font)              scaled to size 9.10121pt on input line 402.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `Arial' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `TU/Arial(0)/b/n' will be
-(Font)              scaled to size 9.10121pt on input line 400.
+(Font)              scaled to size 9.10121pt on input line 402.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/b/n' will be
-(Font)              scaled to size 10.95pt on input line 400.
+(Font)              scaled to size 10.95pt on input line 402.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/b/n' will be
-(Font)              scaled to size 20.74pt on input line 400.
+(Font)              scaled to size 20.74pt on input line 402.
 Package tocbasic Info: character protrusion at toc deactivated on input line 40
-0.
+2.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 400.
+(Font)              scaled to size 7.665pt on input line 402.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 400.
+(Font)              scaled to size 5.475pt on input line 402.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 4
-00.
+02.
  (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95099pt on input line 400.
+(Font)              scaled to size 10.95099pt on input line 402.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.66568pt on input line 400.
+(Font)              scaled to size 7.66568pt on input line 402.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.4755pt on input line 400.
+(Font)              scaled to size 5.4755pt on input line 402.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 400.
+(Font)              scaled to size 10.94882pt on input line 402.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.66417pt on input line 400.
+(Font)              scaled to size 7.66417pt on input line 402.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.47441pt on input line 400.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 400
+(Font)              scaled to size 5.47441pt on input line 402.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 402
 .
 
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -2623,7 +2622,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 400
+LaTeX Font Info:    Trying to load font information for U+msb on input line 402
 .
 
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -2633,12 +2632,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for TS1+LMRoman10-Regular(0
-) on input line 400.
-LaTeX Font Info:    No file TS1LMRoman10-Regular(0).fd. on input line 400.
+) on input line 402.
+LaTeX Font Info:    No file TS1LMRoman10-Regular(0).fd. on input line 402.
 
 
 LaTeX Font Warning: Font shape `TS1/LMRoman10-Regular(0)/m/n' undefined
-(Font)              using `TS1/cmr/m/n' instead on input line 400.
+(Font)              using `TS1/cmr/m/n' instead on input line 402.
 
 (C:\Users\Milind\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
@@ -2647,9 +2646,9 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/sl' in size <10.95> n
 ot available
 (Font)              Font shape `TU/LMRoman10-Regular(0)/m/it' tried instead on 
-input line 402.
+input line 404.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/it' will be
-(Font)              scaled to size 10.95pt on input line 402.
+(Font)              scaled to size 10.95pt on input line 404.
 
 [2
 
@@ -2657,23 +2656,30 @@ LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/it' will be
 ]
 chapter 1.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 406--406
+Overfull \hbox (10.95pt too wide) in paragraph at lines 408--408
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 406--406
+Overfull \hbox (10.95pt too wide) in paragraph at lines 408--408
 [][] 
  []
 
 File: images/Pasted image 20240121173851.png Graphic file (type bmp)
 <images/Pasted image 20240121173851.png>
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 421.
+
+
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(1)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 421.
+(Font)              scaled to size 10.95pt on input line 423.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(1)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 421.
+(Font)              scaled to size 7.665pt on input line 423.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(1)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 421.
+(Font)              scaled to size 5.475pt on input line 423.
 [1
 
 
@@ -2694,14 +2700,29 @@ File: images/Pasted image 20240121182529.png Graphic file (type bmp)
 <images/Pasted image 20240121182529.png>
  [4]
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/b/n' will be
-(Font)              scaled to size 14.4pt on input line 505.
+(Font)              scaled to size 14.4pt on input line 507.
 
 
-LaTeX Warning: Hyper reference `power' on page 5 undefined on input line 507.
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 507.
+
+
+
+LaTeX Warning: Hyper reference `power' on page 5 undefined on input line 509.
 
 File: images/Pasted image 20240121183246.png Graphic file (type bmp)
 <images/Pasted image 20240121183246.png>
-[5] [6]
+[5]
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 541.
+
+
+[6]
 File: images/Pasted image 20240121174954.png Graphic file (type bmp)
 <images/Pasted image 20240121174954.png>
 File: images/AC Generator.png Graphic file (type bmp)
@@ -2709,12 +2730,12 @@ File: images/AC Generator.png Graphic file (type bmp)
  [7] [8]
 chapter 2.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 584--584
+Overfull \hbox (10.95pt too wide) in paragraph at lines 586--586
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 584--584
+Overfull \hbox (10.95pt too wide) in paragraph at lines 586--586
 [][] 
  []
 
@@ -2726,30 +2747,53 @@ File: images/Pasted image 20240121183906.png Graphic file (type bmp)
 
 ]
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 618.
+(Font)              scaled to size 7.665pt on input line 620.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 618.
+(Font)              scaled to size 5.475pt on input line 620.
+
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 623.
+
+
 File: images/Pasted image 20240121184137.png Graphic file (type bmp)
 <images/Pasted image 20240121184137.png>
- [10] [11]
+[10] [11]
 File: images/Pasted image 20240121184444.png Graphic file (type bmp)
 <images/Pasted image 20240121184444.png>
+
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 666.
+
+
 File: images/Pasted image 20240121184820.png Graphic file (type bmp)
 <images/Pasted image 20240121184820.png>
- [12]
+[12]
 File: images/Pasted image 20240121185352.png Graphic file (type bmp)
 <images/Pasted image 20240121185352.png>
  [13]
 chapter 3.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 709--709
+Overfull \hbox (10.95pt too wide) in paragraph at lines 711--711
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 709--709
+Overfull \hbox (10.95pt too wide) in paragraph at lines 711--711
 [][] 
  []
+
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 715.
+
 
 File: images/Pasted image 20240121185451.png Graphic file (type bmp)
 <images/Pasted image 20240121185451.png>
@@ -2761,39 +2805,61 @@ File: images/Pasted image 20240121185746.png Graphic file (type bmp)
 File: images/Pasted image 20240121190615.png Graphic file (type bmp)
 <images/Pasted image 20240121190615.png>
  [15]
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 767.
+
+
 File: images/Pasted image 20240121190634.png Graphic file (type bmp)
 <images/Pasted image 20240121190634.png>
+[16]
 File: images/Pasted image 20240121190643.png Graphic file (type bmp)
 <images/Pasted image 20240121190643.png>
- [16]
 File: images/Pasted image 20240121191221.png Graphic file (type bmp)
 <images/Pasted image 20240121191221.png>
 File: images/Pasted image 20240121191515.png Graphic file (type bmp)
 <images/Pasted image 20240121191515.png>
  [17]
 
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 828.
+
+
+
 LaTeX Warning: Hyper reference `circuit-solutions-of-lr-circuitlc-oscillations'
- on page 18 undefined on input line 828.
+ on page 18 undefined on input line 830.
 
 File: images/Pasted image 20240121191527.png Graphic file (type bmp)
 <images/Pasted image 20240121191527.png>
+[18]
 File: images/Pasted image 20240121191606.png Graphic file (type bmp)
 <images/Pasted image 20240121191606.png>
-[18]
 File: images/Pasted image 20240121192029.png Graphic file (type bmp)
 <images/Pasted image 20240121192029.png>
  [19]
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 889.
+
+
+[20]
 File: images/Pasted image 20240121194639.png Graphic file (type bmp)
 <images/Pasted image 20240121194639.png>
- [20] [21]
+ [21]
 chapter 4.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 924--924
+Overfull \hbox (10.95pt too wide) in paragraph at lines 926--926
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 924--924
+Overfull \hbox (10.95pt too wide) in paragraph at lines 926--926
 [][] 
  []
 
@@ -2810,29 +2876,58 @@ File: images/Pasted image 20240121211958.png Graphic file (type bmp)
 <images/Pasted image 20240121211958.png>
  [24]
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 1013.
+(Font)              scaled to size 12.0pt on input line 1015.
+
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1015
+.
+
 File: images/Pasted image 20240122095303.png Graphic file (type bmp)
 <images/Pasted image 20240122095303.png>
- [25]
+[25]
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1044
+.
+
 File: images/Pasted image 20240122095638.png Graphic file (type bmp)
 <images/Pasted image 20240122095638.png>
- [26]
+[26]
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1062
+.
+
 File: images/Pasted image 20240122100245.png Graphic file (type bmp)
 <images/Pasted image 20240122100245.png>
- [27] [28] [29] [30]
+[27] [28] [29] [30]
 chapter 5.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1173--1173
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1175--1175
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1173--1173
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1175--1175
 [][] 
  []
 
 File: images/Pasted image 20240122112530.png Graphic file (type bmp)
 <images/Pasted image 20240122112530.png>
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1198
+.
+
 [31
 
 ]
@@ -2841,22 +2936,43 @@ File: images/Pasted image 20240122130054.png Graphic file (type bmp)
 File: images/Transformer.png Graphic file (type bmp)
 <images/Transformer.png>
  [32]
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1246
+.
+
 File: images/Pasted image 20240122130834.png Graphic file (type bmp)
 <images/Pasted image 20240122130834.png>
- [33]
+[33]
+
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1273
+.
+
 File: images/Pasted image 20240122131203.png Graphic file (type bmp)
 <images/Pasted image 20240122131203.png>
- [34]
+[34]
 File: images/Pasted image 20240122131329.png Graphic file (type bmp)
 <images/Pasted image 20240122131329.png>
  [35]
 
+Package scrbase Warning: Usage of deprecated command `\ifstr'.
+(scrbase)                The command has been renamed because of a
+(scrbase)                recommendation of The LaTeX Project Team.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1311
+.
+
+
 LaTeX Warning: Hyper reference `electromagnetic-inductioneddy-current' on page 
-36 undefined on input line 1324.
+36 undefined on input line 1326.
 
 
 LaTeX Warning: Hyper reference `ferromagnetismhysteresis' on page 36 undefined 
-on input line 1327.
+on input line 1329.
 
 [36] [37]
 (E:\Projects\Vault-to-Book\Alternating_Current\build_artifacts\Alternating Curr
@@ -2874,10 +2990,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 49749 strings out of 402987
- 1073553 string characters out of 5448318
- 1843468 words of memory out of 5000000
- 77738 multiletter control sequences out of 15000+600000
+ 49747 strings out of 402987
+ 1073524 string characters out of 5448318
+ 1843539 words of memory out of 5000000
+ 77736 multiletter control sequences out of 15000+600000
  632886 words of font info for 114 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  108i,20n,116p,11261b,549s stack positions out of 10000i,1000n,20000p,200000b,200000s

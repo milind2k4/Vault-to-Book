@@ -28,6 +28,13 @@ images:
   max_height: "0.6\\linewidth"
   keep_aspect_ratio: true
 
+# Table Settings
+tables:
+  row_colors: true
+  odd_color: "white"
+  even_color: "RoyalBlue!20" # LaTeX xcolor format (ColorName!Percentage)
+  stretch: 1.2
+
 # Resource Paths (Relative to project root)
 resources:
   dir: "resources"
