@@ -3,7 +3,9 @@ import shutil
 import argparse
 import re
 import sys
-import subprocess
+import pickle
+import time
+import shutil
 
 # Add project root to sys.path so we can import 'src'
 sys.path.append(os.getcwd())
@@ -13,15 +15,47 @@ from src.cleaner import cleanup_artifacts
 from src.config import CONFIG
 from src.colors import Colors
 
+
+CACHE_FILE = ".attachments_index.pkl"
+CACHE_EXPIRY_SECONDS = 24 * 60 * 60  # 24 hours
+
 def index_attachments(path: str) -> dict[str, str]:
-    """Recursively find all files in attachments path."""
+    """
+    Recursively find all files in attachments path.
+    Uses a pickle cache to speed up subsequent runs.
+    """
+    if not os.path.exists(path):
+        return {}
+
+    # Check cache
+    if os.path.exists(CACHE_FILE):
+        last_modified = os.path.getmtime(CACHE_FILE)
+        if time.time() - last_modified < CACHE_EXPIRY_SECONDS:
+            print(Colors.info("Loading attachment index from cache..."))
+            try:
+                with open(CACHE_FILE, 'rb') as f:
+                    index = pickle.load(f)
+                print(Colors.info(f"Loaded {len(index)} files from cache.\n"))
+                return index
+            except Exception as e:
+                print(Colors.warning(f"Failed to load cache: {e}. Re-indexing."))
+    
+    # Re-index
     index = {}
     print(Colors.info(f"Indexing attachments in {path}..."))
     for root, _, files in os.walk(path):
         for file in files:
             # key is lowercase filename for looser matching
             index[file.lower()] = os.path.join(root, file)
-    print(Colors.info(f"Indexed {len(index)} files.\n"))
+    
+    # Save cache
+    try:
+        with open(CACHE_FILE, 'wb') as f:
+            pickle.dump(index, f)
+        print(Colors.info(f"Saved index to cache ({len(index)} files).\n"))
+    except Exception as e:
+        print(Colors.warning(f"Failed to save cache: {e}"))
+        
     return index
 
 def import_vault(vault_path: str, attachments_path: str, output_dir: str) -> str:
@@ -89,7 +123,7 @@ def import_vault(vault_path: str, attachments_path: str, output_dir: str) -> str
         
         new_content = content
 
-        def handle_match(match, link_type):
+        def handle_match(match: re.Match, link_type: str) -> str:
             if link_type == 'wiki':
                 inner = match.group(1)
                 parts = inner.split('|')
@@ -178,12 +212,9 @@ def main():
         print(f"Notice: Output directory '{safe_import_dir}' conflicts with source. using '{safe_import_dir}_build' instead.")
         safe_import_dir = f"{safe_import_dir}_build"
     
-    # import_dir = import_vault(args.notes_dir, args.attachments_dir, safe_import_dir)
-    # Moved inside try/except block below
     
     # 4. Configure & Build
     # Set env vars for builder to pick up
-    # os.environ["SOURCE_DIR"] = import_dir # Moved inside try/except
     os.environ["BOOK_TITLE"] = args.title
     os.environ["BOOK_SUBTITLE"] = args.subtitle
     os.environ["BOOK_AUTHOR"] = args.author
@@ -205,9 +236,6 @@ def main():
         # Also keep env vars just in case other modules use them
         os.environ["SOURCE_DIR"] = import_dir
 
-        # from src.builder import build  <-- already imported at top
-        # from src.cleaner import cleanup_artifacts <-- already imported at top
-        
         print(Colors.section("Starting Build Process"))
         build()
         
@@ -236,11 +264,9 @@ def main():
             # If cleanup is strict, we MUST move it out because build dir is deleted.
             # If cleanup is NOT strict, user expects it in build_path (per requirements), 
             # so we should COPY it to the requested output path, leaving original in build_path.
-            if args.cleanup == 'strict':
-                shutil.move(final_pdf_path, dest_pdf)
-                final_pdf_path = dest_pdf # Update for logging/tracking
             else:
-                shutil.copy2(final_pdf_path, dest_pdf)
+                shutil.move(final_pdf_path, dest_pdf)
+                final_pdf_path = dest_pdf
                 
             print(Colors.info(f"PDF Output: {dest_pdf}"))
         
