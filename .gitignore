@@ -7,8 +7,9 @@ __pycache__/
 .obsidian/
 DBMS/
 Java/images
-Java/build_artifacts
-Electrostatics/build_artifacts
+Java/
+Electrostatics/
+Alternating_Current/
 
 # Misc
 prompt.txt
@@ -21,11 +22,6 @@ run_import.ps1
 # Tex files
 *.aux
 *.pdf
-*.tex
-!callouts.tex
-!book_header.tex
-!headers.tex
-!cover.tex
 *.toc
 
 

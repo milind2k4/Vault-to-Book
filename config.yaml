@@ -24,8 +24,8 @@ mermaid:
 
 # Image Settings
 images:
-  max_width: "0.1\\linewidth"
-  max_height: ""
+  max_width: null
+  max_height: "0.6\\linewidth"
   keep_aspect_ratio: true
 
 # Resource Paths (Relative to project root)

@@ -11,6 +11,18 @@ def generate_headers_tex(output_dir: str) -> str:
     top_margin = CONFIG['style']['chapter_title_top_margin']
     bottom_margin = CONFIG['style']['chapter_title_bottom_margin']
     
+    # Prepare Image Defaults
+    img_conf = CONFIG.get('images', {})
+    img_opts = []
+    if img_conf.get('max_width'):
+        img_opts.append(f"max width={img_conf['max_width']}")
+    if img_conf.get('max_height'):
+        img_opts.append(f"max height={img_conf['max_height']}")
+    if img_conf.get('keep_aspect_ratio', True):
+        img_opts.append("keepaspectratio")
+    
+    opts = ",".join(img_opts)
+    
     headers_tex_content = f"""
 \\usepackage{{caption}}
 \\captionsetup[figure]{{labelsep=none, justification=centering}}
@@ -23,6 +35,14 @@ def generate_headers_tex(output_dir: str) -> str:
 \\usepackage[export]{{adjustbox}} % For max width=... in includegraphics
 \\usepackage{{float}} % Required for [H] figure placement
 \\usepackage{{cancel}}
+
+% --- Global Image Sizing from Config ---
+\\makeatletter
+\\let\\oldincludegraphics\\includegraphics
+\\renewcommand{{\\includegraphics}}[2][]{{
+  \\oldincludegraphics[{opts},#1]{{#2}}
+}}
+\\makeatother
 % \\mtcselectlanguage{{english}} - Removed
 \\definecolor{{mylinkcolor}}{{HTML}}{{{link_color}}}
 \\definecolor{{myurlcolor}}{{HTML}}{{{url_color}}}
