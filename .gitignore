@@ -5,11 +5,7 @@ __pycache__/
 
 # Obsidian
 .obsidian/
-DBMS/
-Java/images
-Java/
-Electrostatics/
-Alternating_Current/
+
 
 # Misc
 prompt.txt
