@@ -26,8 +26,9 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
 
     # 0. Formatting Fixes
     # Ensure images starting on a new line after text get a blank line before them
-    # Pattern: Non-newline char, newline, then ![
-    content = re.sub(r'([^\n])\n(!\[)', r'\1\n\n\2', content)
+    # Also handle images that are inline with text: "Text ![Img]" -> "Text\n\n![Img]"
+    # Pattern: Non-newline char, any whitespace (including newlines), then ![
+    content = re.sub(r'([^\n])(\s*)(!\[)', r'\1\n\n\3', content)
 
     lines = content.split('\n')
     new_lines = []
@@ -182,14 +183,18 @@ def build() -> None:
     
     # Image Configuration
     if CONFIG.get('images', {}).get('max_width'):
-        cmd_tex.extend(["--variable", f"image-max-width={CONFIG['images']['max_width']}"])
+        cmd_tex.extend(["--metadata", f"image-max-width={CONFIG['images']['max_width']}"])
     if CONFIG.get('images', {}).get('max_height'):
-        cmd_tex.extend(["--variable", f"image-max-height={CONFIG['images']['max_height']}"])
+        cmd_tex.extend(["--metadata", f"image-max-height={CONFIG['images']['max_height']}"])
     
     print(f"Generating LaTeX: {tex_file}...")
     try:
-        subprocess.run(cmd_tex, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(cmd_tex, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print(Colors.success(f"Done! {tex_file}"))
+        if result.stderr:
+             # Print stderr (warnings/lua info) 
+             print(Colors.info("Pandoc Output:"))
+             print(result.stderr.decode('utf-8', errors='ignore').strip())
     except subprocess.CalledProcessError as e:
         print(Colors.error(f"Error generating LaTeX: {e}"))
         if e.stderr:

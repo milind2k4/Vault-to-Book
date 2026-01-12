@@ -1,0 +1,5 @@
+The [[File#Heading]] links aren't working.
+
+The image size configs aren't working.
+
+There is a remaining pdf in the root folder.

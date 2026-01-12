@@ -186,55 +186,116 @@ function Link(el)
   end
 end
 
+-- Global vars to store config
+local config_max_width = nil
+local config_max_height = nil
+
+function Meta(m)
+    io.stderr:write("Meta function called.\n")
+    for k, v in pairs(m) do
+        io.stderr:write("Meta key: " .. k .. "\n")
+    end
+
+    if m["image-max-width"] then
+        config_max_width = pandoc.utils.stringify(m["image-max-width"])
+        io.stderr:write("Meta: Found max_width = " .. config_max_width .. "\n")
+    end
+    if m["image-max-height"] then
+        config_max_height = pandoc.utils.stringify(m["image-max-height"])
+        io.stderr:write("Meta: Found max_height = " .. config_max_height .. "\n")
+    end
+    return m
+end
+
+-- Helper to check if block contains only one image (ignoring whitespace)
+local function get_standalone_image(block)
+    if block.t ~= "Para" and block.t ~= "Plain" then return nil end
+    local img = nil
+    for _, elem in ipairs(block.content) do
+        if elem.t == "Image" then
+            if img then return nil end -- More than one image
+            img = elem
+        elseif elem.t ~= "Space" and elem.t ~= "SoftBreak" then
+            return nil -- Contains non-whitespace text
+        end
+    end
+    return img
+end
+
+-- Function to generate LaTeX Figure
+local function create_latex_figure(img)
+    local has_width = false
+    local explicit_dim = ""
+    
+    -- Check for explicit dimensions from Obsidian syntax or attributes
+    for k, v in pairs(img.attributes) do
+        if k == "width" then 
+            has_width = true 
+            explicit_dim = explicit_dim .. "width=" .. v .. ","
+        elseif k == "height" then 
+            has_width = true 
+            explicit_dim = explicit_dim .. "height=" .. v .. ","
+        end
+    end
+
+    -- Determine Sizing
+    local size_opts = ""
+    if has_width then
+        -- Apply explicit dimensions (and keep aspect ratio)
+        size_opts = explicit_dim .. "keepaspectratio"
+    else
+        -- Apply global defaults
+        local max_w = config_max_width
+        local max_h = config_max_height
+        
+        -- Fallback to global metadata lookup if cache missed (safety)
+        if not max_w and PANDOC_DOCUMENT and PANDOC_DOCUMENT.meta and PANDOC_DOCUMENT.meta["image-max-width"] then 
+            max_w = pandoc.utils.stringify(PANDOC_DOCUMENT.meta["image-max-width"])
+        end
+        if not max_h and PANDOC_DOCUMENT and PANDOC_DOCUMENT.meta and PANDOC_DOCUMENT.meta["image-max-height"] then
+             max_h = pandoc.utils.stringify(PANDOC_DOCUMENT.meta["image-max-height"])
+        end
+        
+        if max_h then
+             -- Prioritize Max Height
+             size_opts = "max height=" .. max_h .. ",keepaspectratio"
+        elseif max_w then
+             size_opts = "max width=" .. max_w .. ",keepaspectratio"
+        else
+             size_opts = "max width=0.9\\linewidth,keepaspectratio" -- Ultimate fallback
+        end
+    end
+
+    -- Caption handling
+    local caption_text = pandoc.utils.stringify(img.caption)
+    local caption_tex = ""
+    if #caption_text > 0 and caption_text ~= "fig:" and caption_text ~= "\\" then -- Filter out dummy captions
+        caption_tex = "\\caption{" .. caption_text .. "}"
+    end
+
+    -- Fix path: Pandoc may URL-encode the src (e.g. %20 for space). LaTeX needs the real path.
+    local src_path = img.src:gsub("%%20", " ")
+
+    -- Construct LaTeX
+    local latex = "\\begin{figure}[H]\n\\centering\n\\includegraphics[" .. size_opts .. "]{" .. src_path .. "}\n" .. caption_tex .. "\n\\end{figure}"
+    
+    return pandoc.RawBlock("latex", latex)
+end
+
+function Para(el)
+    local img = get_standalone_image(el)
+    if img then
+        return create_latex_figure(img)
+    end
+    return el
+end
+
 function Image(el)
   -- Remove wikilink class if present
   if el.classes:includes("wikilink") then
       el.classes = el.classes:filter(function(c) return c ~= "wikilink" end)
   end
-  
-  -- Handle Obsidian resizing syntax in Alt Text: ![Alt|100x200](...)
-  local has_width = false
-  for k, v in pairs(el.attributes) do
-      if k == "width" or k == "height" then has_width = true end
-  end
-  
-  -- Get default max width/height from config
-  local max_w = PANDOC_READER_OPTIONS and PANDOC_READER_OPTIONS.variables and PANDOC_READER_OPTIONS.variables["image-max-width"]
-  local max_h = PANDOC_READER_OPTIONS and PANDOC_READER_OPTIONS.variables and PANDOC_READER_OPTIONS.variables["image-max-height"]
-
-  if not max_w and PANDOC_DOCUMENT and PANDOC_DOCUMENT.meta then max_w = PANDOC_DOCUMENT.meta["image-max-width"] end
-  if not max_h and PANDOC_DOCUMENT and PANDOC_DOCUMENT.meta then max_h = PANDOC_DOCUMENT.meta["image-max-height"] end
-
-  if max_w and type(max_w) == 'table' then max_w = pandoc.utils.stringify(max_w) end
-  if max_h and type(max_h) == 'table' then max_h = pandoc.utils.stringify(max_h) end
-
-  -- If no manual width/height, apply max logic
-  if not has_width then
-      local tex = nil
-      
-      if max_h then
-           -- If height is provided, ignore width per user request
-           tex = "\\includegraphics[max height=" .. max_h .. ",keepaspectratio]{" .. el.src .. "}"
-      elseif max_w then
-           -- Else fallback to width
-           tex = "\\includegraphics[max width=" .. max_w .. ",keepaspectratio]{" .. el.src .. "}"
-      end
-
-      if tex then
-          -- If caption exists, handle it (simple inline approach)
-          local caption_txt = pandoc.utils.stringify(el.caption)
-          if #caption_txt > 0 and caption_txt ~= "fig:" then
-              return {
-                  pandoc.RawInline("latex", tex),
-                  pandoc.LineBreak(),
-                  pandoc.Emph(el.caption)
-              }
-          else
-              return pandoc.RawInline("latex", tex)
-          end
-      end
-  end
-  
+  -- Inline images (not standalone) are left to default handling or stripped of specific classes
   return el
 end
 

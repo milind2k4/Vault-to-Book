@@ -21,6 +21,7 @@ def generate_headers_tex(output_dir: str) -> str:
 \\usepackage{{mathtools}}
 \\usepackage{{gensymb}}
 \\usepackage[export]{{adjustbox}} % For max width=... in includegraphics
+\\usepackage{{float}} % Required for [H] figure placement
 \\usepackage{{cancel}}
 % \\mtcselectlanguage{{english}} - Removed
 \\definecolor{{mylinkcolor}}{{HTML}}{{{link_color}}}
@@ -32,6 +33,20 @@ def generate_headers_tex(output_dir: str) -> str:
 % --- Table Styling ---
 \\rowcolors{{2}}{{RoyalBlue!20}}{{white}}
 \\renewcommand{{\\arraystretch}}{{1.2}}
+% --------------------------------------------------------
+% FORCE CENTER FOR PANDOC BOUNDED IMAGES - (User Requested Fix)
+% --------------------------------------------------------
+\\makeatletter
+% Check if \\pandocbounded is defined (to prevent crashes on old Pandoc versions)
+\\ifdef{{\\pandocbounded}}{{
+  % Save the original command
+  \\let\\oldpandocbounded\\pandocbounded
+  % Redefine it to include centering and a new line (\\par)
+  \\renewcommand{{\\pandocbounded}}[1]{{
+    {{\\centering\\oldpandocbounded{{#1}}\\par}}%
+  }}
+}}{{}}
+\\makeatother
 % -------------------------------------------
 """
     headers_tex_file = os.path.join(output_dir, "headers.tex")
