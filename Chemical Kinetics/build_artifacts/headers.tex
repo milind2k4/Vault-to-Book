@@ -1,0 +1,49 @@
+
+\usepackage{caption}
+\captionsetup[figure]{labelsep=none, justification=centering}
+
+\usepackage{etoc} 
+
+\usepackage[version=4]{mhchem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{cancel}
+
+\usepackage[export]{adjustbox} % For max width=... in includegraphics
+\usepackage{float} % Required for [H] figure placement
+
+% --- Global Image Sizing from Config ---
+\makeatletter
+\let\oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{
+  \oldincludegraphics[max height=0.6\linewidth,keepaspectratio,#1]{#2}
+}
+\makeatother
+% \mtcselectlanguage{english} - Removed
+\definecolor{mylinkcolor}{HTML}{07455c}
+\definecolor{myurlcolor}{HTML}{07455c}
+% --- Chapter Title Styling (KOMA-Script) ---
+\renewcommand*\chapterformat{\thechapter.\enskip}
+\addtokomafont{chapter}{\centering}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=20pt]{chapter}
+
+% --- Table Styling ---
+\rowcolors{2}{RoyalBlue!20}{white}
+\renewcommand{\arraystretch}{1.2}
+
+% --- Heading Styling ---
+\makeatletter
+\renewcommand\sectionlinesformat[4]{%
+  \ifstr{#1}{section}{%
+    \vspace{0.2em}
+    \rule{\linewidth}{0.5pt}\par\nobreak\nointerlineskip
+    \@hangfrom{\hskip #2#3}{#4}\par\nobreak\nointerlineskip
+    \vspace{0.1em}
+    \rule{\linewidth}{0.5pt}\par
+  }{%
+    \@hangfrom{\hskip #2#3}{#4}%
+  }%
+}
+\makeatother

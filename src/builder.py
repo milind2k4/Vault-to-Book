@@ -32,6 +32,17 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     # Pattern: Non-newline char, any whitespace (including newlines), then ![
     content = re.sub(r'([^\n])(\s*)(!\[)', r'\1\n\n\3', content)
 
+    # Logic: If heading has word "Graph" or "Examples", promote H5/H6 to H4/H5.
+    # We match start of line, 5 or 6 #'s, then ensure "Graph" or "Examples" is in the line.
+    # flags=re.MULTILINE is needed for ^ match.
+    content = re.sub(r'^(#{5,6})(?=\s+.*(Graph|Examples?))', lambda m: m.group(1)[:-1], content, flags=re.MULTILINE)
+
+    # Ensure headings have blank lines before and after
+    # 1. Before: Replace any sequence of newlines preceding a header (at start of line) with \n\n
+    content = re.sub(r'\n+(?=#+\s)', '\n\n', content)
+    # 2. After: Ensure header line is followed by \n\n
+    content = re.sub(r'(^|\n)(#+\s[^\n]*)(\n+)', r'\1\2\n\n', content)
+
     lines = content.split('\n')
     new_lines = []
     
@@ -142,8 +153,24 @@ def build() -> None:
         return name
 
     template_arg = resolve_resource(template_name)
-    filter_arg = resolve_resource("obsidian_filter.lua")
     callouts_arg = resolve_resource("callouts.tex")
+    
+    # Define ordered list of filters
+    filter_names = [
+        "filters/callouts.lua",
+        "filters/images.lua", 
+        "filters/tables.lua", 
+        "filters/links.lua", 
+        "filters/typography.lua"
+    ]
+    
+    filter_args = []
+    for fname in filter_names:
+        fpath = resolve_resource(fname)
+        if os.path.exists(fpath):
+             filter_args.extend(["--lua-filter", fpath])
+        else:
+             print(Colors.warning(f"Warning: Filter {fname} not found at {fpath}"))
 
     # 1. Generate LaTeX (Pandoc)
     print(Colors.section("Generating LaTeX (Pandoc)"))
@@ -164,7 +191,7 @@ def build() -> None:
         "--metadata", f"author={CONFIG['book']['author']}",
         "--include-in-header", os.path.relpath(headers_tex_file, source_dir),
         "--include-in-header", callouts_arg,
-        "--lua-filter", filter_arg,
+        *filter_args,
         "--syntax-highlighting=tango",
         "--table-of-contents",
         "--toc-depth=4",
@@ -200,12 +227,9 @@ def build() -> None:
     # 1. Generate LaTeX (Pandoc)
     print(f"Generating LaTeX: {tex_file}...")
     try:
-        result = subprocess.run(cmd_tex, check=True, cwd=source_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # Don't capture stdout/stderr, let it stream to console
+        subprocess.run(cmd_tex, check=True, cwd=source_dir)
         print(Colors.success(f"Done! {tex_file}"))
-        if result.stderr:
-             # Print stderr (warnings/lua info) 
-             print(Colors.info("Pandoc Output:"))
-             print(result.stderr.decode('utf-8', errors='ignore').strip())
     except subprocess.CalledProcessError as e:
         print(Colors.error(f"Error generating LaTeX: {e}"))
         if e.stderr:

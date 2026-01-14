@@ -1,0 +1,1674 @@
+%%
+% Copyright (c) 2017 - 2025, Pascal Wagler;
+% Copyright (c) 2014 - 2025, John MacFarlane
+%
+% All rights reserved.
+%
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
+% are met:
+%
+% - Redistributions of source code must retain the above copyright
+% notice, this list of conditions and the following disclaimer.
+%
+% - Redistributions in binary form must reproduce the above copyright
+% notice, this list of conditions and the following disclaimer in the
+% documentation and/or other materials provided with the distribution.
+%
+% - Neither the name of John MacFarlane nor the names of other
+% contributors may be used to endorse or promote products derived
+% from this software without specific prior written permission.
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+% FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+% COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+% INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+% BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+% CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+% LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+% ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+% POSSIBILITY OF SUCH DAMAGE.
+%%
+
+%%
+% This is the Eisvogel pandoc LaTeX template.
+%
+% For usage information and examples visit the official GitHub page:
+% https://github.com/Wandmalfarbe/pandoc-latex-template
+%%
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names,table}{xcolor}
+\documentclass[
+  paper=a4,
+  openany,
+  oneside  ,captions=tableheading
+]{scrbook}
+\usepackage{xcolor}
+\usepackage[top=1.5cm, bottom=2.5cm, left=3cm, right=3cm, includeheadfoot, heightrounded]{geometry}
+\usepackage{amsmath,amssymb}
+
+% add backlinks to footnote references, cf. https://tex.stackexchange.com/questions/302266/make-footnote-clickable-both-ways
+\usepackage{footnotebackref}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{LMRoman10-Regular}
+  \setsansfont[]{Arial}
+  \setmonofont[]{LMMono10-Regular}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+% Use setspace anyway because we change the default line spacing.
+% The spacing is changed early to affect the titlepage and the TOC.
+\usepackage{setspace}
+\setstretch{1.2}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+% Make use of float-package and set default placement for figures to H.
+% The option H means 'PUT IT HERE' (as  opposed to the standard h option which means 'You may put it here if you like').
+\usepackage{float}
+\floatplacement{figure}{H}
+\makeatother
+\ifLuaTeX
+  \usepackage{luacolor}
+  \usepackage[soul]{lua-ul}
+\else
+  \usepackage{soul}
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{caption}
+\captionsetup[figure]{labelsep=none, justification=centering}
+
+\usepackage{etoc} 
+
+\usepackage[version=4]{mhchem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{cancel}
+
+\usepackage[export]{adjustbox} % For max width=... in includegraphics
+\usepackage{float} % Required for [H] figure placement
+
+% --- Global Image Sizing from Config ---
+\makeatletter
+\let\oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{
+  \oldincludegraphics[max height=0.6\linewidth,keepaspectratio,#1]{#2}
+}
+\makeatother
+% \mtcselectlanguage{english} - Removed
+\definecolor{mylinkcolor}{HTML}{07455c}
+\definecolor{myurlcolor}{HTML}{07455c}
+% --- Chapter Title Styling (KOMA-Script) ---
+\renewcommand*\chapterformat{\thechapter.\enskip}
+\addtokomafont{chapter}{\centering}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=20pt]{chapter}
+
+% --- Table Styling ---
+\rowcolors{2}{RoyalBlue!20}{white}
+\renewcommand{\arraystretch}{1.2}
+
+% --- Heading Styling ---
+\makeatletter
+\renewcommand\sectionlinesformat[4]{%
+  \ifstr{#1}{section}{%
+    \vspace{0.2em}
+    \rule{\linewidth}{0.5pt}\par\nobreak\nointerlineskip
+    \@hangfrom{\hskip #2#3}{#4}\par\nobreak\nointerlineskip
+    \vspace{0.1em}
+    \rule{\linewidth}{0.5pt}\par
+  }{%
+    \@hangfrom{\hskip #2#3}{#4}%
+  }%
+}
+\makeatother
+\usepackage[most]{tcolorbox}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+
+% Define custom colors
+\definecolor{notecolor}{RGB}{97, 175, 239}   % Blue
+\definecolor{tipcolor}{RGB}{20, 196, 255} % Purple
+\definecolor{warningcolor}{RGB}{229, 192, 123} % Orange
+\definecolor{attentioncolor}{RGB}{224, 108, 117} % Red
+\definecolor{analogycolor}{RGB}{152, 195, 121}    % Green
+
+% Generic Pretty Box Style
+% #1 = Color name
+% #2 = Icon command
+% #3 = Title text
+\newtcolorbox{prettybox}[3]{
+    enhanced,
+    colback=#1!5!white,      % Very light background
+    colframe=#1,             % Border color
+    coltitle=#1!50!black,    % Title text color (darker version of base)
+    title={#2\ \ \textbf{#3}},
+    fonttitle=\bfseries\large,
+    attach boxed title to top left={xshift=5mm, yshift=-3.5mm}, % Adjust for half-in/out
+    boxed title style={
+        colback=white,
+        colframe=white,
+        boxrule=0pt,
+        top=0pt,
+        bottom=0pt,
+        left=2pt,
+        right=2pt
+    },
+    top=1.5em, % Space for the floating title
+    bottom=1em,
+    left=1em,
+    right=1em,
+    arc=3pt,
+    boxrule=1pt,
+    drop fuzzy shadow,   
+    parbox=false,        
+    breakable            
+}
+
+% Define specific environments
+% usage: \begin{noteblock}{Title} ... \end{noteblock}
+
+\newenvironment{noteblock}[1]
+  {\begin{prettybox}{notecolor}{\faInfoCircle}{#1}}
+  {\end{prettybox}}
+
+\newenvironment{tipblock}[1]
+  {\begin{prettybox}{tipcolor}{\faLightbulb}{#1}}
+  {\end{prettybox}}
+
+\newenvironment{warningblock}[1]
+  {\begin{prettybox}{warningcolor}{\faExclamationTriangle}{#1}}
+  {\end{prettybox}}
+
+\newenvironment{attentionblock}[1]
+  {\begin{prettybox}{attentioncolor}{\faExclamationCircle}{#1}}
+  {\end{prettybox}}
+
+\newenvironment{cautionblock}[1]
+  {\begin{prettybox}{attentioncolor}{\faRadiation}{#1}}
+  {\end{prettybox}}
+
+\newenvironment{importantblock}[1]
+  {\begin{prettybox}{attentioncolor}{\faStar}{#1}}
+  {\end{prettybox}}
+
+% Analogy Block
+\newenvironment{analogyblock}[1]
+  {\begin{prettybox}{analogycolor}{\faShapes}{#1}}
+  {\end{prettybox}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\definecolor{default-linkcolor}{HTML}{A50000}
+\definecolor{default-filecolor}{HTML}{A50000}
+\definecolor{default-citecolor}{HTML}{4077C0}
+\definecolor{default-urlcolor}{HTML}{4077C0}
+
+\hypersetup{
+  pdftitle={Chemical Kinetics},
+  pdfauthor={Milind},
+  colorlinks=true,
+  linkcolor={mylinkcolor},
+  filecolor={default-filecolor},
+  citecolor={default-citecolor},
+  urlcolor={myurlcolor},
+  breaklinks=true,
+  pdfcreator={LaTeX via pandoc with the Eisvogel template}}
+
+\title{Chemical Kinetics}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Personal Notes and References}
+\author{Milind}
+\date{}
+
+
+%
+% for the background color of the title page
+%
+
+%
+% break urls
+%
+\PassOptionsToPackage{hyphens}{url}
+
+%
+% When using babel or polyglossia with biblatex, loading csquotes is recommended
+% to ensure that quoted texts are typeset according to the rules of your main language.
+%
+\usepackage{csquotes}
+
+%
+% captions
+%
+\definecolor{caption-color}{HTML}{777777}
+\usepackage[font={stretch=1.2}, textfont={color=caption-color}, position=top, skip=4mm, labelfont=bf, singlelinecheck=false, justification=raggedright]{caption}
+\setcapindent{0em}
+
+%
+% blockquote
+%
+\definecolor{blockquote-border}{RGB}{221,221,221}
+\definecolor{blockquote-text}{RGB}{119,119,119}
+\usepackage{mdframed}
+\newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,linecolor=blockquote-border,skipabove=\parskip]{customblockquote}
+\renewenvironment{quote}{\begin{customblockquote}\list{}{\rightmargin=0em\leftmargin=0em}%
+\item\relax\color{blockquote-text}\ignorespaces}{\unskip\unskip\endlist\end{customblockquote}}
+
+%
+% Source Sans Pro as the default font family
+% Source Code Pro for monospace text
+%
+% 'default' option sets the default
+% font family to Source Sans Pro, not \sfdefault.
+%
+% Note that the font has been officially renamed to `Source Sans 3`, and
+% the version provided by the `sourcesanspro` package is slightly outdated.
+% You can install the newer version locally and use it, for example, with
+% `mainfont: "Source Sans 3"` in the YAML metadata (requires XeTeX or LuaTeX).
+%
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+    \usepackage[default]{sourcesanspro}
+  \usepackage{sourcecodepro}
+  \else % if not pdftex
+    \fi
+
+%
+% heading color
+%
+\definecolor{heading-color}{RGB}{40,40,40}
+% By default, the KOMA-Script classes will typeset sectioning headings in
+% sans-serif. Use the normal body font for headings.
+\addtokomafont{disposition}{\normalfont\color{heading-color}\bfseries}
+
+%
+% variables for title, author and date
+%
+\usepackage{titling}
+\title{Chemical Kinetics}
+\author{Milind}
+\date{}
+
+%
+% tables
+%
+
+%
+% remove paragraph indentation
+%
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+%
+%
+% Listings
+%
+%
+
+
+%
+% header and footer
+%
+\usepackage[headsepline,footsepline]{scrlayer-scrpage}
+
+\newpairofpagestyles{eisvogel-header-footer}{
+  \clearpairofpagestyles
+  \ihead*{Chemical Kinetics}
+  \chead*{}
+  \ohead*{}
+  \ifoot*{Milind}
+  \cfoot*{}
+  \ofoot*{\thepage}
+  \addtokomafont{pageheadfoot}{\upshape}
+}
+\pagestyle{eisvogel-header-footer}
+
+\deftripstyle{ChapterStyle}{}{}{}{}{\pagemark}{}
+\renewcommand*{\chapterpagestyle}{ChapterStyle}
+
+
+%
+% Define watermark
+%
+
+\begin{document}
+
+
+\frontmatter
+% don't generate the default title
+% \maketitle
+
+
+
+\begin{titlepage}
+    \newgeometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2cm}
+    \vspace*{1cm}
+    
+    
+    \vspace{3cm}
+    
+    \centering
+    {\fontsize{50}{60}\selectfont \bfseries Chemical Kinetics \par}
+    \vspace{1cm}
+    {\fontsize{20}{30}\selectfont Personal Notes and References \par}
+    
+    \vfill
+    
+    {\fontsize{18}{22}\selectfont Milind \par}
+    \vspace{0.5cm}
+    {\large January 14, 2026 \par}
+    
+    \vspace{3cm}
+    \restoregeometry
+\end{titlepage}
+
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\mainmatter
+\chapter{Chemical Kinetics}\label{chemical-kinetics}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+Deals with the rate at which reactants are converted into products and
+also with the effect of variation of conc., temp. etc. on on rate of
+reaction.
+
+It is a microscopic study. Thermodynamics is macroscopic study.
+
+\subsubsection{Rate of Appearance and
+Disappearance}\label{rate-of-appearance-and-disappearance}
+
+Appearance is for products and Disappearance is for reactants.
+
+\[\mathrm{ 2A + 3B -> C + 2D }\]
+
+Rate of disappearance of A = no of moles of A reacted per unit time per
+unit volume.
+\[\mathrm{ = - \frac{ d[A]_{t} }{ dt } or - \frac{ \Delta [A] }{ \Delta t } }\]
+-ve because concentration is decreasing and thus d{[}A{]} is -ve.
+
+Similarly, we can write, rate of appearance of C,
+\[\mathrm{ = \frac{ d [B]_{t} }{ dt } }\]
+
+\paragraph{Relation between RoD and
+RoA}\label{relation-between-rod-and-roa}
+
+If all substances are in the same phase. For the reaction,
+\[\mathrm{ 2A + 3B -> C + 2D }\]
+
+We can write, \[
+\begin{split}
+\frac{ d[C] }{ dt } &= -\frac{ 1 }{ 2 } \frac{ d[A] }{ dt } \\
+\frac{ d[D] }{ dt } &= 2 \frac{ d[C] }{ dt } \\
+\end{split}
+\] I.e.,
+\[\mathrm{ - \frac{1}{2} \frac{ d[A] }{ dt } = - \frac{1}{3} \frac{ d[B] }{ dt } = \frac{ 1 }{ 1 } \frac{ d[C] }{ dt } = \frac{1}{2} \frac{ d[D] }{ dt } }\]
+
+For a general reaction,
+\[\mathrm{ aA_{(g)} + bB_{(g)} -> cC_{(g)} + dD_{(g)} }\] We can write,
+\[\mathrm{ - \frac{ 1 }{ a }\frac{ d[A] }{ dt } = - \frac{ 1 }{ b }\frac{ d[B] }{ dt } = \frac{ 1 }{ c }\frac{ d[C] }{ dt } = \frac{ 1 }{ d }\frac{ d[D] }{ dt } }\]
+
+\subsubsection{Rate of Reaction}\label{rate-of-reaction}
+
+It is defined as the rate of change of conc. of any substance involved
+in reaction divided by its stoichiometric coefficient in chemical given
+chemical equation.
+
+It can be the same or different than the rate of appearance or
+disappearance of any substance in the reaction.
+
+\[\mathrm{ aA + bB -> cC + dD }\]
+
+\[\mathrm{ Rate = - \frac{ 1 }{ a }\frac{ d[A] }{ dt } = - \frac{ 1 }{ b }\frac{ d[B] }{ dt } = \frac{ 1 }{ c }\frac{ d[C] }{ dt } = \frac{ 1 }{ d }\frac{ d[D] }{ dt } }\]
+
+\textbf{Note:} Is stoichiometry of a reaction is altered by multiplying
+equation by a factor, then rate of reaction is changed. But, rate of
+disappearance and rate of appearance of a substance does not change.
+
+\textbf{Major factors affecting Rate of Reaction,} 1. Concentration or
+Partial Pressure 2. Temperature 3. Catalyst 4. Surface area if solids
+are involved
+
+\section{\texorpdfstring{\hyperref[kinetics]{02 Kinetics}}{02 Kinetics}}\label{kinetics}
+
+\subsection{\texorpdfstring{\hyperref[exp-det-of-order-and-k-of-first-order]{04 Exp. Det. of Order and k of First Order}}{04 Exp. Det. of Order and k of First Order}}\label{exp.-det.-of-order-and-k-of-first-order}
+
+\subsection{Parallel or Competing First Order
+Reaction}\label{parallel-or-competing-first-order-reaction}
+
+A reaction where A converts to B and C simultaneously, is not parallel.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308184024.png}
+
+\end{figure}
+
+A parallel reaction is one where the rate constants are different.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308184039.png}
+
+\end{figure}
+
+For a general parallel reaction,
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308184308.png}
+
+\end{figure}
+
+We have, \[
+\begin{split}
+x &= \frac{ y }{ m } + \frac{ z }{ n } \\
+\frac{ dx }{ dt } &= \frac{ 1 }{ m }\frac{ dy }{ dt } + \frac{ 1 }{ n }\frac{ dz }{ dt } \\
+-\frac{ d[A] }{ dt } &= \frac{ 1 }{ m }mk_{1}[A] + \frac{ 1 }{ n }nk_{2}[A] \\
+-\frac{ d[A] }{ dt } &= (k_{1}+k_{2})[A]
+\end{split}
+\] Thus the overall rate constant of parallel reaction is,
+\[k = k_{1}+k_{2}\]
+
+And the integrated rate law will be,
+\[[A]_{t} = [A]_{o} e^{ -(k_{1}+k_{2})t }\]
+
+We can also write this as,
+\[\frac{ \ln 2 }{ t_{1/2}\text{(overall)} } = \frac{ \ln 2 }{ t_{1/2(1)} } + \frac{ \ln 2 }{ t_{1/2(2) } }\]
+
+We can also relate activation energy, \[
+\begin{split}
+k &= k_{1} + k_{2} \\
+Ae^{ -E_{a}/RT } &= A_{1}e^{ -E_{a 1}/RT } + A_{2}e^{ -E_{a 2}/RT } \\
+Ae^{ -E_{a}/RT } \frac{ E_{a} }{ RT^{2} } &= A_{1}e^{ -E_{a 1}/RT } \frac{ E_{a 1} }{ RT^{2} } + A_{2}e^{ -E_{a 2}/RT } \frac{ E_{a 2} }{ RT^{2} } \\
+kE_{a} &= k_{1}E_{a 1} + k_{2} E_{a 2} 
+\end{split}
+\] Thus we get, overall activation energy of parallel reaction,
+\[E_{a} = \frac{ k_{1} E_{a 1} + k_{2} E_{a 2} }{ k_{1} + k_{2} }\]
+
+\subsubsection{Concentration of
+Products}\label{concentration-of-products}
+
+\[
+\begin{split}
+\frac{ d[B] }{ dt } &= mk_{1}[A]_{t} \\
+\int d[B]_{t} &= mk_{1}[A]_{o} \int e^{ -(k_{1}+k_{2})t } \, dt \\
+[B]_{t} &= \frac{ mk_{1}[A]_{o} }{ k_{1} + k_{2} } (1 - e^{ -(k_{1}+k_{2})t })  
+\end{split}
+\]
+
+Similarly, we get, conc. of C,
+\[[C]_{t} = \frac{ nk_{2}[A]_{o} }{ k_{1} + k_{2} } (1 - e^{ -(k_{1}+k_{2})t })  \]
+
+Thus, at any time, the ratio of conc. of B and C,
+\[\frac{ [B]_{t} }{ [C]_{t} } = \frac{ mk_{1} }{ nk_{2} }\]
+
+\subsection{First Order Reactions}\label{first-order-reactions}
+
+\subsubsection{First Order Reversible
+Reaction}\label{first-order-reversible-reaction}
+
+\[t = \frac{ 1 }{ k_{1} + k_{2} } \ln \frac{ x_{c} }{ x_{c} - x }\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308201445.png}
+
+\end{figure}
+
+\subsubsection{First Order Sequential
+Reaction}\label{first-order-sequential-reaction}
+
+aka \textbf{Consecutive reaction}
+
+Example is radioactive disintegration series. Note than radioactive
+decay always follows first order kinetics.
+
+\[\mathrm{ A -> I -> P }\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308203216.png}
+
+\end{figure}
+
+Then, \[
+\begin{split}
+[A]_{t} &= [A]_{o}e^{ -k_{1}t } \\
+[I]_{t} &= \frac{ k_{1}[A]_{o} }{ k_{2}-k_{1} } (e^{ -k_{1}t } - e^{ -k_{2}t }) \\
+[P]_{t} &= \frac{ [A]_{o} }{ k_{2} - k_{1} } [k_{2}(1-e^{ -k_{1}t }) - k_{1}(1-e^{ -k_{1}t })]
+\end{split}
+\]
+
+The time at which conc. of intermediate is max is,
+\[t_{I_{max}} = \frac{ \ln k_{1} /k_{2} }{ k_{1} - k_{2} }\]
+
+\newpage
+
+\chapter{Effect of Concentration}\label{effect-of-concentration}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+\hyperref[law-of-mass-action]{01 Law of Mass Action}
+
+Experimentally, it was found that,
+\[\mathrm{ Rate \propto [A]^{p}[B]^{q} }\] Thus we can write,
+\[\mathrm{ Rate = k_{r}[A]^{p}[B]^{q} }\] This equation is called
+\emph{Rate Law.}
+
+p and q are called partial order wrt A and B and they may or may not be
+equal to the stoichiometric coefficient of substance.
+
+\(\mathrm{ k_{r} }\) is the rate constant of reaction and \(m = p + q\)
+is the order of reaction.
+
+\subsubsection{Order of Reaction}\label{order-of-reaction}
+
+It is the sum of exponents of all concentration terms appearing in rate
+law. It can be +ve, -ve or zero or fractional. It is determined
+\emph{experimentally.} It cannot be predicted by just seeing
+stoichiometry of reaction.
+
+Order reflects the sensitivity of rate of reaction with variation in
+concentration.
+
+For example, rate of the below reaction does not depend on
+concentration, \[\mathrm{ H_{2} + Cl_{2} ->[h\nu] 2HCl, Rate = k }\]
+
+The order of below reaction is first order,
+\[\mathrm{ 2N_{2}O_{5} -> 4NO_{2} + O_{2}, Rate = k[N_{2}O_{5}] }\]
+
+The following reaction is second order,
+\[\mathrm{ 2HI ->[\Delta] I_{2} + H_{2}, Rate = k[HI]^{2} }\]
+
+And the following is zero order,
+\[\mathrm{ 2HI ->[\Delta][gold surface] H_{2} + I_{2}, Rate = k }\]
+
+\subsubsection{Rate Constant}\label{rate-constant}
+
+Rate constant or velocity constant or specific reaction rate is equal to
+rate of reaction if all concentrations of substance involved in rate law
+are set equal to unity.
+
+Its unit depends on order of reaction.
+
+\[\mathrm{ k = \frac{ Rate }{ [A]^{p}[B]^{q} } = \frac{ mol l^{-1} s^{-1} }{ [mol l^{-1}]^{p+q} } }\]
+
+Thus, for zero order reaction, unit of k is
+\(\mathrm{ mol l^{-1} s^{-1} }\). Thus, for first order reaction, unit
+of k is \(\mathrm{ s^{-1} }\). Thus, for second order reaction, unit of
+k is \(\mathrm{ mol^{-1} l s^{-1} }\).
+
+It increases with temp..
+
+\subsubsection{Rate constant of Disappearance and
+Appearance}\label{rate-constant-of-disappearance-and-appearance}
+
+We have,
+\[\mathrm{ Rate = - \frac{ 1 }{ a }\frac{ d[A] }{ dt } = - \frac{ 1 }{ b }\frac{ d[B] }{ dt } = \frac{ 1 }{ c }\frac{ d[C] }{ dt } = \frac{ 1 }{ d }\frac{ d[D] }{ dt } }\]
+
+Also, \[\mathrm{ Rate = k[A]^{p}[B]^{q} }\]
+
+Thus, \[\mathrm{ -\frac{ d[A] }{ dt } = ak[A]^{p}[B]^{q} }\]
+\[\mathrm{ -\frac{ d[A] }{ dt } = k_{A}[A]^{p}[B]^{q} }\] Where
+\(k_{A} = ak\). I.e.
+\[\mathrm{ k = \frac{ k_{A} }{ a } = \frac{ k_{B} }{ b } = \frac{ k_{C} }{ c } = \frac{ k_{D} }{ d } }\]
+
+Where \(\mathrm{ k_{A}, k_{B}, k_{C}, k_{D} }\) are rate constants for
+A, B, C, D.
+
+Thus rate constant of reaction may or may not be the same as the rate
+constant of disappearance or appearance of substance.
+
+\newpage
+
+\chapter{Kinetics}\label{kinetics}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+\subsection{Zero Order Kinetics}\label{zero-order-kinetics}
+
+When order of reaction is zero.
+
+If the reaction is, \[\mathrm{ A -> P }\] Then the rate will be,
+\[\mathrm{ Rate = - \frac{ d[A] }{ dt } = k[A]^{0} = k }\] This is
+called \emph{differential rate law.}
+
+Using it we can find \emph{integrated rate law,} \[
+\begin{split}
+- \frac{ d[A] }{ dt } &= k \\
+\int_{[A]_{o}}^{[A]_{t}} d[A] &= -k \int_{0}^{t} dt \\
+[A]_{o} - [A]_{t} &= kt 
+\end{split}
+\] Thus, we get, the integrated rate law,
+\[\mathrm{ [A]_{t} = [A]_{o} - kt }\]
+
+Now, if in t time, x mol/lit are used up from the initial a mol/lit, we
+can write, \[
+\begin{split}
+a - x &= a - kt \\
+x &= kt
+\end{split}
+\] Where x is the conc. of A or reactant reacted in t time. I.e.,
+\[\mathrm{ x = [A]_{o} - [A]_{t} }\]
+
+\paragraph{Half Life}\label{half-life}
+
+Time in which half of the reactant gets reacted.
+
+For zero order reaction, \[\mathrm{ [A]_{t} = [A]_{o} - kt }\] If
+\(t = t_{1 /2}\), \(\mathrm{ [A]_{t} = [A]_{o}/2 }\), And thus,
+\[\mathrm{ t_{1 /2} = \frac{ [A]_{o} }{ 2k } }\]
+
+\textbf{Time of completion} is when reactants become zero.
+\[\mathrm{ t_{c} = \frac{ [A]_{o} }{ k } = 2t_{1 /2} }\]
+
+Only zero order reaction completes in a finite time period.
+
+Equal concentrations of reactants react in equal time periods in zero
+order reaction.
+
+The conc. of reactant remaining after equal time periods forms AP.
+
+\[
+\begin{split}
+[A]_{o} &= [A]_{o} \\
+[A]_{10} &= [A]_{o} - 10k \\
+[A]_{20} &= [A]_{o} - 20k \\
+[A]_{30} &= [A]_{o} - 30k \\
+\end{split}
+\]
+
+\subsubsection{Graph}\label{graph}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240307171302.png}
+
+\end{figure}
+
+\paragraph{Some PTR}\label{some-ptr}
+
+Note that if the reaction becomes, \[\mathrm{ mA ->[k] P }\] Then rate
+of reaction becomes,
+\[\mathrm{ - \frac{ 1 }{ m }\frac{ d[A] }{ dt } = k }\] Thus the
+integrated rate law becomes,
+\[\mathrm{ [A]_{t} = [A]_{o} - mkt = [A]_{o} - k_{A}t }\] And half life
+becomes,
+\[\mathrm{ t_{1 /2} = \frac{ [A]_{o} }{ 2(mk) } = \frac{ [A]_{o} }{ 2k_{A} } }\]
+
+If the reaction has 2 or more reactants, \[\mathrm{ A + 2B ->[k] P }\]
+Then, \[\mathrm{ [A]_{t} = [A]_{o} - k_{A}t }\]
+\[\mathrm{ [B]_{t} = [B]_{o} - k_{B}t }\]
+
+And half life, \[\mathrm{ t_{1 /2(A)} = \frac{ [A]_{o} }{ 2k_{A} } }\]
+\[\mathrm{ t_{1 /2(B)} = \frac{ [B]_{o} }{ 2k_{B} } }\]
+
+Half life of reaction is defined when both the half lives are equal. \[
+\begin{split}
+t_{1 /2(A)} &= t_{1 /2(B)} \\
+\frac{ [A]_{o} }{ [B]_{o} } &= \frac{ 1 }{ 2 }
+\end{split}
+\]
+
+Thus for a reaction involving 2 more reactants, then half lives of all
+reactants are equal when their initial conc. are taken in their
+stoichiometric proportions.
+
+In such case, \[t_{1/2(A)} = t_{1 /2(B)} = t_{1 /2(\text{reaction})}\]
+
+\subsection{First Order Kinetics}\label{first-order-kinetics}
+
+\[\mathrm{ A ->[k] P }\]
+
+Differential rate law, \[\mathrm{ - \frac{ d[A] }{ dt } = k[A] }\]
+
+Integrated rate law, \[
+\begin{split}
+\int_{[A]_{o}}^{[A]_{t}} \frac{ d[A] }{ [A] } &= -k \int_{0}^{t} dt \\
+\ln \frac{ [A]_{t} }{ [A]_{o} } &= -kt  \\
+[A]_{t} &= [A]_{o} e^{-kt}  
+\end{split}
+\]
+
+And k can be written as,
+\[k = \frac{ 2.303 }{ t } \log_{10} \frac{ [A]_{o} }{ [A]_{t} }\]
+
+Half life is thus,
+\[t_{1/2} = \frac{ \ln 2 }{ k } = \frac{ 0.693 }{ k }\] Which is
+independent of concentration.
+
+As we increase temp., k decreases and thus half life decreases.
+
+Time of completion is infinite.
+
+For first order, average life,
+\[t_{avg} = \frac{ 1 }{ k } \approx 1.44 \times t_{1/2}\]
+
+In n half lives, conc. of reactant remaining,
+\[[A]_{t_{1/2}(n)} = \frac{ [A]_{o} }{ 2^{n} }\]
+
+\subsubsection{Graph}\label{graph-1}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240307174015.png}
+
+\end{figure}
+
+\paragraph{Characteristics of First Order
+Reaction}\label{characteristics-of-first-order-reaction}
+
+Conc. of reactant which reacts in equal time period goes on decreasing.
+
+Conc. of reactant remaining after equal time period forms GP. \[
+\begin{split}
+[A]_{o} &= [A]_{o} \\
+[A]_{10} &= [A]_{o}e^{ -10k } \\
+[A]_{20} &= [A]_{o}e^{ -20k } \\
+[A]_{30} &= [A]_{o}e^{ -30k } \\
+\end{split}
+\]
+
+Equal conc. of reactant does not react in equal time. But, equal
+percentage or fraction of reactant reacts in equal time period.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240307174735.png}
+
+\end{figure}
+
+\pandocbounded{\includegraphics[keepaspectratio]{images/Pasted image 20240307175401.png}}
+(in 2nd question it is 3/4 not 7/8)
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240307175902.png}
+
+\end{figure}
+
+\subsection{\texorpdfstring{\hyperref[nd-order-kinetics]{03 2nd Order Kinetics}}{03 2nd Order Kinetics}}\label{nd-order-kinetics}
+
+\subsection{nth Order Kinetics}\label{nth-order-kinetics}
+
+\[\mathrm{ A ->[k] P }\] And differential rate law is,
+\[\mathrm{ Rate = -\frac{ d[A] }{ dt } = k[A]^{n} }\]
+
+Integrated rate law, \[
+\begin{split}
+-\int_{[A]_{o}}^{[A]_{t}} \frac{ d[A] }{ [A]^{n} } &= k\int_{0}^{t} dt \\
+t &= \frac{ 1 }{ k(n-1) } \left( \frac{ 1 }{ [A]_{o}^{n-1} } - \frac{ 1 }{ [A]_{t}^{n-1} } \right)
+\end{split}
+\]
+
+It is applicable everywhere except first order.
+
+Half Life,
+\[\mathrm{ t_{1/2} = \frac{ 1 }{ k(n-1) } \left( \frac{ 2^{n-1}-1 }{ [A]_{o}^{n-1} } \right) }\]
+
+Thus, \[t_{1/2} \propto \frac{ 1 }{ [A]_{o}^{n-1} }\]
+
+\newpage
+
+\chapter{nd Order Kinetics}\label{nd-order-kinetics}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+\subsubsection{Single Reactant}\label{single-reactant}
+
+\[\mathrm{ A ->[k] P }\]
+
+Differential rate law,
+\[\mathrm{ Rate = - \frac{ d[A] }{ dt } = k[A]^{2} }\]
+
+Integrated rate law, \[
+\begin{split}
+-\int_{[A]_{o}}^{[A]_{t}} \frac{ d[A] }{ [A]_{o}^{2} } &= k \int_{0}^{t} dt \\
+\frac{ 1 }{ [A]_{t} } &= \frac{ 1 }{ [A]_{o} } + kt  
+\end{split}
+\]
+
+Half life, \[t_{1/2} = \frac{ 1 }{ k[A]_{o} }\]
+
+Thus in 2nd order reaction, \[t_{1/2} \propto \frac{ 1 }{ [A]_{o} } \]
+
+And time of completion is infinite.
+
+Conc. after equal time period form HP.
+
+\textbf{Graph,}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240307180826.png}
+
+\end{figure}
+
+\subsubsection{Two Reactants}\label{two-reactants}
+
+\[\mathrm{ A + B ->[k] P }\]
+
+Differential rate law,
+\[\mathrm{ -\frac{ d[A] }{ dt } = -\frac{ d[B] }{ dt } = k[A][B] }\]
+
+Integrated rate law \[
+\begin{split}
+- \frac{ d }{ dt }(a-x) &= k(a-x)(b-x) \\
+\frac{ dx }{ dt } &= k(a-x)(b-x) \\
+\int_{0}^{x} \frac{ dx }{ (a-x)(b-x) } &= k \int_{0}^{t} dt \\
+k &= \frac{ 1 }{ t(a-b) } \ln \left( \frac{ a-x }{ b-x } \frac{ b }{ a } \right) 
+\end{split}
+\]
+
+Thus, we get, \[t = \frac{ 1 }{ k(a-b) } \ln \frac{ b(a-x) }{ a(b-x) }\]
+
+\paragraph{Special Case}\label{special-case}
+
+If \(a \gg b\), then \(a-b \approx a\) and \(a-x \approx a\).
+
+Thus we can write, \[
+\begin{split}
+t &= \frac{ 1 }{ k a } \ln\frac{ ab }{ a(b-x) } \\
+t &= \frac{ 1 }{ k' } \ln \frac{ b }{ b-x } \\
+t &= \frac{ 1 }{ k' } \ln \frac{ [B]_{o} }{ [B]_{t} } \\
+\end{split}
+\]
+
+Which is the same equation as that of first order. Thus it is first
+order in B. And thus is called \emph{pseudo first order reaction.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308105158.png}
+
+\end{figure}
+
+\paragraph{Pseudo Order Kinetics}\label{pseudo-order-kinetics}
+
+It arises when, 1. Rate law involves catalyst (conc. of catalyst remains
+constant) 2. Solvent taken in excess 3. One of the reactant's conc. is
+taken much higher than the others.
+
+Thus, for reaction, \[\mathrm{ A + B ->[k] P }\] If rate law is,
+\[\mathrm{ Rate = k[A][B] }\] And \([A]_{o} \gg [B]_{o}\), then
+\(\mathrm{ [A] }\) is almost constant. And we can write,
+\[\mathrm{ Rate = k'[B] }\] where \(k'\) is called pseudo first order
+rate constant and thus the reaction becomes effectively first order.
+
+\textbf{Examples of Pseudo First Order Reaction:} 1. Hydrolysis of Alkyl
+halides. \[\mathrm{ RCl + H_{2}O ->[k] ROH + HCl }\] Here,
+\(\mathrm{ Rate = k[RCl][H_{2}O] }\). But since water is taken in excess
+and \(\mathrm{ [H_{2}O] = 55.55 M }\), we get,
+\[\mathrm{ Rate = k'[RCl], k' = k[H_{2}O] }\]
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Acid catalysed hydrolysis of sucrose.
+  \[\mathrm{ C_{12}H_{22}O_{11} + H_{2}O ->[H+] \underset{ glucose }{ C_{6}H_{12}O_{6} } + \underset{ fructose }{ C_{6}H_{12}O_{6} } }\]
+
+  Experimentally,
+  \[\mathrm{ Rate = k [C_{12}H_{22}O_{11}][H_{2}O][H+] }\] However,
+  \(\mathrm{ H_{2}O }\) is solvent and \(\mathrm{ H+ }\) is catalyst.
+  Thus, the rate law becomes,
+  \[\mathrm{ Rate = k'[C_{12}H_{22}O_{11}] }\]
+\end{enumerate}
+
+\newpage
+
+\chapter{Exp. Det. of Order and k of First
+Order}\label{exp-det-of-order-and-k-of-first-order}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+\subsection{Exp. Det. of Order of
+Reaction}\label{exp.-det.-of-order-of-reaction}
+
+Order of reaction cannot be determined by seeing the stoichiometric of
+reaction.
+
+If reaction is an elementary reaction, or single step reaction, then
+order of reaction is the sum of stoichiometric coefficients of
+reactants.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308111402.png}
+
+\end{figure}
+
+However, we cannot find if a reaction is elementary or not just by see
+the reaction.
+
+\subsubsection{Initial Rate Method}\label{initial-rate-method}
+
+We determine rates at various conc. of the reactants. From this we can
+find the order.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308111654.png}
+
+\end{figure}
+
+\subsubsection{Half Life Method}\label{half-life-method}
+
+We know that, for an nth order reaction,
+\[t_{1/2} \propto \frac{ 1 }{ a^{n-1} }\] where a is initial
+concentration of reactant.
+
+n represents the order of reaction and we cannot find partial order from
+this method.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308112032.png}
+
+\end{figure}
+
+\subsubsection{Hit and Trial Method}\label{hit-and-trial-method}
+
+This is also called \textbf{Integrated Rate Law Method.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308113632.png}
+
+\end{figure}
+
+\subsection{Monitoring the Progress of 1st Order
+Reaction}\label{monitoring-the-progress-of-1st-order-reaction}
+
+i.e.~Determination of rate constant, k.
+
+There are 3 methods, 1. Pressure Measurement 2. Titration 3. Optical
+rotation measurement
+
+\subsubsection{By Pressure Measurement}\label{by-pressure-measurement}
+
+Applicable reaction involving at least one gas.
+
+For constant V and T, \[p \propto c\]
+
+Thus we can write, \[
+\begin{split}
+k &= \frac{ 1 }{ t } \ln \frac{ [A]_{o} }{ [A]_{t} } \\
+&= \frac{ 1 }{ t } \ln \frac{ a }{ a-x } \\
+&= \frac{ 1 }{ t } \ln \frac{ p_{o(A)} }{ p_{t(A)} }
+\end{split}
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308114608.png}
+
+\end{figure}
+
+A general formula is,
+\[k = \frac{ 1 }{ t } \ln \frac{ p_{\infty} - p_{o} }{ p_{\infty} - p_{t} }\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308115920.png}
+
+\end{figure}
+
+\subsubsection{By Titration}\label{by-titration}
+
+\hyperref[law-of-chemical-equivalence]{02 Equivalent Concept\#Law of Chemical Equivalence}
+
+The rate constant will be found directly in term of volumes of titrant
+used at various instances of the reaction.
+
+\[k = \frac{ 1 }{ t } \ln \frac{ V_{o} }{ V_{t} }\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308120743.png}
+
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308121319.png}
+
+\end{figure}
+
+\subsubsection{By Measurement of Optical
+Rotation}\label{by-measurement-of-optical-rotation}
+
+\hyperref[checking-optical-activity]{06 Optical Isomerism\#Checking Optical Activity}
+
+This is applicable only for reaction involving optically active
+compounds.
+
+Optical rotation \(\theta\), \[
+\begin{split}
+\theta &\propto \text{conc.} \\
+&\propto \text{thickness of polarimeter tupe (t)}
+\end{split}
+\] The thickness t is taken as 1 because it cancels out in the ratio
+inside log in case of first order kinetics.
+
+We can write, \[\theta = r \times c\] where, \(r \to\) \emph{specific
+rotation of compound.} It is constant for an optically active compound.
+\(c \to\) concentration of solution wrt that compound. \(\theta \to\)
+observed rotation.
+
+The general formula for the rate constant comes out to be,
+\[k = \frac{ 1 }{ t } \ln \frac{ \theta_{\infty} - \theta_{o} }{ \theta_{\infty} - \theta_{t} }\]
+It is applicable for any first order with optically active compound.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308122421.png}
+
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308172212.png}
+
+\end{figure}
+
+\newpage
+
+\chapter{Effect of Temperature}\label{effect-of-temperature}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+It is observed that rate of reaction becomes double to triple for every
+10 K rise in temp. for most chemical reactions.
+
+\subsection{Collision Theory}\label{collision-theory}
+
+If a reaction has to proceed in the forward direction, the reactants
+must collide with each other.
+
+Every collision is not successful.
+
+For a collision to be successful to form products, reactants must
+possess a certain min. total energy called \textbf{Threshold Energy} and
+also have proper orientation.
+
+\textbf{Activation Energy} is the additional KE possessed by reactants
+relative to initial state of reactants to cross energy barrier (TS).
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308173034.png}
+
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308173614.png}
+
+\end{figure}
+
+Rate of reaction is given as, Rate of Reaction = collision frequency
+\(\times\) energy barrier factor \(\times\) orientation factor
+
+\emph{Orientation factor} is also known as \emph{steric factor or
+probability factor.}
+
+\emph{Collision frequency} is no. of collisions per unit volume per unit
+time.
+
+\emph{Energy barrier factor} is \(e^{ -E_{a}/RT }\) and it represents
+the fraction of reactant molecules that have KE more than or equal to
+activation energy \(E_{a}\).
+
+\paragraph{Arrhenius Equation}\label{arrhenius-equation}
+
+Finally, the rate of reaction comes out to be,
+\[\mathrm{ Rate = (Ae^{ -E_{a}/RT }) (conc.)^{order} }\]
+
+This is written as, \[\mathrm{ Rate = k (conc.)^{order} }\] where k is
+rate constant for reaction and, \[\mathrm{ k = Ae^{ -E_{a}/RT } }\] This
+equation is called \textbf{Arrhenius Equation.} Here, \(E_{a} \to\)
+activation energy of reaction \(A \to\) frequency factor or
+\emph{Arrhenius constant.} \(T \to\) temp. in kelvin.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308175001.png}
+
+\end{figure}
+
+Both \(\mathrm{ E_{a} and A }\) are taken to be independent of temp..
+
+The max. value of k becomes A when, 1. \(T \to \infty\) 2. \(E_{a} = 0\)
+i.e.~no energy barrier.
+
+A is the product of collision frequency and orientation factor.
+\[A = Z_{11}\times p\]
+
+We have, \[
+\begin{split}
+k &= Ae^{ -E_{a}/RT } \\
+\ln k &= \ln A - \frac{ E_{a} }{ RT }
+\end{split}
+\] And thus the graph will look like,
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308175144.png}
+
+\end{figure}
+
+\paragraph{Integral and Differential form of A.
+Equation}\label{integral-and-differential-form-of-a.-equation}
+
+Applying the log equation at two temp., we can find the integral form of
+the Arrhenius equation.
+
+At temp. \(T_{1}\), \[\ln k_{1} = \ln A - \frac{ E_{a} }{ RT_{1} }\] At
+temp. \(T_{2}\), \[\ln k_{2} = \ln A - \frac{ E_{a} }{ RT_{2} }\]
+
+Subtracting them, \[
+\begin{split}
+\ln \frac{ k_{1} }{ k_{2} } &= \frac{ E_{a} }{ R } \left( \frac{ 1 }{ T_{1} } - \frac{ 1 }{ T_{2} } \right) \\
+\\
+\log_{10} \frac{ k_{1} }{ k_{2} } &= \frac{ E_{a} }{ 2.303R } \left( \frac{ 1 }{ T_{1} } - \frac{ 1 }{ T_{2} } \right)
+\end{split}
+\] This is called the integral form of Arrhenius equation.
+
+Now, differentiating the log equation wrt T, \[
+\begin{split}
+\ln k &= \ln A - \frac{ E_{a} }{ RT } \\
+\frac{ d(\ln k) }{ dT } &= -\frac{ E_{a} }{ R } \left( -\frac{ 1 }{ T^{2} } \right) \\
+\frac{ d(\ln k) }{ dT } &= \frac{ E_{a} }{ RT^{2} }
+\end{split}
+\]
+
+The reaction which has greater \(E_{a}\) will be more sensitive towards
+temp. variation.
+
+Rate constant of reaction increases more sharply for a reaction at lower
+temp. than at higher temp. for same temp. rise.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308180406.png}
+
+\end{figure}
+
+\paragraph{Why Rate Constant becomes 2x to 3x for every 10K rise in
+temp.}\label{why-rate-constant-becomes-2x-to-3x-for-every-10k-rise-in-temp.}
+
+\hyperref[maxwell-boltzmann-distribution]{00 KTG \& Thermodynamics\#Maxwell Boltzmann Distribution}
+
+Note that the average KE does not change much, but the fraction of
+molecules having more energy than \(E_{a}\) is increased.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308181008.png}
+
+\end{figure}
+
+\subsection{Reversible Reactions}\label{reversible-reactions}
+
+\[\mathrm{ A <=>[E_{af}, k_{f}][E_{ab}, k_{b}] B }\]
+
+At eqilibrium,
+\[\mathrm{ k_{eq} = \frac{ [B]_{eq} }{ [A]_{eq} } = \frac{ k_{f} }{ k_{b} } }\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308181253.png}
+
+\end{figure}
+
+From the graph, we can see that, \[\Delta H_{r} = E_{af} - E_{ab}\]
+
+Now, \[
+\begin{split}
+k_{eq} &= \frac{ A_{f}e^{ -E_{af}/RT } }{ A_{b}e^{ -E_{ab}/RT } } \\
+&= \frac{ A_{f} }{ A_{b} } e^{ -(E_{af} - E_{ab})/RT } \\
+&= \frac{ A_{f} }{ A_{b} } e^{ -\Delta H_{r}/RT } \\
+\ln k_{eq} &= \ln \frac{ A_{f} }{ A_{b} } - \frac{ \Delta H_{r} }{ RT } \\
+\frac{ d(\ln k_{eq}) }{ dT } &= \frac{ \Delta H_{r} }{ RT^{2} }
+\end{split}
+\] This is the differential form of
+\hyperref[vant-hoff-equation]{Von\textquotesingle t Hoff Equation.}
+
+And its integral form will be, \[
+\begin{split}
+\ln \frac{ k_{eq 1} }{ k_{eq 2} } &= \frac{ \Delta H_{r} }{ R } \left( \frac{ 1 }{ T_{1}^{2} } - \frac{ 1 }{ T_{2}^{2} } \right) \\
+\\
+\log_{10} \frac{ k_{eq 1} }{ k_{eq 2} } &= \frac{ \Delta H_{r} }{ 2.303R } \left( \frac{ 1 }{ T_{1}^{2} } - \frac{ 1 }{ T_{2}^{2} } \right) 
+\end{split}
+\]
+
+As temp. increases Rate constant increases always. Irrespective of
+whether reaction if endothermic or exothermic.
+
+But, as temp. increases equilibrium constant increases for endothermic
+and decreases for exothermic.
+
+\newpage
+
+\chapter{Effect of Catalyst and Surface
+Area}\label{effect-of-catalyst-and-surface-area}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+\subsection{Effect of Catalyst}\label{effect-of-catalyst}
+
+Catalyst is added into the reaction mixture in small amount which
+without being consumed alters the mechanism of reaction and takes the
+reaction through alternate path involving lower activation energy and
+hence reaction becomes faster.
+
+Catalyst does not effect, - Equilibrium constant - Thermodynamic
+parameters
+
+Catalyst decreases the value of \(E_{a}\) both forward and backward
+reaction by the same amount and hence \(k_{f}\) and \(k_{b}\) are
+increased by same factor.
+
+Catalyst cannot turn a non spontaneous reaction into a spontaneous one.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308182821.png}
+
+\end{figure}
+
+For catalysed path, \[
+\begin{split}
+k_{f}' &= A_{f}e^{ -(E_{af}-x)/RT } \\
+k_{b}' &= A_{b}e^{ -(E_{ab}-x)/RT } \\
+k_{eq}' &= \frac{ A_{f} }{ A_{b} } e^{ -(E_{ab} - E_{af})/RT } \\
+k_{eq}' &= \frac{ A_{f} }{ A_{b} } e^{ -\Delta H_{r}/RT } \\
+&= k_{eq}
+\end{split}
+\]
+
+\subsection{Effect of Surface Area}\label{effect-of-surface-area}
+
+Only applies to reactions which occur through adsorption on solid
+surface.
+
+As surface area increases, rate of reaction increases.
+
+A solid in powdered or porous form has high surface area and hence high
+rate of reaction.
+
+\newpage
+
+\chapter{Mechanism and Order from
+Mechanism}\label{mechanism-and-order-from-mechanism}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+\subsection{Mechanism of Reaction}\label{mechanism-of-reaction}
+
+The various steps involved in conversion of reactants into products in a
+chemical reaction.
+
+\paragraph{Molecularity}\label{molecularity}
+
+It is the no. of reactant molecules that form TS and finally convert
+into product.
+
+It is defined for a step of a complex reaction or defined for an
+elementary reaction.
+
+It is usually 1, 2 or rarely 3 but not found to be greater than 3 as
+probability of 4 or more molecules colliding is very low.
+
+It cannot be fractional, -ve or zero.
+
+Molecularity of 1 means \emph{unimolecular} reaction, 2 means
+\emph{bimolecular} reaction and 3 means \emph{trimolecular} reaction.
+
+For an elementary reaction, molecularity is equal to order of reaction
+which is equal to sum of stoichiometric coefficients of reactants.
+
+This indicates that zero order reaction is a complex reaction.
+
+\subsubsection{Types of Reaction}\label{types-of-reaction}
+
+There are two types of reaction based on mechanism,
+
+\paragraph{Elementary}\label{elementary}
+
+Which complete in one step. No intermediate is involved.
+
+The given reaction or step is \textbf{Rate Determining Step (RDS).} It
+is the slowest step in a reaction.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308203736.png}
+
+\end{figure}
+
+\paragraph{Complex}\label{complex}
+
+Which completes in 2 or more steps. Slowest step is RDS. Involves at
+least one intermediate.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308204922.png}
+
+\end{figure}
+
+\subsection{Order from given
+Mechanism}\label{order-from-given-mechanism}
+
+\paragraph{Elementary Reaction}\label{elementary-reaction}
+
+Given step (reaction) is RDS.
+
+\[\mathrm{ A + 2B -> P }\] \[\mathrm{ Rate = k[A][B]^{2} }\] And thus
+order is 1 + 2 = 3.
+
+\paragraph{More than one step and one of them is
+Slow}\label{more-than-one-step-and-one-of-them-is-slow}
+
+The slow step is RDS.
+
+We write rate law of the slow step taking it to be elementary. The order
+comes from this rate law.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308205322.png}
+
+\end{figure}
+
+\paragraph{Intermediate in Equilibrium with
+Reactants}\label{intermediate-in-equilibrium-with-reactants}
+
+Equilibrium is always fast. Equilibrium involves 2 reactions, forwards
+and backwards.
+
+We write rate law from the slow step and if there are intermediates
+involved, we remove that as in final rate law conc. of intermediate
+cannot come.
+
+The order is obtained from the final rate law.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308205827.png}
+
+\end{figure}
+
+\paragraph{Info. of Fast/Slow steps are not
+given}\label{info.-of-fastslow-steps-are-not-given}
+
+We apply steady state approximation (SSA). All the steps of the reaction
+are assumed to proceed with the same rate.
+
+SSA on intermediate gives, \[\frac{ d[I]_{t} }{ dt } = 0\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308210556.png}
+
+\end{figure}
+
+In photochemical reaction, rate of reaction is proportional to intensity
+of light absorbed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308211020.png}
+
+\end{figure}
+
+\newpage
+
+\chapter{Nuclear Chemistry}\label{nuclear-chemistry}
+
+\etocsettocstyle{\textbf{Chapter Contents}\par\rule{\linewidth}{0.5pt}}{\par\rule{\linewidth}{0.5pt}}
+\localtableofcontents
+
+\noindent {}
+
+aka \textbf{Radioactivity}
+
+Radioactivity is the spontaneous decay of nuclei of some isotopes of
+elements to emit \(\alpha,\beta,\upgamma\) rays.
+
+Radioactive decay follows first order kinetics but Arrhenius equation is
+not applicable as rate of radioactive decay is independent of temp.,
+free or combined form (e.g.~U or \(\mathrm{ UF_{6} }\))
+
+In nuclear reaction the reacting element is changed. It does not involve
+e but rather nuclei.
+
+Rate of radioactive decay, \[\mathrm{ Rate \propto N_{t} }\] where
+\(N_{t}\) is the no. of nuclei present at time t.
+
+\[
+\begin{split}
+-\frac{ dN_{t} }{ dt } &\propto N_{t} \\
+-\frac{ dN_{t} }{ dt } &= \lambda N_{t} \\
+\end{split}
+\]
+
+\(\lambda\) is called \textbf{decay constant} and it has unit
+\(s ^{-1}\), \(- dN_{t} /dt\) is called \textbf{rate of decay or
+radioactivity or activity.}
+
+Since no. of nuclei is equal to the no. of atoms, we can write,
+\[- \frac{ dN_{t} }{ dt } = \lambda N_{t} = \lambda \frac{ W }{ M }N_{A}\]
+where, \(W \to\) mass of radioactive substance \(M \to\) molar mass
+\(N_{A} \to\) Avogadro no.
+
+The SI unit of rate of decay or activity is \textbf{dps
+i.e.~disintegration per second.} But the most commonly used unit is
+\textbf{Curie.} \[\mathrm{ 1 Ci = 3.7 \times 10^{10} dps }\]
+
+\textbf{Specific Activity} is the activity per unit mass.
+
+No.~of nuclei after time t, \[
+\begin{split}
+- \frac{ dN }{ dt } &= \lambda N \\
+\int \frac{ dN }{ N } &= \lambda \int dt \\
+N_{t} &= N_{o} e^{ -\lambda t }  
+\end{split}
+\]
+
+Decay constant,
+\[\lambda = \frac{ 1 }{ t } \ln \frac{ N_{o} }{ N_{t} }\]
+
+Half life,
+\[t_{1/2} = \frac{ \ln 2 }{ \lambda } = \frac{ 0.693 }{ \lambda }\]
+Average life, \[t_{avg} = \frac{ 1 }{ \Lambda }\]
+
+No.~of nucleoids remaining after x half lives,
+\[= \frac{ N_{o} }{ 2^{x} }\]
+
+\textbf{Parallel Decay:}
+\hyperref[parallel-or-competing-first-order-reaction]{Parallel First
+Order Reaction}
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308213232.png}
+
+\end{figure}
+
+\subsubsection{Radioactive Equilibrium}\label{radioactive-equilibrium}
+
+Observed in sequential decay.
+
+\[\mathrm{ A ->[\lambda_{1}] B ->[\lambda_{2}] C ->[\lambda_{3}] D \dots  }\]
+
+A is the parent element which is radioactive. B, C and D are
+intermediates.
+
+At radioactive equilibrium, rate of formation of B is equal to rate of
+decay of B. This is SSA.
+
+\[\mathrm{ \lambda_{1}N_{A} = \lambda_{2}N_{B} }\] This is the equation
+for radioactive equilibrium.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308215331.png}
+
+\end{figure}
+
+\subsubsection{Symbols of Some Important Nuclear
+Particles}\label{symbols-of-some-important-nuclear-particles}
+
+\[
+\begin{split}
+{}_{2}He^{4} &: \alpha-particle \\
+\\
+{}_{-1}e^{0} &: \beta-particle \\
+{}_{+1}e^{0} &: Positron \\
+\\
+{}_{1}H^{1} &: Proton \\
+{}_{1}H^{2} &: Deutron \\
+{}_{1}H^{3} &: Triton \\
+\\
+\upgamma\ or h\nu &: \upgamma-radiation
+\end{split}
+\]
+
+\textbf{\(\alpha\) decay:}
+\[\mathrm{ {}_{Z}X^{A} -> {}_{Z-2}Y^{A-4} + {}_{2}He^{4} }\]
+
+\textbf{\(\beta\) decay:}
+\[\mathrm{ {}_{Z}X^{A} -> {}_{Z+1}P^{A} + {}_{-1}e^{0} }\]
+
+\subsubsection{Applications of
+Radioactivity}\label{applications-of-radioactivity}
+
+\paragraph{Rock dating (or Helium
+dating)}\label{rock-dating-or-helium-dating}
+
+To determine age of rocks/minerals/ores.
+
+The basis is \(\alpha\) particle decay.
+
+He dating assumes that all \(\alpha\) particles produced in the decay
+are trapped in the ore as He gas.
+
+\begin{figure}[H]
+\centering
+\includegraphics[max width=0.9\linewidth,keepaspectratio]{images/Pasted image 20240308220317.png}
+
+\end{figure}
+
+\paragraph{Carbon dating}\label{carbon-dating}
+
+To determine age of fossils, wood, artefacts. Mainly used to determine
+age of dead trees/animals.
+
+The N in the upper atmosphere captures neutron and forms radioactive
+carbon, \(\mathrm{ {}_{6}C^{14} }\). This C has half life of its decay
+of nearly 5770 years.
+
+This radioactive C is diffused into the lower atmosphere and then goes
+into the bodies of living organisms.
+
+A radioactive equilibrium is established in the body. Rate of absorption
+of \(\mathrm{ C^{14} }\) = Rate of decay of \(\mathrm{ C^{14} }\).
+
+There is a constant conc. of \(\mathrm{ C^{14} }\) in the body of alive
+body. After the death of the body, the absorption stops and the decay
+continues.
+
+\[\mathrm{ {}_{6}C^{14} -> {}_{7}N^{14} + {}_{-1}e^{0} }\]
+
+The age comes out to be,
+\[t_{age} = \frac{ 1 }{ \lambda } \ln \frac{ [C^{14}]_{o} }{ [C^{14}]_{t} }\]
+where \(\mathrm{ [C^{14}]_{t} }\) is the conc. in dead animal and
+\(\mathrm{ [C^{14}]_{o} }\) is the conc. in the alive animal which is
+approximated on the basis of currently living animals.
+
+\newpage
+
+\backmatter
+\end{document}

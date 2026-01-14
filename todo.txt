@@ -1,6 +1,0 @@
-The [[File#Heading]] links aren't working.
-
-There is a remaining pdf in the root folder.
-
-Make it so that all headings have a line before and after them.
-

@@ -68,14 +68,14 @@ def generate_headers_tex(output_dir: str) -> str:
 {row_colors_tex}
 \\renewcommand{{\\arraystretch}}{{{table_stretch}}}
 
-% --- Heading Styling (Lines) ---
+% --- Heading Styling ---
 \\makeatletter
 \\renewcommand\\sectionlinesformat[4]{{%
   \\ifstr{{#1}}{{section}}{{%
-    \\vspace{{0.5em}}
-    \\rule{{\\linewidth}}{{0.5pt}}\\par\\nointerlineskip
-    \\@hangfrom{{\\hskip #2#3}}{{#4}}\\par\\nointerlineskip
     \\vspace{{0.2em}}
+    \\rule{{\\linewidth}}{{0.5pt}}\\par\\nobreak\\nointerlineskip
+    \\@hangfrom{{\\hskip #2#3}}{{#4}}\\par\\nobreak\\nointerlineskip
+    \\vspace{{0.1em}}
     \\rule{{\\linewidth}}{{0.5pt}}\\par
   }}{{%
     \\@hangfrom{{\\hskip #2#3}}{{#4}}%
