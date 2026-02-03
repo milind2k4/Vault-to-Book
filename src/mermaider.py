@@ -22,9 +22,6 @@ def process_mermaid(content: str, source_dir: str) -> str:
     def replacer(match: re.Match) -> str:
         mermaid_code = match.group(1).strip()
         
-        # Parse configuration from comments
-        # Syntax: %% width=14cm %% or %% height=5cm %% or %% scale=4 %%
-        
         # Defaults from config
         width = CONFIG['mermaid'].get('default_width')
         height = CONFIG['mermaid'].get('default_height') or "11cm"

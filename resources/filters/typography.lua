@@ -1,8 +1,16 @@
----@diagnostic disable: undefined-global
 -- typography.lua
--- Handles special characters, chemical equations, and highlighting.
+--[[
+    Lua filter for miscellaneous typography adjustments.
 
---- Handles special characters like checkboxes.
+    Handles:
+    - Substitution of special characters (checkboxes).
+    - Highlighting syntax `==text==` -> `\hl{text}`.
+]]
+
+---@diagnostic disable: undefined-global
+
+--- Replaces specific Unicode characters with LaTeX symbols.
+-- Handles checkboxes: `☐` -> `\square`, `☒` -> `\boxtimes`.
 -- @param el The Str element.
 function Str(el)
     if el.text == "☐" then
@@ -12,9 +20,8 @@ function Str(el)
     end
 end
 
--- Math function removed (moved to chemistry.lua)
-
---- Wraps text marked with `==text==` (mark class) in LaTeX `\hl{}`.
+--- Converts highlighted text (Pandoc Mark) to LaTeX highlight command.
+-- Transforms `==text==` syntax (Mark) into `\hl{text}`.
 -- @param el The Span element.
 function Span(el)
     if el.classes:includes("mark") then

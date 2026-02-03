@@ -1,14 +1,22 @@
----@diagnostic disable: undefined-global
 -- images.lua
--- Handles image sizing, captions, and LaTeX figure generation.
+--[[
+    Lua filter for handling image sizing, captions, and LaTeX Figure generation.
 
--- Global vars to store config
+    Functions:
+    - Captures global size configuration.
+    - Detects standalone images.
+    - Generates LaTeX `figure` environments with `[H]` placement.
+    - Handles explicit resizing attributes (`width`, `height`).
+]]
+
+---@diagnostic disable: undefined-global
+
+-- Configuration Defaults
 local config_max_width = nil
 local config_max_height = nil
 
-
 --- Captures global metadata passed from Pandoc.
--- Used to set global image max width/height configuration from `config.yaml`.
+-- Sets global image configuration (max-width/height) from document metadata.
 -- @param m The Meta map.
 function Meta(m)
     if m["image-max-width"] then
@@ -21,7 +29,6 @@ function Meta(m)
 end
 
 --- Checks if a block contains a single isolated image.
--- Used to decide if an image should be wrapped in a `figure` environment.
 -- @param block The Block element (Para or Plain).
 -- @return The Image element if standalone, nil otherwise.
 local function get_standalone_image(block)
@@ -29,9 +36,7 @@ local function get_standalone_image(block)
     local img = nil
     for _, elem in ipairs(block.content) do
         if elem.t == "Image" then
-            if img then
-                return nil         -- More than one image
-            end
+            if img then return nil end -- More than one image
             img = elem
         elseif elem.t ~= "Space" and elem.t ~= "SoftBreak" then
             return nil -- Contains non-whitespace text
@@ -40,15 +45,14 @@ local function get_standalone_image(block)
     return img
 end
 
-
 --- Generates a LaTeX `figure` environment for an image.
--- Handles sizing (max-width/height), captions, and placement `[H]`.
+-- Applies strict placement `[H]`, centering, and correct sizing options.
 -- @param img The Image element.
 local function create_latex_figure(img)
     local has_width = false
     local explicit_dim = ""
 
-    -- Check for explicit dimensions from Obsidian syntax or attributes
+    -- Check for explicit dimensions
     for k, v in pairs(img.attributes) do
         if k == "width" then
             has_width = true
@@ -59,17 +63,16 @@ local function create_latex_figure(img)
         end
     end
 
-    -- Determine Sizing
+    -- Determine Sizing Options
     local size_opts = ""
     if has_width then
-        -- Apply explicit dimensions (and keep aspect ratio)
         size_opts = explicit_dim .. "keepaspectratio"
     else
-        -- Apply global defaults
+        -- Logic: Defaults -> Metadata -> Fallback
         local max_w = config_max_width
         local max_h = config_max_height
 
-        -- Fallback to global metadata lookup if cache missed (safety)
+        -- Late fallback to document metadata if globals aren't set
         if not max_w and PANDOC_DOCUMENT and PANDOC_DOCUMENT.meta and PANDOC_DOCUMENT.meta["image-max-width"] then
             max_w = pandoc.utils.stringify(PANDOC_DOCUMENT.meta["image-max-width"])
         end
@@ -78,35 +81,32 @@ local function create_latex_figure(img)
         end
 
         if max_h then
-            -- Prioritize Max Height
             size_opts = "max height=" .. max_h .. ",keepaspectratio"
         elseif max_w then
             size_opts = "max width=" .. max_w .. ",keepaspectratio"
         else
-            size_opts = "max width=0.9\\linewidth,keepaspectratio"  -- Ultimate fallback
+            size_opts = "max width=0.9\\linewidth,keepaspectratio"
         end
     end
 
-    -- Caption handling
+    -- Caption Processing
     local caption_text = pandoc.utils.stringify(img.caption)
     local caption_tex = ""
-    -- Filter out dummy captions
     if #caption_text > 0 and caption_text ~= "fig:" and caption_text ~= "\\" then
         caption_tex = "\\caption{" .. caption_text .. "}"
     end
 
-    -- Fix path: Pandoc may URL-encode the src (e.g. %20 for space). LaTeX needs the real path.
+    -- Fix Path (decode URI percent-encoding)
     local src_path = img.src:gsub("%%20", " ")
 
-    -- Construct LaTeX
+    -- Generate LaTeX Block
     local latex = "\\begin{figure}[H]\n\\centering\n\\includegraphics[" ..
-    size_opts .. "]{" .. src_path .. "}\n" .. caption_tex .. "\n\\end{figure}"
+        size_opts .. "]{" .. src_path .. "}\n" .. caption_tex .. "\n\\end{figure}"
 
     return pandoc.RawBlock("latex", latex)
 end
 
-
---- Processes Paragraphs to detect and convert standalone images.
+--- Transforms standalone image paragraphs into LaTeX figures.
 -- @param el The Para element.
 function Para(el)
     local img = get_standalone_image(el)
@@ -116,13 +116,12 @@ function Para(el)
     return el
 end
 
---- Cleans up inline images (removes wikilink class).
+--- Cleanup for inline images.
+-- Removes `wikilink` class from inline images.
 -- @param el The Image element.
 function Image(el)
-    -- Remove wikilink class if present
     if el.classes:includes("wikilink") then
         el.classes = el.classes:filter(function(c) return c ~= "wikilink" end)
     end
-    -- Inline images (not standalone) are left to default handling or stripped of specific classes
     return el
 end

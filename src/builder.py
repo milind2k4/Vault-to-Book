@@ -27,14 +27,10 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     file_id = slugify(title)
 
     # 0. Formatting Fixes
-    # Ensure images starting on a new line after text get a blank line before them
-    # Also handle images that are inline with text: "Text ![Img]" -> "Text\n\n![Img]"
-    # Pattern: Non-newline char, any whitespace (including newlines), then ![
+    # Ensure images starting on a new line after text or inline images get a blank line before and after them
     content = re.sub(r'([^\n])(\s*)(!\[)', r'\1\n\n\3', content)
 
     # Logic: If heading has word "Graph" or "Examples", promote H5/H6 to H4/H5.
-    # We match start of line, 5 or 6 #'s, then ensure "Graph" or "Examples" is in the line.
-    # flags=re.MULTILINE is needed for ^ match.
     content = re.sub(r'^(#{5,6})(?=\s+.*(Graph|Examples?))', lambda m: m.group(1)[:-1], content, flags=re.MULTILINE)
 
     # Ensure headings have blank lines before and after

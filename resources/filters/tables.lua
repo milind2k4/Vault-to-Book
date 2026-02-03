@@ -1,27 +1,31 @@
----@diagnostic disable: undefined-global
 -- tables.lua
--- Adjusts table column widths using a square-root scaling algorithm.
+--[[
+    Lua filter for intelligent table column sizing.
+
+    Implements a specific algorithm (Square Root Scaling) to calculate relative
+    column widths based on content length. This prevents wide tables from overflow
+    and ensures better space distribution than linear scaling or equal widths.
+]]
+
+---@diagnostic disable: undefined-global
 
 --- Adjusts table column widths using a square-root scaling algorithm.
--- Ensures that columns with more content get more space, but with diminishing returns.
--- Essential for preventing wide tables from overflowing the page.
+-- Scans table headers and a subset of the body rows to determine optimal widths.
 -- @param el The Table element.
 function Table(el)
     local colspecs = el.colspecs
-    local needs_fix = false
     local count = #colspecs
-
-    -- Smart Column Widths: Calculate based on content length
-    -- 1. Scan header and body to find max char length per column
     local col_max_lens = {}
-    for i = 1, count do col_max_lens[i] = 1 end -- Init with 1 to avoid div by zero
 
-    -- Check Header
+    -- Initialize max lengths
+    for i = 1, count do col_max_lens[i] = 1 end
+
+    --- Calculates formatted length of a cell with a buffer.
     local function get_cell_len(cell)
-        -- Add a buffer (e.g., 4 chars) to help short words get more weight
         return #pandoc.utils.stringify(cell) + 4
     end
 
+    -- 1. Scan Header
     if el.head then
         for _, row in ipairs(el.head.rows) do
             for i, cell in ipairs(row.cells) do
@@ -33,7 +37,7 @@ function Table(el)
         end
     end
 
-    -- Check Body (first 20 rows to save perf on huge tables)
+    -- 2. Scan Body (Limit to first 20 rows for performance)
     for _, body in ipairs(el.bodies) do
         for r_idx, row in ipairs(body.body) do
             if r_idx > 20 then break end
@@ -46,10 +50,9 @@ function Table(el)
         end
     end
 
-    -- Assign Proportional Widths using Square Root Scaling
-    -- This ensures short columns get relatively more space compared to linear scaling
-    -- (e.g. sqrt(10)=3.1 vs sqrt(100)=10 is 1:3 ratio, whereas 10:100 is 1:10)
-
+    -- 3. Assign Weights (Square Root Scaling)
+    -- sqrt(len) provides diminishing returns for very long content,
+    -- ensuring short columns don't get squashed.
     local total_weight = 0
     local weights = {}
 
@@ -59,17 +62,19 @@ function Table(el)
         total_weight = total_weight + w
     end
 
+    -- 4. Apply Widths
     for i, spec in ipairs(colspecs) do
         local w = weights[i]
         local percent = w / total_weight
 
-        -- Enforce min width of 12% to avoid squashing
+        -- Enforce minimum width (12%) for small tables to avoid squashing
         if percent < 0.12 and count <= 6 then percent = 0.12 end
 
-        spec[2] = percent * 0.98  -- Scale to 98% of page
+        -- Target 98% of text width
+        spec[2] = percent * 0.98
     end
 
-    -- Re-normalize
+    -- 5. Re-normalize to ensure strict fit
     local final_total = 0
     for _, spec in ipairs(colspecs) do final_total = final_total + spec[2] end
     if final_total > 0.99 then
