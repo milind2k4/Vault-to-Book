@@ -1,11 +1,11 @@
 # Build Process Execution Flow
 
-This diagram illustrates the workflow using the `import_vault.py` script, which handles importing, building, and cleanup.
+This diagram illustrates the workflow using the `main.py` script, which handles importing, building, and cleanup.
 
 ```mermaid
 graph LR
     User([User])
-    EntryScript["import_vault.py"]
+    EntryScript["main.py"]
     Config["src/config.py"]
     Builder["src/builder.py"]
     TexManager["src/tex_manager.py"]
@@ -13,16 +13,24 @@ graph LR
     Cleaner["src/cleaner.py"]
     Pandoc[["Pandoc Exec"]]
     XeLaTeX[["XeLaTeX Exec"]]
-    LuaFilter("obsidian_filter.lua")
+    
+    subgraph LuaFilters [Lua Filters]
+        Chemistry("chemistry.lua")
+        Tables("tables.lua")
+        Images("images.lua")
+        Links("links.lua")
+        Callouts("callouts.lua")
+        Typography("typography.lua")
+    end
     
     ConfigYAML[("config.yaml")]
     RawNotes[("Obsidian Notes")]
     RawAttachments[("Attachments")]
     ImportDir[("Import Directory")]
-    TempMaster[("temp_master.md")]
+    TempMaster[("book_master.md")]
     TeX_File[("book.tex")]
     PDF_File[("book.pdf")]
-    Images[("Diagram Images")]
+    ImagesArtifacts[("Diagram Images")]
     ArtifactsDir{"build_artifacts/"}
     FinalOutput[("Final PDF Output")]
 
@@ -45,12 +53,12 @@ graph LR
         
         Builder -->|process_file| Builder
         Builder -->|process_mermaid| Mermaider
-        Mermaider -->|Generate| Images
+        Mermaider -->|Generate| ImagesArtifacts
         
         Builder -->|Write| TempMaster
         
         Builder -->|Subprocess Call| Pandoc
-        Pandoc -.->|Uses| LuaFilter
+        Pandoc -.->|Uses| LuaFilters
         Pandoc -.->|Reads| TempMaster
         Pandoc -->|Generates| TeX_File
         
@@ -74,15 +82,15 @@ graph LR
 ## Workflow Steps
 
 1.  **Import & Setup**: 
-    -   `import_vault.py` accepts arguments for vault path, attachments, title, author, etc.
+    -   `main.py` accepts arguments for vault path, attachments, title, author, etc.
     -   It copies valid notes and attachments to a clean import directory.
     -   It sets environment variables to override default configuration.
 
 2.  **Build Execution**:
     -   The script invokes `src.builder.build()`.
     -   Markdown files are processed (Mermaid generation, header fixing).
-    -   Pandoc converts the content to LaTeX using `obsidian_filter.lua`.
-    -   XeLaTeX compiles the PDF (3 passes).
+    -   Pandoc converts the content to LaTeX using a chain of modular Lua filters (`chemistry`, `tables`, `images`, `callouts`, `links`, `typography`).
+    -   XeLaTeX compiles the PDF (3 passes for correct TOC/references).
 
 3.  **Cleanup**:
     -   Based on the `--cleanup` argument:

@@ -22,7 +22,13 @@ A robust tool to convert Obsidian vaults into professional PDF books using Pytho
     ```
 2.  Ensure `resources/` folder contains:
     - `eisvogel.latex`
-    - `obsidian_filter.lua`
+    - `filters/` directory containing:
+        - `chemistry.lua`
+        - `tables.lua`
+        - `images.lua`
+        - `links.lua`
+        - `callouts.lua`
+        - `typography.lua`
     - `callouts.tex`
 
 ## Usage
