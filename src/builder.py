@@ -161,6 +161,7 @@ def build() -> None:
         "filters/images.lua", 
         "filters/tables.lua", 
         "filters/links.lua", 
+        "filters/chemistry.lua",
         "filters/typography.lua"
     ]
     

@@ -21,6 +21,7 @@ Order reflects the sensitivity of rate of reaction with variation in concentrati
 
 For example, rate of the below reaction does not depend on concentration,
 $$\ce{ H_{2} + Cl_{2} ->[h\nu] 2HCl, Rate = k }$$
+$$\ce{ H_{2} + Cl_{2} ->[h\nu] 2HCl, Rate = k }$$
 
 The order of below reaction is first order,
 $$\ce{ 2N_{2}O_{5} -> 4NO_{2} + O_{2}, Rate = k[N_{2}O_{5}] }$$

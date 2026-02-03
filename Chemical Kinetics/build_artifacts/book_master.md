@@ -37,6 +37,12 @@ $$
 }
 \end{split}
 $$
+$$
+\begin{split}
+\frac{ d[C] }{ dt }C &= -\frac{ 1 }{ 2 } \frac{ d[A] }{ dt } \\
+\frac{ d[D] }{ dt } &= 2 \frac{ d[C] }{ dt } \\
+\end{split}
+$$
 I.e.,
 $$\ce{ - \frac{1}{2} \frac{ d[A] }{ dt } = - \frac{1}{3} \frac{ d[B] }{ dt } = \frac{ 1 }{ 1 } \frac{ d[C] }{ dt } = \frac{1}{2} \frac{ d[D] }{ dt } }$$
 
@@ -188,6 +194,7 @@ It can be +ve, -ve or zero or fractional. It is determined *experimentally.* It 
 Order reflects the sensitivity of rate of reaction with variation in concentration. 
 
 For example, rate of the below reaction does not depend on concentration,
+$$\ce{ H_{2} + Cl_{2} ->[h\nu] 2HCl, Rate = k }$$
 $$\ce{ H_{2} + Cl_{2} ->[h\nu] 2HCl, Rate = k }$$
 
 The order of below reaction is first order,

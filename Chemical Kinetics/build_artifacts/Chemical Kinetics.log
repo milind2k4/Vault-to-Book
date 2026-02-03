@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.1.9)  14 JAN 2026 17:20
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.1.9)  3 FEB 2026 13:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2688,10 +2688,6 @@ LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(1)/m/n' will be
 (Font)              scaled to size 7.665pt on input line 440.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(1)/m/n' will be
 (Font)              scaled to size 5.475pt on input line 440.
-Missing character: There is no 𝛥 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
-Missing character: There is no 𝛥 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
 [1
 
 
@@ -2700,32 +2696,32 @@ t=latn;language=dflt;!
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 468.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 475.
 
 
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/b/n' will be
-(Font)              scaled to size 14.4pt on input line 489.
+(Font)              scaled to size 14.4pt on input line 496.
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 489.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 496.
 
 
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/b/n' will be
-(Font)              scaled to size 12.0pt on input line 491.
+(Font)              scaled to size 12.0pt on input line 498.
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 491.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 498.
 
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 494.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 501.
 
 
 File: images/Pasted image 20240308184024.png Graphic file (type bmp)
@@ -2737,29 +2733,29 @@ File: images/Pasted image 20240308184308.png Graphic file (type bmp)
 <images/Pasted image 20240308184308.png>
  [3]
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 7.665pt on input line 534.
+(Font)              scaled to size 7.665pt on input line 541.
 LaTeX Font Info:    Font shape `TU/LMRoman10-Regular(0)/m/n' will be
-(Font)              scaled to size 5.475pt on input line 534.
+(Font)              scaled to size 5.475pt on input line 541.
  [4]
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 547.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 554.
 
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 563.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 570.
 
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 566.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 573.
 
 
 File: images/Pasted image 20240308201445.png Graphic file (type bmp)
@@ -2769,7 +2765,7 @@ File: images/Pasted image 20240308201445.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 577.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 584.
 
 
 File: images/Pasted image 20240308203216.png Graphic file (type bmp)
@@ -2777,58 +2773,52 @@ File: images/Pasted image 20240308203216.png Graphic file (type bmp)
 [6] [7]
 chapter 2.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 609--609
+Overfull \hbox (10.95pt too wide) in paragraph at lines 616--616
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 609--609
+Overfull \hbox (10.95pt too wide) in paragraph at lines 616--616
 [][] 
  []
 
 
 LaTeX Warning: Hyper reference `law-of-mass-action' on page 8 undefined on inpu
-t line 612.
+t line 619.
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 625.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 632.
 
 
-Missing character: There is no 𝜈 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
-Missing character: There is no 𝛥 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
 [8
 
 ]
-Missing character: There is no 𝛥 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 647.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 655.
 
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 665.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 673.
 
 
 [9]
 chapter 3.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 689--689
+Overfull \hbox (10.95pt too wide) in paragraph at lines 697--697
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 689--689
+Overfull \hbox (10.95pt too wide) in paragraph at lines 697--697
 [][] 
  []
 
@@ -2836,7 +2826,7 @@ Overfull \hbox (10.95pt too wide) in paragraph at lines 689--689
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 692.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 700.
 
 
 [10
@@ -2846,7 +2836,7 @@ Package scrbase Warning: Usage of deprecated command `\ifstr'.
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 745.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 753.
 
 
 File: images/Pasted image 20240307171302.png Graphic file (type bmp)
@@ -2856,7 +2846,7 @@ File: images/Pasted image 20240307171302.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 783.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 791.
 
 
 [13]
@@ -2864,7 +2854,7 @@ Package scrbase Warning: Usage of deprecated command `\ifstr'.
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 814.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 822.
 
 
 File: images/Pasted image 20240307174015.png Graphic file (type bmp)
@@ -2881,25 +2871,25 @@ File: images/Pasted image 20240307175902.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 854.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 862.
 
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 856.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 864.
 
 
 [15] [16]
 chapter 4.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 881--881
+Overfull \hbox (10.95pt too wide) in paragraph at lines 889--889
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 881--881
+Overfull \hbox (10.95pt too wide) in paragraph at lines 889--889
 [][] 
  []
 
@@ -2907,7 +2897,7 @@ Overfull \hbox (10.95pt too wide) in paragraph at lines 881--881
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 884.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 892.
 
 
 File: images/Pasted image 20240307180826.png Graphic file (type bmp)
@@ -2919,7 +2909,7 @@ File: images/Pasted image 20240307180826.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 914.
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 922.
 
 
 [18]
@@ -2928,12 +2918,12 @@ File: images/Pasted image 20240308105158.png Graphic file (type bmp)
  [19] [20]
 chapter 5.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 992--992
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1002--1002
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 992--992
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1002--1002
 [][] 
  []
 
@@ -2941,8 +2931,8 @@ Overfull \hbox (10.95pt too wide) in paragraph at lines 992--992
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 996.
-
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1006
+.
 
 File: images/Pasted image 20240308111402.png Graphic file (type bmp)
 <images/Pasted image 20240308111402.png>
@@ -2953,7 +2943,7 @@ File: images/Pasted image 20240308111402.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1014
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1024
 .
 
 File: images/Pasted image 20240308111654.png Graphic file (type bmp)
@@ -2962,7 +2952,7 @@ File: images/Pasted image 20240308111654.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1025
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1035
 .
 
 [22]
@@ -2973,7 +2963,7 @@ File: images/Pasted image 20240308112032.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1040
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1050
 .
 
 File: images/Pasted image 20240308113632.png Graphic file (type bmp)
@@ -2983,14 +2973,14 @@ File: images/Pasted image 20240308113632.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1051
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1061
 .
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1058
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1068
 .
 
 File: images/Pasted image 20240308114608.png Graphic file (type bmp)
@@ -3003,12 +2993,12 @@ File: images/Pasted image 20240308115920.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1087
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1097
 .
 
 
 LaTeX Warning: Hyper reference `law-of-chemical-equivalence' on page 25 undefin
-ed on input line 1089.
+ed on input line 1099.
 
 [25]
 File: images/Pasted image 20240308120743.png Graphic file (type bmp)
@@ -3020,12 +3010,12 @@ File: images/Pasted image 20240308121319.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1109
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1119
 .
 
 
 LaTeX Warning: Hyper reference `checking-optical-activity' on page 26 undefined
- on input line 1111.
+ on input line 1121.
 
 [26]
 File: images/Pasted image 20240308122421.png Graphic file (type bmp)
@@ -3035,12 +3025,12 @@ File: images/Pasted image 20240308172212.png Graphic file (type bmp)
  [27] [28]
 chapter 6.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1151--1151
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1161--1161
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1151--1151
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1161--1161
 [][] 
  []
 
@@ -3048,7 +3038,7 @@ Overfull \hbox (10.95pt too wide) in paragraph at lines 1151--1151
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1157
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1167
 .
 
 File: images/Pasted image 20240308173034.png Graphic file (type bmp)
@@ -3069,7 +3059,7 @@ File: images/Pasted image 20240308180406.png Graphic file (type bmp)
 
 
 LaTeX Warning: Hyper reference `maxwell-boltzmann-distribution' on page 33 unde
-fined on input line 1274.
+fined on input line 1284.
 
 File: images/Pasted image 20240308181008.png Graphic file (type bmp)
 <images/Pasted image 20240308181008.png>
@@ -3077,7 +3067,7 @@ File: images/Pasted image 20240308181008.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1285
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1295
 .
 
 [33]
@@ -3086,17 +3076,17 @@ File: images/Pasted image 20240308181253.png Graphic file (type bmp)
 
 
 LaTeX Warning: Hyper reference `vant-hoff-equation' on page 34 undefined on inp
-ut line 1309.
+ut line 1319.
 
 [34] [35]
 chapter 7.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1332--1332
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1342--1342
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1332--1332
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1342--1342
 [][] 
  []
 
@@ -3104,7 +3094,7 @@ Overfull \hbox (10.95pt too wide) in paragraph at lines 1332--1332
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1335
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1345
 .
 
 File: images/Pasted image 20240308182821.png Graphic file (type bmp)
@@ -3113,7 +3103,7 @@ File: images/Pasted image 20240308182821.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1367
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1377
 .
 
 [36
@@ -3121,12 +3111,12 @@ Package scrbase Warning: Usage of deprecated command `\ifstr'.
 ] [37]
 chapter 8.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1384--1384
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1394--1394
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1384--1384
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1394--1394
 [][] 
  []
 
@@ -3134,14 +3124,14 @@ Overfull \hbox (10.95pt too wide) in paragraph at lines 1384--1384
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1387
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1397
 .
 
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1413
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1423
 .
 
 File: images/Pasted image 20240308203736.png Graphic file (type bmp)
@@ -3156,7 +3146,7 @@ File: images/Pasted image 20240308204922.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1442
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1452
 .
 
 [39]
@@ -3172,12 +3162,12 @@ File: images/Pasted image 20240308211020.png Graphic file (type bmp)
  [41]
 chapter 9.
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1512--1512
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1522--1522
 [][] 
  []
 
 
-Overfull \hbox (10.95pt too wide) in paragraph at lines 1512--1512
+Overfull \hbox (10.95pt too wide) in paragraph at lines 1522--1522
 [][] 
  []
 
@@ -3191,27 +3181,18 @@ File: images/Pasted image 20240308213232.png Graphic file (type bmp)
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1580
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1590
 .
 
-Missing character: There is no 𝜆 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
-Missing character: There is no 𝜆 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
-Missing character: There is no 𝜆 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
 [43]
-Missing character: There is no 𝜆 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
-Missing character: There is no 𝜆 in font Latin Modern Roman 10 Regular/OT:scrip
-t=latn;language=dflt;!
 File: images/Pasted image 20240308215331.png Graphic file (type bmp)
 <images/Pasted image 20240308215331.png>
+
 
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1602
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1612
 .
 
 [44]
@@ -3219,11 +3200,11 @@ Package scrbase Warning: Usage of deprecated command `\ifstr'.
 Package scrbase Warning: Usage of deprecated command `\ifstr'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1626
+(scrbase)                Please replace `\ifstr' by `\Ifstr' on input line 1638
 .
 
 
-Overfull \hbox (6.26276pt too wide) in paragraph at lines 1631--1632
+Overfull \hbox (6.26276pt too wide) in paragraph at lines 1643--1644
 [][] \TU/LMRoman10-Regular(0)/b/n/10.95 9.0.0.3.1 Rock dating (or Helium dating
 )[][][] \TU/LMRoman10-Regular(0)/m/n/10.95 To determine age of rocks/minerals/o
 res. 
@@ -3250,13 +3231,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 49804 strings out of 402987
- 1074732 string characters out of 5448318
- 1846075 words of memory out of 5000000
- 77794 multiletter control sequences out of 15000+600000
- 632886 words of font info for 114 fonts, out of 8000000 for 9000
+ 50024 strings out of 402987
+ 1083316 string characters out of 5448318
+ 1850069 words of memory out of 5000000
+ 77970 multiletter control sequences out of 15000+600000
+ 646058 words of font info for 198 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 108i,20n,116p,11259b,603s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,25n,116p,11259b,997s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on E:\Projects\Vault-to-Book\Chemical Kinetics\build_artifacts\C
 hemical Kinetics.pdf (49 pages).

@@ -31,6 +31,12 @@ $$
 }
 \end{split}
 $$
+$$
+\begin{split}
+\frac{ d[C] }{ dt }C &= -\frac{ 1 }{ 2 } \frac{ d[A] }{ dt } \\
+\frac{ d[D] }{ dt } &= 2 \frac{ d[C] }{ dt } \\
+\end{split}
+$$
 I.e.,
 $$\ce{ - \frac{1}{2} \frac{ d[A] }{ dt } = - \frac{1}{3} \frac{ d[B] }{ dt } = \frac{ 1 }{ 1 } \frac{ d[C] }{ dt } = \frac{1}{2} \frac{ d[D] }{ dt } }$$
 
