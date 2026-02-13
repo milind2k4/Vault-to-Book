@@ -39,6 +39,11 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     # 2. After: Ensure header line is followed by \n\n
     content = re.sub(r'(^|\n)(#+\s[^\n]*)(\n+)', r'\1\2\n\n', content)
 
+    # 2.5 Fix Callout Spacing (Ensure blank line after title for lists)
+    # Look for "> [!TAG] Title" followed immediately by "> Content" (especially lists)
+    # and insert a blank quote line ">" in between.
+    content = re.sub(r'(^>[\t ]*\[![^\]]+\][^\n]*)\n>(?![\t ]*$)', r'\1\n>\n>', content, flags=re.MULTILINE)
+
     # 3. Fix Broken Blockquoted Math
     # User issue: Multiline math blocks inside blockquotes (> $$ ... $$) often have lines missing the ">" prefix.
     # We also enforce canonical formatting (> $$ on its own line) to prevent Pandoc parsing errors.

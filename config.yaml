@@ -18,7 +18,7 @@ style:
 
 # Mermaid Diagram Settings
 mermaid:
-  default_height: "12cm"
+  default_height: "10cm"
   default_width: null # Use null for auto/unspecified
   scale: 3.0
 
