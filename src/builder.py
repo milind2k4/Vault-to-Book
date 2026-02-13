@@ -39,6 +39,72 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     # 2. After: Ensure header line is followed by \n\n
     content = re.sub(r'(^|\n)(#+\s[^\n]*)(\n+)', r'\1\2\n\n', content)
 
+    # 3. Fix Broken Blockquoted Math
+    # User issue: Multiline math blocks inside blockquotes (> $$ ... $$) often have lines missing the ">" prefix.
+    # We also enforce canonical formatting (> $$ on its own line) to prevent Pandoc parsing errors.
+    bq_math_lines = content.split('\n')
+    fixed_bq_lines = []
+    in_bq_math = False
+    
+    for line in bq_math_lines:
+        stripped = line.strip()
+        
+        # Check start: > $$...
+        if re.match(r'^>\s*\$\$', stripped):
+            # Check if it's a single line block "> $$ ... $$"
+            remainder = re.sub(r'^>\s*\$\$', '', stripped)
+            
+            if '$$' in remainder:
+                # One-liner: > $$ math $$ 
+                # Keep as is, it usually renders fine.
+                fixed_bq_lines.append(line)
+            else:
+                # Multi-line start.
+                in_bq_math = True
+                # Force strictly "> $$" on its own line
+                fixed_bq_lines.append('> $$')
+                # If there was content after $$, add it as a new quoted line
+                content_after = stripped.replace('> $$', '', 1).strip() # Naive replace relies on regex match
+                # Better: use the remainder calculated above (which removed >\s*$$)
+                # re.sub replaces from start. 
+                # stripped matches ^>\s*\$\$.
+                # remainder is content.
+                if remainder.strip():
+                    fixed_bq_lines.append('> ' + remainder.strip())
+                    
+        elif in_bq_math:
+            # We are inside a block.
+            
+            # 1. Ensure prefix
+            current_line_content = stripped
+            if stripped.startswith('>'):
+                current_line_content = stripped[1:].strip()
+            
+            # 2. Check for closure in this line
+            if '$$' in current_line_content:
+                # Found closure.
+                in_bq_math = False
+                
+                # Split content before and after $$?
+                # Usually it's "... $$" or just "$$"
+                # Canonicalize: "content", then "> $$"
+                
+                parts = current_line_content.split('$$')
+                # Parts[0] is content before, Parts[1] is after (should be empty usually)
+                
+                pre_content = parts[0].strip()
+                if pre_content:
+                    fixed_bq_lines.append('> ' + pre_content)
+                
+                fixed_bq_lines.append('> $$')
+            else:
+                # Just a content line
+                fixed_bq_lines.append('> ' + current_line_content)
+        else:
+            fixed_bq_lines.append(line)
+
+    content = '\n'.join(fixed_bq_lines)
+
     lines = content.split('\n')
     new_lines = []
     

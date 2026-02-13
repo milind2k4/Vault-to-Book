@@ -32,7 +32,9 @@ function BlockQuote(el)
                 IMPORTANT = "importantblock",
                 CAUTION = "cautionblock",
                 DANGER = "cautionblock",
-                ANALOGY = "analogyblock"
+                HELP = "helpblock",
+                QUESTION = "helpblock",
+                FAQ = "helpblock"
             }
             if env_map[tag] then env = env_map[tag] end
 
