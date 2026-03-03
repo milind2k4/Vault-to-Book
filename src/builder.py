@@ -44,6 +44,19 @@ def process_file(filepath: str, source_dir: str) -> tuple[str, str, str]:
     # and insert a blank quote line ">" in between.
     content = re.sub(r'(^>[\t ]*\[![^\]]+\][^\n]*)\n>(?![\t ]*$)', r'\1\n>\n>', content, flags=re.MULTILINE)
 
+    # 2.6 Fix List Spacing
+    # 1. Top-level: Ensure newline before list
+    content = re.sub(r'(^[^>\n].*)\n(^[\t ]*[-*+] )', r'\1\n\n\2', content, flags=re.MULTILINE)
+    
+    # 2. Blockquotes: Ensure newline before list
+    content = re.sub(r'(^>.*)\n(>[\t ]*[-*+] )', r'\1\n>\n\2', content, flags=re.MULTILINE)
+    
+    # 3. Top-level: Ensure newline after list
+    content = re.sub(r'(^[\t ]*[-*+].*)\n(?![ \t]*[-*+]|[\t ]*>|[\t ]*$)(.*)', r'\1\n\n\2', content, flags=re.MULTILINE)
+    
+    # 4. Blockquotes: Ensure newline after list
+    content = re.sub(r'(^>[\t ]*[-*+].*)\n(>[\t ]*(?![ \t]*[-*+]|[\t ]*$).*)', r'\1\n>\n\2', content, flags=re.MULTILINE)
+
     # 3. Fix Broken Blockquoted Math
     # User issue: Multiline math blocks inside blockquotes (> $$ ... $$) often have lines missing the ">" prefix.
     # We also enforce canonical formatting (> $$ on its own line) to prevent Pandoc parsing errors.

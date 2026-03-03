@@ -140,14 +140,29 @@ end
 function Math(el)
     -- Check for split environment
     if el.text:find("\\begin{split}") then
-        -- Process \ce blocks inside split
+        -- Process \ce blocks inside split (or containing split)
         local new_tex = el.text:gsub("\\ce(%b{})", function(ce_body)
-            local content = ce_body:sub(2, -2)  -- Strip outer {}
+            local content = ce_body:sub(2, -2) -- Strip outer {}
 
-            local complex = is_complex_reaction(content)
-            local wrapper = complex and "\\ce" or "\\symup"
+            -- Check if content is wrapped in \begin{split} ... \end{split}
+            local split_inner = content:match("^%s*\\begin{split}(.-)\\end{split}%s*$")
 
-            return process_content_with_splitting(content, wrapper, complex)
+            if split_inner then
+                -- Case: \ce{ \begin{split} ... \end{split} }
+                local complex = is_complex_reaction(split_inner)
+                local wrapper = complex and "\\ce" or "\\symup"
+
+                -- Process the inner content of the split
+                local processed = process_content_with_splitting(split_inner, wrapper, complex)
+
+                -- Re-wrap in split
+                return "\\begin{split}" .. processed .. "\\end{split}"
+            else
+                -- Case: Normal \ce{...} or \ce{...} inside external split
+                local complex = is_complex_reaction(content)
+                local wrapper = complex and "\\ce" or "\\symup"
+                return process_content_with_splitting(content, wrapper, complex)
+            end
         end)
 
         -- Clean up stray blank lines which break LaTeX math mode

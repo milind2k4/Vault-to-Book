@@ -18,14 +18,14 @@ style:
 
 # Mermaid Diagram Settings
 mermaid:
-  default_height: "10cm"
+  default_height: "11cm"
   default_width: null # Use null for auto/unspecified
   scale: 3.0
 
 # Image Settings
 images:
   max_width: null
-  max_height: "0.6\\linewidth"
+  max_height: "0.75\\linewidth"
   keep_aspect_ratio: true
 
 # Table Settings
