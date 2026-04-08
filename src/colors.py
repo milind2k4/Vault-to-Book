@@ -17,7 +17,7 @@ class Colors:
     @staticmethod
     def info(text: str) -> str:
         """Formats text as info (yellow)."""
-        return f"{Colors.WARNING}{text}{Colors.ENDC}"
+        return f"{Colors.OKCYAN}{text}{Colors.ENDC}"
 
     @staticmethod
     def success(text: str) -> str:

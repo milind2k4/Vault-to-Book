@@ -1,5 +1,6 @@
 import yaml
 import os
+import copy
 
 # Default configuration
 DEFAULT_CONFIG = {
@@ -50,7 +51,7 @@ def load_config(config_path: str = "config.yaml") -> dict:
     """
     Load configuration from a YAML file, falling back to defaults.
     """
-    config = DEFAULT_CONFIG.copy()
+    config = copy.deepcopy(DEFAULT_CONFIG)
     
     if os.path.exists(config_path):
         _merge_file_config(config, config_path)
@@ -94,7 +95,7 @@ def _apply_env_vars(config: dict) -> None:
     if os.getenv("OUTPUT_FILE"):
         config['build']['output_file'] = os.getenv("OUTPUT_FILE")
 
-def _apply_fallbacks(config: dict) -> None:
+def _apply_fallbacks(config: dict) -> dict:
     """Applies dynamic defaults based on other values."""
     if not config['book'].get('title'):
         source_dir = config['build'].get('source_dir')
